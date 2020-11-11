@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaWar.UI", "SeaWar.UI\SeaWar.UI.csproj", "{9017A56C-271D-40CD-BDB5-BCF2E09119E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaWar.DAL", "SeaWar.DAL\SeaWar.DAL.csproj", "{F8C924E3-2470-452F-9657-F4AF16618148}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeaWar.BLL", "SeaWar.BLL\SeaWar.BLL.csproj", "{FDDCE2FE-FA7C-4DCD-BBF8-36E8F7EA1DCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9017A56C-271D-40CD-BDB5-BCF2E09119E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9017A56C-271D-40CD-BDB5-BCF2E09119E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9017A56C-271D-40CD-BDB5-BCF2E09119E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9017A56C-271D-40CD-BDB5-BCF2E09119E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8C924E3-2470-452F-9657-F4AF16618148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C924E3-2470-452F-9657-F4AF16618148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C924E3-2470-452F-9657-F4AF16618148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8C924E3-2470-452F-9657-F4AF16618148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDDCE2FE-FA7C-4DCD-BBF8-36E8F7EA1DCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDDCE2FE-FA7C-4DCD-BBF8-36E8F7EA1DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDDCE2FE-FA7C-4DCD-BBF8-36E8F7EA1DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDDCE2FE-FA7C-4DCD-BBF8-36E8F7EA1DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34042E13-CD33-40CE-A9E4-36B934652BD4}
+	EndGlobalSection
+EndGlobal
