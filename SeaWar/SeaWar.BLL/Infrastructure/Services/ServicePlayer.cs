@@ -164,13 +164,13 @@ namespace SeaWar.BLL.Infrastructure.Services
                         isEqualCoordinate = false;
                         listCoordinates.Clear();
                     }
-
-                    
                 }
 
-                if (ship == null)
+                if (ship == null || listCoordinates.Count() != 0)
                 {
                     Console.WriteLine("You entered the wrong coordinates. try again");
+                    ship = null;
+                    listCoordinates.Clear();
                     isOpen = true;
                     continue;
                 }
