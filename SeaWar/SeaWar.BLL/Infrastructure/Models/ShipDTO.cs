@@ -14,10 +14,15 @@ namespace SeaWar.BLL.Infrastructure.Models
 
         public bool IsSunk { get; set; }
 
+        public IList<int> Coordinates { get; set; }
+
         public ICollection<Skill> Skills { get; set; }
+
+        public int StatusValue { get; set; }
 
         public ShipDTO()
         {
+            this.Coordinates = new List<int>();
             this.Skills = new List<Skill>();
         }
     }

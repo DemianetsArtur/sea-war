@@ -13,8 +13,7 @@ namespace SeaWar.DAL.Infrastructure.BuilderData
             Type = TypeShip.Mixed;
             Skills = new List<Skill> 
             { 
-               new Skill { TypeSkill = TypeSkill.Repairs, Range = ParameterShips.RangeMixed, Speed = ParameterShips.SpeedMixed },
-               new Skill { TypeSkill = TypeSkill.Shot  }
+               new Skill { TypeSkill = new List<TypeSkill>{ TypeSkill.Repairs, TypeSkill.Shot }, Range = ParameterShips.RangeMixed, Speed = ParameterShips.SpeedMixed }
             };
         }
     }

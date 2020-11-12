@@ -13,7 +13,7 @@ namespace SeaWar.DAL.Infrastructure.BuilderData
             Type = TypeShip.Subsidiary;
             Skills = new List<Skill> 
             {
-                new Skill { TypeSkill = TypeSkill.Repairs, Speed = ParameterShips.SpeedSubsidiary, Range = ParameterShips.RangeSubsidiary }
+                new Skill { TypeSkill = new List<TypeSkill>{ TypeSkill.Repairs }, Speed = ParameterShips.SpeedSubsidiary, Range = ParameterShips.RangeSubsidiary }
             };
         }
     }

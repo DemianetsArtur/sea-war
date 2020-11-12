@@ -13,7 +13,7 @@ namespace SeaWar.DAL.Infrastructure.BuilderData
             Type = TypeShip.Military;
             Skills = new List<Skill> 
             {
-                new Skill{ TypeSkill = TypeSkill.Shot, Speed  = ParameterShips.SpeedMilitary, Range = ParameterShips.RangeMilitary } 
+                new Skill{ TypeSkill = new List<TypeSkill>{ TypeSkill.Shot }, Speed  = ParameterShips.SpeedMilitary, Range = ParameterShips.RangeMilitary } 
             };
         }
     }

@@ -1,5 +1,4 @@
 ﻿using SeaWar.DAL.Infrastructure.Models;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace SeaWar.DAL.Infrastructure.Entities
@@ -14,10 +13,13 @@ namespace SeaWar.DAL.Infrastructure.Entities
 
         public bool IsSunk { get; set; }
 
+        public IList<int> Coordinates { get; set; }
+
         public ICollection<Skill> Skills { get; set; }
         
         public Ship()
         {
+            this.Coordinates = new List<int>();
             this.Skills = new List<Skill>();
         }
     }

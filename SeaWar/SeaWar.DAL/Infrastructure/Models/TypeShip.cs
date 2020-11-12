@@ -26,9 +26,9 @@ namespace SeaWar.DAL.Infrastructure.Models
         public static int RangeMixed = 4;
 
         //Width Ships
-        public static int WidthMilitary = 3;
+        public static int WidthMilitary = 2;
 
-        public static int WidthSubsidiary = 2;
+        public static int WidthSubsidiary = 1;
 
         public static int WidthMixed = 1;
 
@@ -38,13 +38,13 @@ namespace SeaWar.DAL.Infrastructure.Models
     {
         [Description("o")]
         Empty,
-        [Description("M")]
+        [Description(".")]
         Military,
 
-        [Description("S")]
+        [Description(".")]
         Subsidiary,
 
-        [Description("D")]
+        [Description(".")]
         Mixed
     }
 }

@@ -1,4 +1,8 @@
-﻿using SeaWar.BLL.Infrastructure.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SeaWar.BLL.Infrastructure.Interfaces;
+using SeaWar.UI.Infrastructure.Config.ConfigDI;
+using SeaWar.UI.Infrastructure.Config.ConfigMapper;
+using SeaWar.UI.Infrastructure.Interfaces;
 using System;
 
 namespace SeaWar.UI
@@ -7,10 +11,15 @@ namespace SeaWar.UI
     {
         static void Main(string[] args)
         {
-            string msg = null;
-
-            Console.WriteLine("Hello World!");
-            ServiceGame serviceGame = new ServiceGame();
+            var services = new ServiceCollection()
+                               .SetDI()
+                               .SetMapper()
+                               .BuildServiceProvider();
+            
+            var serviceAddShip = services.GetService<IServiceMessageAddShip>();
+            var listShips =  serviceAddShip.MessageAddShips();
+            var serviceGame = services.GetService<IServiceGame>();
+            serviceGame.DisplayGame(listShips);
             Console.ReadLine();
         }
     }
