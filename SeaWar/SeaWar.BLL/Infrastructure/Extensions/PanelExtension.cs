@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SeaWar.BLL.Infrastructure.Extensions
 {
-    public static class ExtensionPanel
+    public static class PanelExtension
     {
         public static Panel At(this ICollection<Panel> panels, int row, int column) 
         {

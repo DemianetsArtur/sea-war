@@ -11,18 +11,18 @@ using System.Text.RegularExpressions;
 
 namespace SeaWar.BLL.Infrastructure.Services
 {
-    public class ServicePlayer : IServicePlayer
+    public class PlayerService : IPlayerService
     {
         private ICollection<Ship> Ships { get; set; }
         private Board Board { get; set; }
         private readonly IMapper mapper;
-        public ServicePlayer(IMapper mapper)
+        public PlayerService(IMapper mapper)
         {
             this.Ships = new List<Ship>() 
             {
-                new BuilderMilitary(),
-                new BuilderSubsidiary(),
-                new BuilderMixed()
+                new MilitaryBuilder(),
+                new SubsidiaryBuilder(),
+                new MixedBuilder()
             };
             this.mapper = mapper;
             this.Board = new Board();
@@ -30,7 +30,7 @@ namespace SeaWar.BLL.Infrastructure.Services
 
         public void OutputBoard(ICollection<Ship> ships) 
         {
-            this.ShowSortedData(ships);
+            
 
             Console.WriteLine("Sea War");
             Console.WriteLine();
@@ -70,9 +70,8 @@ namespace SeaWar.BLL.Infrastructure.Services
                     
                     int endRow = startRow;
                     int endColumn = startColumn;
-                    int orientation = rnd.Next(1, 101) % 2;
 
-                    if (orientation == 0)
+                    if (entity.Location == InfoParameter.horizontalPosition)
                     {
                         for (int i = 1; i < entity.Width; i++)
                         {
@@ -87,7 +86,7 @@ namespace SeaWar.BLL.Infrastructure.Services
                         }
                     }
 
-                    if (endRow > 10 || endColumn > 10) 
+                    if (endRow > ConfigBoard.sizeBoard || endColumn > ConfigBoard.sizeBoard) 
                     {
                         isOpen = true;
                         continue;
@@ -97,7 +96,7 @@ namespace SeaWar.BLL.Infrastructure.Services
                                                                                 startColumn, 
                                                                                 endRow, 
                                                                                 endColumn);
-                    if (affectedPanels.Any(opt => opt.IsOccupid)) 
+                    if (affectedPanels.Any(opt => opt.IsStateShips)) 
                     {
                         isOpen = true;
                         continue;
@@ -105,13 +104,27 @@ namespace SeaWar.BLL.Infrastructure.Services
 
                     foreach (Panel panel in affectedPanels) 
                     {
-                        panel.TypeShip = entity.Type;
+                        panel.positionTypeEnum = entity.Type;
                     }
 
                     isOpen = false;
                 }
             }
 
+        }
+
+        private void HandlerSelection(ICollection<Ship> ships) 
+        {
+            string msg = null;
+            string answer = "";
+            Console.Write("Show the entire list of Ships enter (y): ");
+            msg = Console.ReadLine();
+
+            if (msg == InfoParameter.answerHandlerSelection.ToUpper()
+             || msg == InfoParameter.answerHandlerSelection)
+            {
+                this.ShowSortedData(ships);
+            }
         }
 
         private void  GetShipByCoordinate(ICollection<Ship> ships) 
@@ -124,6 +137,8 @@ namespace SeaWar.BLL.Infrastructure.Services
 
             while (isOpen)
             {
+                this.HandlerSelection(ships);
+
                 Console.WriteLine();
                 Console.Write("View ship states, enter first coordinate: ");
                 msg = Console.ReadLine();

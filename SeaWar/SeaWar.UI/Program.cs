@@ -16,9 +16,9 @@ namespace SeaWar.UI
                                .SetMapper()
                                .BuildServiceProvider();
             
-            var serviceAddShip = services.GetService<IServiceMessageAddShip>();
+            var serviceAddShip = services.GetService<IShipService>();
             var listShips =  serviceAddShip.MessageAddShips();
-            var serviceGame = services.GetService<IServiceGame>();
+            var serviceGame = services.GetService<IGameService>();
             serviceGame.DisplayGame(listShips);
             Console.ReadLine();
         }

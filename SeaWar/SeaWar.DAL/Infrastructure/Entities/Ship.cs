@@ -9,13 +9,15 @@ namespace SeaWar.DAL.Infrastructure.Entities
 
         public int Width { get; set; }
 
-        public TypeShip Type { get; set; }
+        public PositionTypeEnum Type { get; set; }
 
         public bool IsSunk { get; set; }
 
         public IList<int> Coordinates { get; set; }
 
         public ICollection<Skill> Skills { get; set; }
+
+        public string Location { get; set; }
         
         public Ship()
         {

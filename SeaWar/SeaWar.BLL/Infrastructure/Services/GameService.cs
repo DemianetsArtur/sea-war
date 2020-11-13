@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace SeaWar.BLL.Infrastructure.Services
 {
-    public class ServiceGame : IServiceGame
+    public class GameService : IGameService
     {
-        private readonly IServicePlayer servicePlayer;
-        public ServiceGame(IServicePlayer servicePlayer)
+        private readonly IPlayerService servicePlayer;
+        public GameService(IPlayerService servicePlayer)
         {
             this.servicePlayer = servicePlayer;
         }

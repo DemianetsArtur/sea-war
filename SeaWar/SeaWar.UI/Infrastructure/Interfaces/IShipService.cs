@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SeaWar.UI.Infrastructure.Interfaces
 {
-    public interface IServiceMessageAddShip
+    public interface IShipService
     {
         ICollection<Ship> MessageAddShips();
     }

@@ -8,6 +8,6 @@ namespace SeaWar.BLL.Infrastructure.Models
 
         public int Range { get; set; }
 
-        public TypeSkill TypeSkill { get; set; }
+        public SkillTypeEnum TypeSkill { get; set; }
     }
 }

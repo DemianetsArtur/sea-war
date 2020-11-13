@@ -10,9 +10,9 @@ namespace SeaWar.UI.Infrastructure.Config.ConfigDI
     {
         public static IServiceCollection SetDI(this IServiceCollection services) 
         {
-            services.AddSingleton<IServiceMessageAddShip, ServiceMessageAddShips>();
-            services.AddSingleton<IServicePlayer, ServicePlayer>();
-            services.AddSingleton<IServiceGame, ServiceGame>();
+            services.AddSingleton<IShipService, ShipService>();
+            services.AddSingleton<IPlayerService, PlayerService>();
+            services.AddSingleton<IGameService, GameService>();
             return services;
         }
     }

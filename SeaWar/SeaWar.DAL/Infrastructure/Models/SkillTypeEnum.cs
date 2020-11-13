@@ -1,8 +1,8 @@
 ﻿namespace SeaWar.DAL.Infrastructure.Models
 {
-    public enum TypeSkill
+    public enum SkillTypeEnum
     {
-        Shot,
-        Repairs
+        Shoot,
+        Fix
     }
 }

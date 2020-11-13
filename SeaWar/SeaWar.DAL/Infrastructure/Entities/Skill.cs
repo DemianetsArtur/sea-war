@@ -9,11 +9,11 @@ namespace SeaWar.DAL.Infrastructure.Entities
 
         public int Range { get; set; }
 
-        public ICollection<TypeSkill> TypeSkill { get; set; }
+        public ICollection<SkillTypeEnum> TypeSkill { get; set; }
 
         public Skill()
         {
-            this.TypeSkill = new List<TypeSkill>(); 
+            this.TypeSkill = new List<SkillTypeEnum>(); 
         }
     }
 }

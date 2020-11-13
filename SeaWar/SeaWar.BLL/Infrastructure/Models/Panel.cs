@@ -6,29 +6,29 @@ namespace SeaWar.BLL.Infrastructure.Models
 {
     public class Panel
     {
-        public TypeShip TypeShip { get; set; }
+        public PositionTypeEnum positionTypeEnum { get; set; }
 
         public Cordinate Cordinate { get; set; }
 
         public Panel(int row, int column)
         {
             this.Cordinate = new Cordinate(row, column);
-            this.TypeShip = TypeShip.Empty;
+            this.positionTypeEnum = PositionTypeEnum.Empty;
         }
 
         public string Status 
         {
             get {
-                return TypeShip.GetAttributOfType<DescriptionAttribute>().Description;
+                return positionTypeEnum.GetAttributOfType<DescriptionAttribute>().Description;
             }
         }
 
-        public bool IsOccupid 
+        public bool IsStateShips 
         {
             get {
-                return TypeShip == TypeShip.Subsidiary 
-                    || TypeShip == TypeShip.Mixed 
-                    || TypeShip == TypeShip.Military;
+                return positionTypeEnum == PositionTypeEnum.Subsidiary 
+                    || positionTypeEnum == PositionTypeEnum.Mixed 
+                    || positionTypeEnum == PositionTypeEnum.Military;
             }
         }
     }

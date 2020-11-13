@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace SeaWar.BLL.Infrastructure.Extensions
 {
-    public static class ExtensionTypeShip
+    public static class ShipTypeExtension
     {
         public static T GetAttributOfType<T>(this Enum enumVal) where T : Attribute
         {

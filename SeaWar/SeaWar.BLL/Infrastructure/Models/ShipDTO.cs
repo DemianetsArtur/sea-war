@@ -10,7 +10,7 @@ namespace SeaWar.BLL.Infrastructure.Models
 
         public int Width { get; set; }
 
-        public TypeShip Type { get; set; }
+        public PositionTypeEnum Type { get; set; }
 
         public bool IsSunk { get; set; }
 

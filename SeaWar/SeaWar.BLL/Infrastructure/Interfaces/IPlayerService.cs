@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace SeaWar.BLL.Infrastructure.Interfaces
 {
-    public interface IServiceGame
+    public interface IPlayerService
     {
-        void DisplayGame(ICollection<Ship> ships);
+        void OutputBoard(ICollection<Ship> ships);
+
+        void PlaceShip(ICollection<Ship> ships);
     }
 }
