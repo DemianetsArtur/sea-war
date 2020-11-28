@@ -1,0 +1,157 @@
+
+<div class="container">
+  <div *ngIf="isWin || isLose; else playGame">
+      <div>
+        End
+      </div>
+      
+  </div>
+
+  <ng-template #playGame>
+  <div *ngIf="!isPlayGame; else elseBlock">
+    Wait for the second player to connect!
+  </div>
+    <ng-template #elseBlock> 
+          
+      <!-- Chat -->
+      <div class="page-content page-container" id="page-content">
+        <div class="padding">
+            <div class="row container d-flex justify-content-lg-start">
+                <div class="col-md-6">
+                    <div class="card card-bordered">
+                        <div class="card-header">
+                            <h4 class="card-title"><strong>Chat</strong></h4> 
+                            <button class="btn btn-xs btn-secondary" 
+                                    data-abc="true"
+                                    [disabled]="message.length==0"
+                                    (click)="sendMessage()">Let's Chat App
+                            </button>
+                        </div>
+                        <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:200px !important; width: 200px !important;">
+                            <div class="media media-chat" *ngFor="let entity of player"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                                <div class="media-body">
+                                    <p>Hi player {{entity.name}} joined</p>
+                                    
+                                </div>
+                            </div>
+                            <div class="media media-chat" *ngFor="let msg of messages"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                                <div class="media-body">
+                                    <p>{{msg.name}}: {{msg.text}}</p>
+                                    
+                                </div>
+                            </div>
+                            <div class="media media-chat" *ngFor="let crd of coordinates"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                                <div class="media-body">
+                                    <p>{{crd.name}}: walked {{crd.firstCoordinate}}, {{crd.secondCoordinate}}</p>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                                <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                            </div>
+                            <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+                                <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+                            </div>
+                        </div>
+                        <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                            <input class="publisher-input" 
+                                   type="text" 
+                                   placeholder="Write something"
+                                   [(ngModel)]="message"/> 
+                                   <span class="publisher-btn file-group"> 
+                                       <i class="fa fa-paperclip file-browser"></i> 
+                                       <input type="file"> 
+                                    </span> 
+                                    <a class="publisher-btn" 
+                                       href="#" data-abc="true">
+                                       <i class="fa fa-smile"></i>
+                                    </a> 
+                                    <a class="publisher-btn text-info" 
+                                       href="#" data-abc="true">
+                                       <i class="fa fa-paper-plane"></i>
+                                    </a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-display-div text-center">
+      <h4 class="display-3">Player <span class=" text-uppercase">{{name}}</span></h4>
+    </div>
+
+    <!-- Table -->
+    <div class="limiter padding-table">
+      <div class="container-table100">
+        <div class="wrap-table100">
+          <div class="table100 ver1 m-b-110">
+            <div class="table100-head">
+              <table>
+                <thead>
+                  <tr class="row100 head">
+                    <th class="cell100 column4">#</th>
+                                      <th class="cell100 column4" 
+                                          *ngFor="let size of sizeCol; let i = index" >{{i+1}}</th>
+                  </tr>
+                </thead>
+                          </table>   
+                      </div>
+  
+                      <div class="table100-body">
+              <table>
+                <tbody>
+                  <tr class="row100 body" *ngFor="let size of sizeCol; let i = index">
+                                      <td class="cell100 column4 border-color" >{{i+1}}</td>
+                                      <td class="cell100 column4 tableCell"
+                                          *ngFor="let size of sizeCol; let j = index"  class="border border-color" [ngClass]="{'border-color-ships': setMainStyle(i+1, j+1)}">
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="limiter padding-table-div">
+        <div class="container-table100">
+          <div class="wrap-table100">
+            <div class="table100 ver1 m-b-110">
+              <div class="table100-head">
+                <table>
+                  <thead>
+                    <tr class="row100 head">
+                      <th class="cell100 column4">#</th>
+                                        <th class="cell100 column4" 
+                                            *ngFor="let size of sizeCol; let i = index" >{{i+1}}</th>
+                    </tr>
+                  </thead>
+                            </table>   
+                        </div>
+    
+                        <div class="table100-body">
+                <table>
+                  <tbody>
+                    <tr class="row100 body" *ngFor="let size of sizeCol; let i = index">
+                                        <td class="cell100 column4 border-color">{{i+1}}</td>
+                                        <td class="cell100 column4 tableCell border border-color"
+                                            *ngFor="let size of sizeCol; let j = index" [ngClass]="{'border-color-opponent': setOpponentStyle(i+1, j+1)}">
+                                            <button  [ngClass]="{'text-btn-color-opponent': setOpponentStyle(i+1, j+1)}" class="text-btn-color" (click)="shoot(i+1, j+1, name)">[{{i + 1}}, {{j + 1}}]</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </ng-template>
+  </ng-template>
+</div>
+
+

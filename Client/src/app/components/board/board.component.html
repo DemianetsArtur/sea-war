@@ -1,0 +1,71 @@
+   <div class="text-center text-capitalize text-primary">
+    <h2>Ready to sink some ships?</h2>
+   </div>
+
+   <div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver1 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column4">#</th>
+                                    <th class="cell100 column4" 
+                                        *ngFor="let size of sizeCol; let i = index" >{{i+1}}</th>
+								</tr>
+							</thead>
+                        </table>   
+                    </div>
+
+                    <div class="table100-body">
+						<table>
+							<tbody>
+								<tr class="row100 body" *ngFor="let size of sizeCol; let i = index">
+                                    <td class="cell100 column4 border-color" [class.win] = "">{{i+1}}</td>
+                                    <td class="cell100 column4 tableCell border border-color"
+                                        *ngFor="let size of sizeCol; let j = index" [ngClass]="{'border-color-ships': setStyle(i+1, j+1)}">
+                                        <button [ngClass]="{'border-color-ships': setStyle(i+1, j+1), 'text-btn-color': !setStyle(i+1, j+1)}" class="" (click)="setCoordinate(i+1, j+1)"><h5>[{{i + 1}}, {{j + 1}}]</h5></button>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="form-horizontal">
+        <div class="text-center">
+            <h4 class="text-uppercase text-monospace">enter</h4>
+            <h6 class="text-capitalize">you name</h6>
+        </div>
+        <br><br>
+        <div class="form-group">
+            <div class="col-xs-6 col-xs-offset-3">
+                <div class="wrapper-div">
+                    <div class="wrapper">
+                        <div class="input-data">
+                        <input type="text" [(ngModel)]="nameClient" required>
+                        <div class="underline form-control">
+                        </div>
+                        <label>Name</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="text-center">
+        <button type="button" 
+                class="btn btn-primary" 
+                (click)="setNameClient()">
+                <p class="text-dark">Go!</p>
+        </button>
+    </div>
+    <br><br>
