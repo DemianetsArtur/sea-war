@@ -88,6 +88,9 @@ export class BoardComponent implements OnInit {
     coordinateObj.firstCoordinate = firstCoordinate;
     coordinateObj.secondCoordinate = secondCoordinate;
 
+    if (!this.isValidShipCount(coordinateObj)){
+      this.alertService.shipCountAlert(this.info.shipCount);
+    }
 
     if (!this.isDifferentCoordinates(coordinateObj)){
       this.alertService.coordinateDifferentAlert();
@@ -96,7 +99,8 @@ export class BoardComponent implements OnInit {
       this.alertService.shipNearbyAlert();
     }
     if (this.isDifferentCoordinates(coordinateObj)
-    && this.isShipNearby(coordinateObj)){
+    && this.isShipNearby(coordinateObj)
+    && this.isValidShipCount(coordinateObj)){
       this.coordinateList.push(coordinateObj);
       this.alertService.successAlert();
     }
@@ -107,6 +111,16 @@ export class BoardComponent implements OnInit {
        opt.firstCoordinate === obj.firstCoordinate &&
        opt.secondCoordinate === obj.secondCoordinate );
 
+    if (isValid){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  private isValidShipCount = (obj: Coordinate) => {
+    const isValid = this.coordinateList.length === 5;
     if (isValid){
       return false;
     }

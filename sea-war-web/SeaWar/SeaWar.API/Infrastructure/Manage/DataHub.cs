@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using SeaWar.BLL.Infrastructure.Interfaces;
 using SeaWar.BLL.Infrastructure.Models;
 using SeaWar.BLL.Infrastructure.ModelsDto;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,7 +31,8 @@ namespace SeaWar.API.Infrastructure.Manage
         public override async Task OnConnectedAsync()
         {
             var player = this.playerService.GetAll();
-            if (player.Count() == 2) 
+            var playerCount = Int32.Parse(this.configuration["InfoOptions:UserCount"]);
+            if (player.Count() == playerCount) 
             {
                 await this.PlayersSendAsync();
             }

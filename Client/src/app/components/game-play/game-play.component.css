@@ -8,6 +8,26 @@
   background-color:black;
   color: black;
 }
+.ps-container-div{
+  overflow-y: scroll !important;
+  height:200px !important; 
+  width: 200px !important;
+}
+.ps-scrollbar-y-div{
+  top: 0px; height: 0px; right: 2px;
+}
+.ps-scrollbar-y-s{
+  top: 0px; height: 2px;
+}
+.ps-scrollbar-div{
+  left: 0px; bottom: 0px;
+}
+.ps-scrollbar-w{
+  left: 0px; width: 0px;
+}
+.text-loading-center{
+  padding-left: 400px;
+}
 .text-btn-color{
   color: lightskyblue;
 }

@@ -1,8 +1,10 @@
    <div class="text-center text-capitalize text-primary">
     <h2>Ready to sink some ships?</h2>
+    <h3>Choose five ships</h3>
    </div>
 
-   <div class="limiter">
+
+   <div class="limiter table-w">
 		<div class="container-table100">
 			<div class="wrap-table100">
 				<div class="table100 ver1 m-b-110">
@@ -22,11 +24,10 @@
 						<table>
 							<tbody>
 								<tr class="row100 body" *ngFor="let size of sizeCol; let i = index">
-                                    <td class="cell100 column4 border-color" [class.win] = "">{{i+1}}</td>
+                                    <td class="cell100 column4 border-color">{{i+1}}</td>
                                     <td class="cell100 column4 tableCell border border-color"
                                         *ngFor="let size of sizeCol; let j = index" [ngClass]="{'border-color-ships': setStyle(i+1, j+1)}">
-                                        <button [ngClass]="{'border-color-ships': setStyle(i+1, j+1), 'text-btn-color': !setStyle(i+1, j+1)}" class="" (click)="setCoordinate(i+1, j+1)"><h5>[{{i + 1}}, {{j + 1}}]</h5></button>
-                                        
+                                        <button [ngClass]="{'border-color-ships': setStyle(i+1, j+1), 'text-btn-color': !setStyle(i+1, j+1)}" (click)="setCoordinate(i+1, j+1)">[{{i + 1}}, {{j + 1}}]</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -36,8 +37,6 @@
             </div>
         </div>
     </div>
-
-    
 
     <div class="form-horizontal">
         <div class="text-center">
@@ -63,7 +62,8 @@
     <br>
     <div class="text-center">
         <button type="button" 
-                class="btn btn-primary" 
+                class="btn btn-xs btn-secondary"
+                [disabled]="nameClient.length==0" 
                 (click)="setNameClient()">
                 <p class="text-dark">Go!</p>
         </button>

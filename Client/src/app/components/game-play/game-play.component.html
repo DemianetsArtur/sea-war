@@ -1,16 +1,15 @@
 
 <div class="container">
   <div *ngIf="isWin || isLose; else playGame">
-      <div>
-        End
-      </div>
+      <p class="text-center display-3 text-loading-center">End!</p>
       
   </div>
 
   <ng-template #playGame>
-  <div *ngIf="!isPlayGame; else elseBlock">
-    Wait for the second player to connect!
-  </div>
+      <div *ngIf="!isPlayGame; else elseBlock">
+          <p class="text-center display-3 text-loading-center">Wait for the second player to connect!</p>
+          <ngx-spinner></ngx-spinner>
+      </div>
     <ng-template #elseBlock> 
           
       <!-- Chat -->
@@ -24,10 +23,10 @@
                             <button class="btn btn-xs btn-secondary" 
                                     data-abc="true"
                                     [disabled]="message.length==0"
-                                    (click)="sendMessage()">Let's Chat App
+                                    (click)="sendMessage()">Send
                             </button>
                         </div>
-                        <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:200px !important; width: 200px !important;">
+                        <div class="ps-container ps-theme-default ps-active-y ps-container-div" id="chat-content" style="overflow-y: scroll !important;">
                             <div class="media media-chat" *ngFor="let entity of player"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
                                 <div class="media-body">
                                     <p>Hi player {{entity.name}} joined</p>
@@ -47,11 +46,11 @@
                                 </div>
                             </div>
                             
-                            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
-                                <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                            <div class="ps-scrollbar-x-rail ps-scrollbar-div">
+                                <div class="ps-scrollbar-x ps-scrollbar-w" tabindex="0"></div>
                             </div>
-                            <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
-                                <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+                            <div class="ps-scrollbar-y-rail ps-scrollbar-y-div" >
+                                <div class="ps-scrollbar-y ps-scrollbar-y-s" tabindex="0"></div>
                             </div>
                         </div>
                         <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
@@ -83,7 +82,7 @@
     </div>
 
     <!-- Table -->
-    <div class="limiter padding-table">
+    <div class="limiter padding-table" >
       <div class="container-table100">
         <div class="wrap-table100">
           <div class="table100 ver1 m-b-110">

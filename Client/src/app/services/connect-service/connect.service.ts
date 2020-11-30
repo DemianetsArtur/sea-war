@@ -41,14 +41,14 @@ export class ConnectService {
   }
 
   public addTransferChatListener = () => {
-    this.hubConnection.on('clientsJoined', (data: ChatMessage) => {
+    this.hubConnection.on(this.info.clientsJoined, (data: ChatMessage) => {
       console.log('chat ', data);
       this.messages.push(data);
     });
   }
 
   public addTransferCoordinateListener = () => {
-    this.hubConnection.on('coordinateSend', (data: Coordinate) => {
+    this.hubConnection.on(this.info.coordinateSend, (data: Coordinate) => {
       console.log('coordinate ', data);
       this.coordinates.push(data);
     });
@@ -56,25 +56,25 @@ export class ConnectService {
 
   public createPlayerService(playerDetail: Player): void{
     this.nameClient.next(playerDetail.Name);
-    this.hubConnection.invoke('CreateClient', playerDetail);
+    this.hubConnection.invoke(this.info.createClient, playerDetail);
   }
 
   public addHitPointInvoke(playerDetail: Player): void{
-    this.hubConnection.invoke('HitPointsInvoke', playerDetail);
+    this.hubConnection.invoke(this.info.hitPointsInvoke, playerDetail);
   }
 
   public sendCountToHub = (playerDetail: Player) => {
-    const promise = this.hubConnection.invoke('CountInvoke', playerDetail);
+    const promise = this.hubConnection.invoke(this.info.countInvoke, playerDetail);
     return from(promise);
   }
 
   public sendMessageToHub = (message: ChatMessage) => {
-    const promise = this.hubConnection.invoke('ClientsJoinedAsync', message);
+    const promise = this.hubConnection.invoke(this.info.clientsJoinedAsync, message);
     return from(promise);
   }
 
   public sendCoordinate = (coordinate: Coordinate) => {
-    const promise = this.hubConnection.invoke('CoordinateSendAsync', coordinate);
+    const promise = this.hubConnection.invoke(this.info.coordinateSendAsync, coordinate);
     return from(promise);
   }
 }

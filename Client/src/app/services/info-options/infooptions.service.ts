@@ -11,6 +11,17 @@ export class InfoOptionsService {
   public msgName!: string;
   public msgPlayer!: string;
   public msgConnectionPlayer!: string;
+  public clientsJoined!: string;
+  public coordinateSend!: string;
+  public createClient!: string;
+  public hitPointsInvoke!: string;
+  public countInvoke!: string;
+  public clientsJoinedAsync!: string;
+  public coordinateSendAsync!: string;
+  public turnFirstPlayer!: number;
+  public turnSecondPlayer!: number;
+  public hitPoint!: number;
+  public hitPointMax!: number;
 
   constructor() {
     this.sizeBoard = 10;
@@ -20,5 +31,16 @@ export class InfoOptionsService {
     this.msgName = 'name';
     this.msgPlayer = 'msgPlayer';
     this.msgConnectionPlayer = 'msgPlayers';
-   }
+    this.clientsJoined = 'clientsJoined';
+    this.coordinateSend = 'coordinateSend';
+    this.createClient = 'CreateClient';
+    this.hitPointsInvoke = 'HitPointsInvoke';
+    this.countInvoke = 'CountInvoke';
+    this.clientsJoinedAsync = 'ClientsJoinedAsync';
+    this.coordinateSendAsync = 'CoordinateSendAsync';
+    this.turnFirstPlayer = 0;
+    this.turnSecondPlayer = 1;
+    this.hitPoint = 1;
+    this.hitPointMax = 5;
+  }
 }

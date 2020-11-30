@@ -7,6 +7,7 @@ import { ConnectService } from '../../services/connect-service/connect.service';
 import { Player } from '../../models/player/player';
 import { Coordinate } from '../../models/coordinate/coordinate';
 import { ChatMessage } from '../../models/chat-message/chat-message';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-game-play',
@@ -31,7 +32,8 @@ export class GamePlayComponent implements OnInit  {
               private url: UrlService,
               private alertService: AlertHandlerService,
               private connect: ConnectService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private spinner: NgxSpinnerService) {
 
   }
 
@@ -46,14 +48,15 @@ export class GamePlayComponent implements OnInit  {
     this.connect.addTransferCoordinateListener();
     this.connect.PlayerData$.subscribe(opt => {
       this.player = opt;
-      this.isPlayGame = (this.player.length === 2) ? true : false;
-      if (this.player.length === 2){
+      this.isPlayGame = (this.player.length === this.info.playerSize) ? true : false;
+      if (this.player.length === this.info.playerSize){
         this.isWin = this.isWinHandler();
         this.isLose = this.isLoseHandler();
       }
     });
     this.messages = this.connect.messages;
     this.coordinates = this.connect.coordinates;
+    this.spinner.show();
   }
 
   private coordinateSend = (firstCoordinate: number, secondCoordinate: number) => {
@@ -72,14 +75,14 @@ export class GamePlayComponent implements OnInit  {
 
       this.handlerCountPlayer();
 
-      if (playerRes.name === player.name && playerRes.count === 0){
-        this.turn = 1;
+      if (playerRes.name === player.name && playerRes.count === this.info.turnFirstPlayer){
+        this.turn = this.info.turnSecondPlayer;
         this.handlerCountPlayer();
         this.handlerCountChange(opponentRes.name);
         return true;
       }
-      else if (playerRes.name !== player.name && playerRes.count !== 0){
-        this.turn = 0;
+      else if (playerRes.name !== player.name && playerRes.count !== this.info.turnFirstPlayer){
+        this.turn = this.info.turnFirstPlayer;
         this.handlerCountPlayer();
         this.handlerCountChange(opponentRes.name);
         return true;
@@ -155,13 +158,15 @@ export class GamePlayComponent implements OnInit  {
           const playerDetails = new Player();
           this.alertService.hitAlert();
           playerDetails.Name = this.name;
-          playerDetails.HitPoints = player.hitPoints + 1;
+          playerDetails.HitPoints = player.hitPoints + this.info.hitPoint;
           this.handlerPlayerInvoke(playerDetails);
         }
       }
     }
     else{
-      this.alertService.turnAlert();
+      const players = this.player;
+      const opponent = players.find(opt => opt.name !== this.name);
+      this.alertService.turnAlert(opponent.name);
     }
   }
 
@@ -196,7 +201,7 @@ export class GamePlayComponent implements OnInit  {
   private isWinHandler(): boolean{
     const players = this.player;
     const player = players.find(opt => opt.name === this.name);
-    if (player.hitPoints === 5){
+    if (player.hitPoints === this.info.hitPointMax){
       this.alertService.winAlert();
       return true;
     }
@@ -208,7 +213,7 @@ export class GamePlayComponent implements OnInit  {
   private isLoseHandler(): boolean{
     const players = this.player;
     const player = players.find(opt => opt.name !== this.name);
-    if (player.hitPoints === 5){
+    if (player.hitPoints === this.info.hitPointMax){
       this.alertService.loseAlert();
       return true;
     }

@@ -8,9 +8,10 @@ export class AlertHandlerService {
 
   constructor(private toastr: ToastrService) { }
 
-  public turnAlert = () => {
-    this.toastr.warning('Now is the player`s turn', 'Oops!');
+  public turnAlert = (name: string) => {
+    this.toastr.warning('Now is the player ' + name + ' turn', 'Oops!');
   }
+
 
   public winAlert(): void{
     this.toastr.success('You Win!', 'Hooray!');
