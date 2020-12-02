@@ -38,6 +38,69 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="align-imgs">
+                <img src="../../../assets/images/ships/1.PNG" class=" img-thumbnail img-opt" alt="">
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div *ngIf="!shipInfo.battleship.isState">
+                <span class="size-sign">&#9989;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="align-imgs">
+                <img src="../../../assets/images/ships/2.PNG" class=" img-thumbnail img-opt" alt="">
+                
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div *ngIf="!shipInfo.cruiser.isState">
+                <span class="size-sign">&#9989;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="align-imgs">
+                <img src="../../../assets/images/ships/3.PNG" class=" img-thumbnail img-opt" alt="">
+                
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div *ngIf="!shipInfo.destroyer.isState">
+                <span class="size-sign">&#9989;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="align-imgs">
+                <img src="../../../assets/images/ships/4.PNG" class=" img-thumbnail img-opt" alt="">
+                
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div *ngIf="!shipInfo.torpedoBoat.isState">
+                <span class="size-sign">&#9989;</span>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- <div class="align-imgs">            
+         
+        
+        <img src="../../../assets/images/ships/3.PNG" class=" img-thumbnail img-opt" alt="">
+        <img src="../../../assets/images/ships/4.PNG" class=" img-thumbnail img-opt" alt="">   
+    </div> -->
+
     <div class="form-horizontal">
         <div class="text-center">
             <h4 class="text-uppercase text-monospace">enter</h4>

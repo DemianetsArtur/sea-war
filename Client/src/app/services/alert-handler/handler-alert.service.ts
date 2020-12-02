@@ -12,6 +12,9 @@ export class AlertHandlerService {
     this.toastr.warning('Now is the player ' + name + ' turn', 'Oops!');
   }
 
+  public shipCreatedAlert = (name: string, size: number, count: number) => {
+    this.toastr.success('Created ' + name + ',' + size + '/' + count, 'Cool');
+  }
 
   public winAlert(): void{
     this.toastr.success('You Win!', 'Hooray!');

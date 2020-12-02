@@ -22,6 +22,11 @@ export class InfoOptionsService {
   public turnSecondPlayer!: number;
   public hitPoint!: number;
   public hitPointMax!: number;
+  public countCreateShip!: number;
+  public countEmpty!: number;
+  public coordinateCountMax!: number;
+  public shipCreateMax!: number;
+  public coordinate!: number;
 
   constructor() {
     this.sizeBoard = 10;
@@ -42,5 +47,10 @@ export class InfoOptionsService {
     this.turnSecondPlayer = 1;
     this.hitPoint = 1;
     this.hitPointMax = 5;
+    this.countCreateShip = 1;
+    this.countEmpty = 0;
+    this.coordinateCountMax = 20;
+    this.shipCreateMax = 10;
+    this.coordinate = 1;
   }
 }
