@@ -28,6 +28,7 @@ export class GamePlayComponent implements OnInit  {
   public turn = 0;
   public isOpponentShoot = false;
   private coordinateList: Array<Coordinate> = [];
+  private coordinateMiss: Array<Coordinate> = [];
   constructor(private info: InfoOptionsService,
               private url: UrlService,
               private alertService: AlertHandlerService,
@@ -125,6 +126,19 @@ export class GamePlayComponent implements OnInit  {
     this.coordinateList.push(coordinate);
   }
 
+  public setMissStyle = (firstCoordinate: number, secondCoordinate: number) => {
+    const coordinate = this.coordinateMiss.find(opt => opt.name === this.name
+                                             && opt.firstCoordinate === firstCoordinate
+                                             && opt.secondCoordinate === secondCoordinate);
+    if (coordinate !== undefined){
+      return true;
+    }
+    else{
+      return false;
+    }
+
+  }
+
   public setOpponentStyle = (firstCoordinate: number, secondCoordinate: number) => {
     const playerCoordinate = this.coordinateList.find(opt => opt.name === this.name
                                                    && opt.firstCoordinate === firstCoordinate
@@ -150,6 +164,7 @@ export class GamePlayComponent implements OnInit  {
       x.firstCoordinate === firstCoordinate && x.secondCoordinate === secondCoordinate);
       if (opponentCoordinate === undefined){
         this.alertService.offTargetAlert();
+        this.setCoordinateMiss(firstCoordinate, secondCoordinate);
       }
       else {
         const isValid = this.setCoordinate(firstCoordinate, secondCoordinate);
@@ -178,6 +193,22 @@ export class GamePlayComponent implements OnInit  {
       coordinate.secondCoordinate = secondCoordinate;
       coordinate.name = this.name;
       this.playerCoordinates.push(coordinate);
+      return true;
+    }
+    else{
+      this.alertService.replayCoordinate();
+      return false;
+    }
+  }
+
+  private setCoordinateMiss = (firstCoordinate: number, secondCoordinate: number) => {
+    const isValid = this.replayCoordinate(firstCoordinate, secondCoordinate);
+    if (isValid){
+      const coordinate = new Coordinate();
+      coordinate.firstCoordinate = firstCoordinate;
+      coordinate.secondCoordinate = secondCoordinate;
+      coordinate.name = this.name;
+      this.coordinateMiss.push(coordinate);
       return true;
     }
     else{

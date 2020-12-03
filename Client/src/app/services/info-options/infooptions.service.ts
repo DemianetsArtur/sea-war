@@ -46,7 +46,7 @@ export class InfoOptionsService {
     this.turnFirstPlayer = 0;
     this.turnSecondPlayer = 1;
     this.hitPoint = 1;
-    this.hitPointMax = 5;
+    this.hitPointMax = 20;
     this.countCreateShip = 1;
     this.countEmpty = 0;
     this.coordinateCountMax = 20;

@@ -138,8 +138,13 @@
                     <tr class="row100 body" *ngFor="let size of sizeCol; let i = index">
                                         <td class="cell100 column4 border-color">{{i+1}}</td>
                                         <td class="cell100 column4 tableCell border border-color"
-                                            *ngFor="let size of sizeCol; let j = index" [ngClass]="{'border-color-opponent': setOpponentStyle(i+1, j+1)}">
-                                            <button  [ngClass]="{'text-btn-color-opponent': setOpponentStyle(i+1, j+1)}" class="text-btn-color" (click)="shoot(i+1, j+1, name)">[{{i + 1}}, {{j + 1}}]</button>
+                                            *ngFor="let size of sizeCol; let j = index" 
+                                            [ngClass]="{'border-color-opponent': setOpponentStyle(i+1, j+1)}" 
+                                            [ngClass]="{'border-color-miss': setMissStyle(i+1, j+1)}">
+                                            <button  [ngClass]="{'text-btn-color-opponent': setOpponentStyle(i+1, j+1)}"
+                                                     [ngClass]="{'text-btn-color-miss': setMissStyle(i+1, j+1)}" 
+                                                     class="text-btn-color" 
+                                                     (click)="shoot(i+1, j+1, name)">[{{i + 1}}, {{j + 1}}]</button>
                                         </td>
                                     </tr>
                                 </tbody>

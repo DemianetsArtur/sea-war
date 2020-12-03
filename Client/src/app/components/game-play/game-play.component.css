@@ -8,6 +8,10 @@
   background-color:black;
   color: black;
 }
+.border-color-miss{
+  background-color: gold;
+  color:  gold;
+}
 .ps-container-div{
   overflow-y: scroll !important;
   height:200px !important; 
@@ -33,6 +37,9 @@
 }
 .text-btn-color-opponent{
   color:black;
+}
+.text-btn-color-miss{
+  color: gold;
 }
 .table-main{
     width: 550px;
