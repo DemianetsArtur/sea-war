@@ -1,11 +1,11 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using SeaWar.BLL.Infrastructure.Interfaces;
 using SeaWar.BLL.Infrastructure.Models;
 using SeaWar.BLL.Infrastructure.ModelsDto;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +18,8 @@ namespace SeaWar.API.Infrastructure.Manage
         private readonly IMapper mapper;
 
         private readonly IConfiguration configuration;
+
+        private ICollection<PlayerModel> Names = new List<PlayerModel>();
 
         public DataHub(IPlayerService playerService, 
                        IMapper mapper,
@@ -61,11 +63,35 @@ namespace SeaWar.API.Infrastructure.Manage
             await Clients.All.SendAsync(msg, players);
         }
 
+        public async Task CoordinateCreate(PlayerModel entity) 
+        {
+            var playerMapp = this.mapper.Map<PlayerDto>(entity);
+            this.playerService.PlayerCoordinateCreate(playerMapp);
+            var msg = this.configuration["InfoOptions:coordinateCreate"];
+            var players = this.playerService.GetAll();
+            await this.Clients.All.SendAsync(msg, players);
+        }
+
         private async Task PlayersSendAsync() 
         {
             var msg = this.configuration["InfoOptions:msgPlayer"];
             var players = this.playerService.GetAll();
             await Clients.All.SendAsync(msg, players);
+        }
+
+        public async Task NameCreate(PlayerModel entity) 
+        {
+            var msg = this.configuration["InfoOptions:nameCreate"];
+            var player = this.playerService.GetAll();
+            var playerValid = player.FirstOrDefault(opt => opt.Name == entity.Name);
+            if (playerValid != null && player.Count() != 0)
+            {
+                await this.Clients.All.SendAsync(msg, null);
+
+            }
+            else {
+                await this.Clients.All.SendAsync(msg, player);
+            }
         }
 
         public async Task ClientsJoinedAsync(ChatMessage message) 

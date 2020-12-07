@@ -8,6 +8,8 @@ import { Player } from '../../models/player/player';
 import { map } from 'rxjs/operators';
 import { ChatMessage } from '../../models/chat-message/chat-message';
 import { Coordinate } from '../../models/coordinate/coordinate';
+import { Router } from '@angular/router';
+import { AlertHandlerService } from '../alert-handler/handler-alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +21,12 @@ export class ConnectService {
   public nameClient: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public messages: ChatMessage[] = [];
   public coordinates: Coordinate[] = [];
+  public names: Player[] = [];
 
   constructor(private info: InfoOptionsService,
               private url: UrlService,
-              private http: HttpClient) { }
+              private router: Router,
+              private alert: AlertHandlerService) { }
 
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
@@ -35,21 +39,34 @@ export class ConnectService {
 
   public addTransferDataListener = () => {
     this.hubConnection?.on(this.info.msgConnectionPlayer, (data: Player[]) => {
-      console.log(data);
+      this.playerData.next(data);
+    });
+  }
+
+  public addCoordinatePlayerListener = () => {
+    this.hubConnection.on(this.info.getCoordinateCreate, (data) => {
       this.playerData.next(data);
     });
   }
 
   public addTransferChatListener = () => {
     this.hubConnection.on(this.info.clientsJoined, (data: ChatMessage) => {
-      console.log('chat ', data);
       this.messages.push(data);
+    });
+  }
+
+  public addTransferNameListener = () => {
+    this.hubConnection.on(this.info.createName, (data: Player) => {
+      this.names.push(data);
+      if (data === null){
+        this.alert.nameRepeat();
+        this.router.navigate(['/']);
+      }
     });
   }
 
   public addTransferCoordinateListener = () => {
     this.hubConnection.on(this.info.coordinateSend, (data: Coordinate) => {
-      console.log('coordinate ', data);
       this.coordinates.push(data);
     });
   }
@@ -68,8 +85,18 @@ export class ConnectService {
     return from(promise);
   }
 
+  public sendNameToHub = (playerDetail: Player) => {
+    const promise = this.hubConnection.invoke(this.info.createName, playerDetail);
+    return from(promise);
+  }
+
   public sendMessageToHub = (message: ChatMessage) => {
     const promise = this.hubConnection.invoke(this.info.clientsJoinedAsync, message);
+    return from(promise);
+  }
+
+  public sendCoordinatesPlayer = (entity: Player) => {
+    const promise = this.hubConnection.invoke(this.info.coordinateCreate, entity);
     return from(promise);
   }
 

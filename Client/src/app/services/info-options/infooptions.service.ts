@@ -27,8 +27,15 @@ export class InfoOptionsService {
   public coordinateCountMax!: number;
   public shipCreateMax!: number;
   public coordinate!: number;
+  public msgWin!: string;
+  public msgLose!: string;
+  public coordinateCreate!: string;
+  public getCoordinateCreate!: string;
+  public createName!: string;
 
   constructor() {
+    this.msgWin = 'You Win';
+    this.msgLose = 'You Lose';
     this.sizeBoard = 10;
     this.msgUserCount = 'user-count';
     this.shipCount = 5;
@@ -52,5 +59,8 @@ export class InfoOptionsService {
     this.coordinateCountMax = 20;
     this.shipCreateMax = 10;
     this.coordinate = 1;
+    this.coordinateCreate = 'CoordinateCreate';
+    this.getCoordinateCreate = 'coordinateCreate';
+    this.createName = 'NameCreate';
   }
 }

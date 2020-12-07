@@ -12,5 +12,7 @@ namespace SeaWar.BLL.Infrastructure.Interfaces
         void PlayerHitPointUpdate(PlayerDto entity);
 
         void PlayerCountUpdate(PlayerDto entity);
+
+        void PlayerCoordinateCreate(PlayerDto entity);
     }
 }

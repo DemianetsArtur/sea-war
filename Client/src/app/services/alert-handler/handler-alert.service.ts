@@ -28,6 +28,10 @@ export class AlertHandlerService {
     this.toastr.warning('You have already got into this ship, choose other coordinates!', 'Oops!');
   }
 
+  public nameRepeat = () => {
+    this.toastr.error('There is already a player with that name!', 'Oops!');
+  }
+
   public shipCountAlert(size: number): void{
     this.toastr.warning(`There should be no more than ` + size + ` ships!`, 'Oops!');
   }

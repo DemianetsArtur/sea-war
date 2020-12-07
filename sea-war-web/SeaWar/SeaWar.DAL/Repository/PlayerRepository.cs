@@ -22,12 +22,20 @@ namespace SeaWar.DAL.Repository
 
         public void Add(Player entity) 
         {
-            this.dataManage.Players.Add(entity);
+            var playerValid = this.dataManage.Players.FirstOrDefault(opt => opt.Name == entity.Name);
+            if (playerValid == null) {
+                this.dataManage.Players.Add(entity);
+            }
         }
 
         public void HitPointUpdate(Player entity) 
         {
             this.dataManage.Players.FirstOrDefault(opt => opt.Name == entity.Name).HitPoints = entity.HitPoints;
+        }
+
+        public void CoordinateCreate(Player entity) 
+        {
+            this.dataManage.Players.FirstOrDefault(opt => opt.Name == entity.Name).Coordinates = entity.Coordinates;
         }
 
         public void CountUpdate(Player entity) 

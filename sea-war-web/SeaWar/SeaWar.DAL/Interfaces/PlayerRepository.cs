@@ -12,5 +12,7 @@ namespace SeaWar.DAL.Interfaces
         void HitPointUpdate(Player entity);
 
         void CountUpdate(Player entity);
+
+        void CoordinateCreate(Player entity);
     }
 }

@@ -26,6 +26,12 @@ namespace SeaWar.BLL.Infrastructure.Services
             this.database.playerRepository.HitPointUpdate(playerMapp);
         }
 
+        public void PlayerCoordinateCreate(PlayerDto entity) 
+        {
+            Player playerMapp = this.mapper.Map<Player>(entity);
+            this.database.playerRepository.CoordinateCreate(playerMapp);
+        }
+
         public void PlayerCountUpdate(PlayerDto entity) 
         {
             Player playerMapp = this.mapper.Map<Player>(entity);
