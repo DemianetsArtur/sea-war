@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
 import { InfoOptionsService } from '../info-options/infooptions.service';
 import { UrlService } from '../url/url.service';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 import { Player } from '../../models/player/player';
-import { map } from 'rxjs/operators';
 import { ChatMessage } from '../../models/chat-message/chat-message';
 import { Coordinate } from '../../models/coordinate/coordinate';
 import { Router } from '@angular/router';
@@ -40,7 +38,6 @@ export class ConnectService {
 
   public addTransferDataListener = () => {
     this.hubConnection?.on(this.info.msgConnectionPlayer, (data: Player[]) => {
-      console.log('data:', data);
       this.playerData.next(data);
     });
   }
@@ -52,13 +49,10 @@ export class ConnectService {
   }
 
   public addPlayerRemoveListener = () => {
-    this.hubConnection.on('PlayerRemove', (data) => {
-      console.log('remove:', data);
+    this.hubConnection.on(this.info.removePlayer, (data) => {
       this.isPlayerRemove = data;
       if (data === null){
-        const newPlayer: Player[] = [];
-        this.playerData.next(newPlayer);
-        this.router.navigate(['/']);
+        this.removePlayerHandler();
       }
     });
   }
@@ -71,11 +65,9 @@ export class ConnectService {
 
   public addTransferNameListener = () => {
     this.hubConnection.on(this.info.createName, (data: Player) => {
-      console.log('name:', data);
       this.names.push(data);
       if (data === null){
-        this.alert.nameRepeat();
-        this.router.navigate(['/']);
+        this.transferNameHandler();
       }
     });
   }
@@ -101,7 +93,7 @@ export class ConnectService {
   }
 
   public sendPlayersToHub = (playersDetails: Player[]) => {
-    const promise = this.hubConnection.invoke('PlayerRemove', playersDetails);
+    const promise = this.hubConnection.invoke(this.info.removePlayer, playersDetails);
     return from(promise);
   }
 
@@ -123,5 +115,16 @@ export class ConnectService {
   public sendCoordinate = (coordinate: Coordinate) => {
     const promise = this.hubConnection.invoke(this.info.coordinateSendAsync, coordinate);
     return from(promise);
+  }
+
+  private removePlayerHandler = () => {
+    const emptyPlayer: Player[] = [];
+    this.playerData.next(emptyPlayer);
+    this.router.navigate([this.info.boardUrl]);
+  }
+
+  private transferNameHandler = () => {
+    this.alert.nameRepeat();
+    this.router.navigate([this.info.boardUrl]);
   }
 }

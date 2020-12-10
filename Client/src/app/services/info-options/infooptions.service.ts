@@ -32,8 +32,12 @@ export class InfoOptionsService {
   public coordinateCreate!: string;
   public getCoordinateCreate!: string;
   public createName!: string;
+  public removePlayer!: string;
+  public boardUrl!: string;
 
   constructor() {
+    this.boardUrl = '/';
+    this.removePlayer = 'PlayerRemove';
     this.msgWin = 'You Win';
     this.msgLose = 'You Lose';
     this.sizeBoard = 10;

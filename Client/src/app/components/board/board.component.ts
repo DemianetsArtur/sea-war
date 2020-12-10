@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Coordinate } from 'src/app/models/coordinate/coordinate';
 import { AlertHandlerService } from 'src/app/services/alert-handler/handler-alert.service';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InfoOptionsService } from '../../services/info-options/infooptions.service';
 import { Player } from 'src/app/models/player/player';
 import { UrlService } from 'src/app/services/url/url.service';
 import { ConnectService } from '../../services/connect-service/connect.service';
 import { ShipInfo } from '../../models/ship-info/ship-info';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -23,7 +22,6 @@ export class BoardComponent implements OnInit {
   public shipInfo: ShipInfo = new ShipInfo();
   public player: any[] = {} as any[];
   public playerCount!: boolean;
-  private subscription!: Subscription;
 
   constructor(private alertService: AlertHandlerService,
               private route: ActivatedRoute,
@@ -31,12 +29,6 @@ export class BoardComponent implements OnInit {
               private info: InfoOptionsService,
               private connect: ConnectService,
               private url: UrlService) {
-    this.subscription = router.events.subscribe((event) => {
-      if (event instanceof NavigationStart){
-        const browserRefresh = !router.navigated;
-
-      }
-    });
   }
 
   public sizeCol = Array(this.info.sizeBoard);

@@ -19,8 +19,6 @@ namespace SeaWar.API.Infrastructure.Manage
 
         private readonly IConfiguration configuration;
 
-        private ICollection<PlayerModel> Names = new List<PlayerModel>();
-
         public DataHub(IPlayerService playerService, 
                        IMapper mapper,
                        IConfiguration configuration)
@@ -43,8 +41,9 @@ namespace SeaWar.API.Infrastructure.Manage
 
         public void CreateClient(PlayerModel entity) 
         {
+            var userCount = Int32.Parse(this.configuration["InfoOptions:UserOne"]);
             var players = this.playerService.GetAll();
-            if (players.Count() <= 1) 
+            if (players.Count() <= userCount) 
             {
                 var player = this.mapper.Map<PlayerDto>(entity);
                 player.ConnectionId = this.Context.ConnectionId;
@@ -92,10 +91,11 @@ namespace SeaWar.API.Infrastructure.Manage
 
         public async Task NameCreate(PlayerModel entity) 
         {
+            var emptyCount = Int32.Parse(this.configuration["InfoOptions:emptyPlayerCount"]);
             var msg = this.configuration["InfoOptions:nameCreate"];
             var player = this.playerService.GetAll();
             var playerValid = player.FirstOrDefault(opt => opt.Name == entity.Name);
-            if (playerValid != null && player.Count() != 0)
+            if (playerValid != null && player.Count() != emptyCount)
             {
                 await this.Clients.All.SendAsync(msg, null);
 
