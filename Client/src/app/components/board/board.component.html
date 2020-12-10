@@ -17,7 +17,7 @@
                    type="submit" 
                    value="Go" 
                    name="" 
-                   [disabled]="nameClient.length==0" 
+                   [disabled]="nameClient.length==0 && playerCount" 
                    (click)="setNameClient()">
         </form>
     </div>

@@ -22,6 +22,7 @@ export class ConnectService {
   public messages: ChatMessage[] = [];
   public coordinates: Coordinate[] = [];
   public names: Player[] = [];
+  public isPlayerRemove: Player[] = [];
 
   constructor(private info: InfoOptionsService,
               private url: UrlService,
@@ -39,6 +40,7 @@ export class ConnectService {
 
   public addTransferDataListener = () => {
     this.hubConnection?.on(this.info.msgConnectionPlayer, (data: Player[]) => {
+      console.log('data:', data);
       this.playerData.next(data);
     });
   }
@@ -46,6 +48,18 @@ export class ConnectService {
   public addCoordinatePlayerListener = () => {
     this.hubConnection.on(this.info.getCoordinateCreate, (data) => {
       this.playerData.next(data);
+    });
+  }
+
+  public addPlayerRemoveListener = () => {
+    this.hubConnection.on('PlayerRemove', (data) => {
+      console.log('remove:', data);
+      this.isPlayerRemove = data;
+      if (data === null){
+        const newPlayer: Player[] = [];
+        this.playerData.next(newPlayer);
+        this.router.navigate(['/']);
+      }
     });
   }
 
@@ -57,6 +71,7 @@ export class ConnectService {
 
   public addTransferNameListener = () => {
     this.hubConnection.on(this.info.createName, (data: Player) => {
+      console.log('name:', data);
       this.names.push(data);
       if (data === null){
         this.alert.nameRepeat();
@@ -82,6 +97,11 @@ export class ConnectService {
 
   public sendCountToHub = (playerDetail: Player) => {
     const promise = this.hubConnection.invoke(this.info.countInvoke, playerDetail);
+    return from(promise);
+  }
+
+  public sendPlayersToHub = (playersDetails: Player[]) => {
+    const promise = this.hubConnection.invoke('PlayerRemove', playersDetails);
     return from(promise);
   }
 

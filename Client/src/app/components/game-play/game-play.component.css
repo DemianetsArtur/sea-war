@@ -1,6 +1,35 @@
 .btn-main:focus{
   box-shadow: none !important;
 }
+
+.pixel-btn{
+  position: relative;
+  width: 180px;
+  height: 60px;
+  color: white;
+  text-transform: uppercase;
+
+  margin-left: 650px;
+  transition: 0.5s;
+}
+
+.pixel-btn:hover{
+  background: #730bec url(../../../assets/images/pixel/pixel2.png);
+  transition-delay: 0.8s;
+  background-size: 180px;
+  animation: animate-btn-pixel 0.8s steps(8) forwards;
+}
+
+
+@keyframes animate-btn-pixel{
+  0%{
+    background-position-y: 0;
+  }
+  100%{
+    background-position-y: -480px;
+  }
+}
+
 .text-content{
   display: flex;
   margin-top: 40px;
@@ -9,45 +38,61 @@
   background: #3586ff;
 
 }
+
+.text-align{
+  margin-top: 20px;
+  margin-left: 165px;
+}
+
+.text-align-2{
+  margin-top: -60px;
+  margin-left: 165px;
+}
+
+.text-align-3{
+  margin-top: -60px;
+  margin-left: 165px;
+}
+
 .img-size{
   width: 100px;
   height: 100px;
-  margin-top: 10px;
-  margin-left: 165px;
+  margin-top: -20px;
+  margin-left: 240px;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 .img-size-2{
   width: 100px;
   height: 100px;
-  margin-top: -60px;
-  margin-left: 165px;
+  margin-top: -25px;
+  margin-left: 240px;
 }
 
 .img-size-3{
   width: 100px;
   height: 100px;
-  margin-top: -60px;
-  margin-left: 165px;
+  margin-top: -25px;
+  margin-left: 240px;
 }
 
 .align-check-box{
   margin: 0;
   padding: 0;
-  margin-left: -1010px;
-  margin-top: 13px;
+  margin-left: -860px;
+  margin-top: 22px;
 }
 .align-check-box-2{
   margin: 0;
   padding: 0;
-  margin-top: -58px;
-  margin-left: -1010px;
+  margin-top: -61px;
+  margin-left: -860px;
 }
 .align-check-box-3{
   margin: 0;
   padding: 0;
-  margin-top: -58px;
-  margin-left: -1010px;
+  margin-top: -61px;
+  margin-left: -860px;
 }
 
 .content{

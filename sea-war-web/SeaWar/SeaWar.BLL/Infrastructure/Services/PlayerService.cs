@@ -20,6 +20,12 @@ namespace SeaWar.BLL.Infrastructure.Services
             this.mapper = mapper;
         }
 
+        public void PlayerRemove(PlayerDto entity) 
+        {
+            var playerMapp = this.mapper.Map<Player>(entity);
+            this.database.playerRepository.PlayerRemove(playerMapp);
+        }
+
         public void PlayerHitPointUpdate(PlayerDto entity) 
         {
             Player playerMapp = this.mapper.Map<Player>(entity);

@@ -14,5 +14,7 @@ namespace SeaWar.DAL.Interfaces
         void CountUpdate(Player entity);
 
         void CoordinateCreate(Player entity);
+
+        void PlayerRemove(Player entity);
     }
 }

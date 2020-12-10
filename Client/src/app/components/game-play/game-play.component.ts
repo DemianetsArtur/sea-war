@@ -1,5 +1,5 @@
-import {  Component, OnInit,  } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {  Component, OnInit, ViewChild,  } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AlertHandlerService } from 'src/app/services/alert-handler/handler-alert.service';
 import { InfoOptionsService } from 'src/app/services/info-options/infooptions.service';
 import { UrlService } from 'src/app/services/url/url.service';
@@ -7,13 +7,17 @@ import { ConnectService } from '../../services/connect-service/connect.service';
 import { Player } from '../../models/player/player';
 import { Coordinate } from '../../models/coordinate/coordinate';
 import { ChatMessage } from '../../models/chat-message/chat-message';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ShipInfo } from 'src/app/models/ship-info/ship-info';
+import { NgxAutoScroll } from 'ngx-auto-scroll';
+import { BoardComponent } from '../board/board.component';
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-game-play',
   templateUrl: './game-play.component.html',
-  styleUrls: ['./game-play.component.css']
+  styleUrls: ['./game-play.component.css'],
+
 })
 export class GamePlayComponent implements OnInit  {
   public name: any;
@@ -37,9 +41,12 @@ export class GamePlayComponent implements OnInit  {
   public coordinateCount!: boolean;
   public filledPlayersCoordinate!: boolean;
   public playerNameTurn!: string;
+  public refreshGame = false;
+
 
   constructor(private info: InfoOptionsService,
               private url: UrlService,
+              private router: Router,
               private alertService: AlertHandlerService,
               private connect: ConnectService,
               private route: ActivatedRoute,
@@ -75,6 +82,13 @@ export class GamePlayComponent implements OnInit  {
     const opponent = this.player.find(opt => opt.name !== this.name);
     this.filledPlayersCoordinate = (player.coordinates.length === this.info.coordinateCountMax
                                  && opponent.coordinates.length === this.info.coordinateCountMax ) ? true : false;
+  }
+
+  public playAgainHandler = () => {
+    const player = this.player.find(opt => opt.name === this.name);
+    this.connect.sendPlayersToHub(player);
+    this.refreshGame = true;
+    this.connect.addPlayerRemoveListener();
   }
 
   public isFillCoordinatePlayers = () => {

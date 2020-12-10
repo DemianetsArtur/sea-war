@@ -43,9 +43,13 @@ namespace SeaWar.API.Infrastructure.Manage
 
         public void CreateClient(PlayerModel entity) 
         {
-            var player = this.mapper.Map<PlayerDto>(entity);
-            player.ConnectionId = this.Context.ConnectionId;
-            this.playerService.PlayerAdd(player);
+            var players = this.playerService.GetAll();
+            if (players.Count() <= 1) 
+            {
+                var player = this.mapper.Map<PlayerDto>(entity);
+                player.ConnectionId = this.Context.ConnectionId;
+                this.playerService.PlayerAdd(player);
+            }
         }
 
         public void HitPointsInvoke(PlayerModel entity) 
@@ -70,6 +74,13 @@ namespace SeaWar.API.Infrastructure.Manage
             var msg = this.configuration["InfoOptions:coordinateCreate"];
             var players = this.playerService.GetAll();
             await this.Clients.All.SendAsync(msg, players);
+        }
+
+        public async Task PlayerRemove(PlayerModel entity) 
+        {
+            var playerMapp = this.mapper.Map<PlayerDto>(entity);
+            this.playerService.PlayerRemove(playerMapp);
+            await this.Clients.All.SendAsync("PlayerRemove", null);
         }
 
         private async Task PlayersSendAsync() 

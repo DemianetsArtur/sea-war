@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Coordinate } from 'src/app/models/coordinate/coordinate';
 import { AlertHandlerService } from 'src/app/services/alert-handler/handler-alert.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { InfoOptionsService } from '../../services/info-options/infooptions.service';
 import { Player } from 'src/app/models/player/player';
 import { UrlService } from 'src/app/services/url/url.service';
 import { ConnectService } from '../../services/connect-service/connect.service';
 import { ShipInfo } from '../../models/ship-info/ship-info';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -18,15 +19,24 @@ export class BoardComponent implements OnInit {
   public players: Array<Player> = [];
   public coordinateList: Array<Coordinate> = [];
   public nameClient = '';
-  public nameList: Array<string> = [];
+  public nameList: Player[] = [];
   public shipInfo: ShipInfo = new ShipInfo();
-  private names: any = {} as any;
+  public player: any[] = {} as any[];
+  public playerCount!: boolean;
+  private subscription!: Subscription;
+
   constructor(private alertService: AlertHandlerService,
               private route: ActivatedRoute,
               private router: Router,
               private info: InfoOptionsService,
               private connect: ConnectService,
               private url: UrlService) {
+    this.subscription = router.events.subscribe((event) => {
+      if (event instanceof NavigationStart){
+        const browserRefresh = !router.navigated;
+
+      }
+    });
   }
 
   public sizeCol = Array(this.info.sizeBoard);
@@ -34,18 +44,26 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     this.connect.startConnection();
     this.connect.addTransferNameListener();
+    this.connect.addPlayerRemoveListener();
+    this.connect.addTransferDataListener();
+    this.connect.PlayerData$.subscribe(opt => {
+      this.player = opt;
+      this.playerCount = (this.player.length === this.info.playerSize) ? true : false;
+    });
+    this.nameList = this.connect.names;
   }
 
   public setNameClient(): void{
-    if (!this.isPlayerCountValid()){
-      this.alertService.userCountAlert();
-    }
-    if (this.isPlayerCountValid()){
+
+    if (!this.playerCount){
       const changeRequest = new Player();
       changeRequest.Name = this.nameClient;
       this.connect.sendNameToHub(changeRequest);
       this.connect.createPlayerService(changeRequest);
       this.router.navigate([this.url.gameBoard, this.nameClient]);
+    }
+    else{
+      this.alertService.userCountAlert();
     }
   }
 

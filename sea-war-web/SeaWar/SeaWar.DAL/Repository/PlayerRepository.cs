@@ -42,5 +42,10 @@ namespace SeaWar.DAL.Repository
         {
             this.dataManage.Players.FirstOrDefault(opt => opt.Name == entity.Name).Count = entity.Count;
         }
+
+        public void PlayerRemove(Player entity) 
+        {
+            this.dataManage.Players.Clear();
+        }
     }
 }
