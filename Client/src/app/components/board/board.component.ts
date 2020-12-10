@@ -86,7 +86,6 @@ export class BoardComponent implements OnInit {
       return true;
     }
     else{
-      debugger;
       return false;
     }
   }
