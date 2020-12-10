@@ -22,6 +22,8 @@ export class BoardComponent implements OnInit {
   public shipInfo: ShipInfo = new ShipInfo();
   public player: any[] = {} as any[];
   public playerCount!: boolean;
+  public nameRepeat!: Player;
+  private isNameRepeat!: boolean;
 
   constructor(private alertService: AlertHandlerService,
               private route: ActivatedRoute,
@@ -42,12 +44,18 @@ export class BoardComponent implements OnInit {
       this.player = opt;
       this.playerCount = (this.player.length === this.info.playerSize) ? true : false;
     });
-    this.nameList = this.connect.names;
+    this.nameRepeat = this.connect.names;
+    this.isNameRepeat = (this.nameRepeat === null) ? true : false;
+    if (this.isNameRepeat){
+      this.alertService.nameRepeat();
+      this.isNameRepeat = false;
+    }
   }
+
 
   public setNameClient(): void{
 
-    if (!this.playerCount){
+    if (this.isPlayerCountValid() && !this.isNameRepeatHandler()){
       const changeRequest = new Player();
       changeRequest.Name = this.nameClient;
       this.connect.sendNameToHub(changeRequest);
@@ -55,17 +63,31 @@ export class BoardComponent implements OnInit {
       this.router.navigate([this.url.gameBoard, this.nameClient]);
     }
     else{
-      this.alertService.userCountAlert();
     }
   }
 
-  private isPlayerCountValid(): boolean{
-    const isValid = (this.players.length === this.info.playerSize) ? false : true;
+  private isPlayerCountValid = () =>{
+    const isValid = this.playerCount;
     if (!isValid){
-      return false;
+      return true;
     }
     else{
+      this.alertService.userCountAlert();
+      return false;
+    }
+  }
+
+  private isNameRepeatHandler = () => {
+    const isValid = this.isNameRepeat;
+    if (isValid){
+      
+      this.alertService.nameRepeat();
+      this.isNameRepeat = false;
       return true;
+    }
+    else{
+      debugger;
+      return false;
     }
   }
 }

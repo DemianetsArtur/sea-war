@@ -19,7 +19,7 @@ export class ConnectService {
   public nameClient: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public messages: ChatMessage[] = [];
   public coordinates: Coordinate[] = [];
-  public names: Player[] = [];
+  public names!: Player;
   public isPlayerRemove: Player[] = [];
 
   constructor(private info: InfoOptionsService,
@@ -65,7 +65,7 @@ export class ConnectService {
 
   public addTransferNameListener = () => {
     this.hubConnection.on(this.info.createName, (data: Player) => {
-      this.names.push(data);
+      this.names = data;
       if (data === null){
         this.transferNameHandler();
       }
@@ -124,7 +124,6 @@ export class ConnectService {
   }
 
   private transferNameHandler = () => {
-    this.alert.nameRepeat();
     this.router.navigate([this.info.boardUrl]);
   }
 }
