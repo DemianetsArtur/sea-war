@@ -1,0 +1,250 @@
+
+<section>
+  <div *ngIf="isGameEnd; else playGame">
+    <p class="text-center display-3 text-loading-center">End! {{msgGameEnd}}</p>
+
+    <div>
+      <button class="btn pixel-btn" 
+              (click)="playAgainHandler()">
+        play again
+      </button>
+    </div>
+
+  </div>
+
+  <ng-template #playGame>
+    <div *ngIf="!isPlayGame && !refreshGame; else elseBlock">
+      <p class="text-center display-3 text-loading-center">Wait for the second player to connect!</p>
+      <ngx-spinner></ngx-spinner>
+    </div>
+
+
+    <ng-template #elseBlock>
+      <div *ngIf="!filledPlayersCoordinate; else turnPlayer">
+        <div class="text-content content"> 
+          <h2>Arrange the ships</h2>
+          <h2>Arrange the ships</h2>
+        </div>
+      </div>
+      <ng-template #turnPlayer>
+        <div class="text-content content"> 
+          <h2>{{playerNameTurn}} turn</h2>
+          <h2>{{playerNameTurn}} turn</h2>
+        </div>
+      </ng-template>
+
+      <div *ngIf="isFillCoordinatePlayers()">
+        <ngx-spinner></ngx-spinner>
+      </div>
+
+      <div class="row row-table">
+        <div class=" col-6">
+          <table class=" table-w-h">
+            <thead>
+              <tr class="">
+                <th class="">#</th>
+                <th class=" text-center" 
+                    *ngFor="let size of sizeCol; let i = index" >
+                    {{i+1}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr class="" 
+                    *ngFor="let size of sizeCol; let i = index">
+                      <td class="">
+                        {{i+1}}
+                      </td>
+                      <td class="border border-color"
+                          *ngFor="let size of sizeCol; let j = index" 
+                          [ngClass]="{'border-color-ships': setStyle(i+1, j+1)}">
+                        <button class="btn btn-main"
+                                [disabled]="filledPlayersCoordinate"
+                                (click)="setCoordinatePlayer(i+1, j+1)"></button>
+                      </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class=" col-5"> 
+          <table class="table-w-h">
+            <thead >
+              <tr class="">
+                <th class="">#</th>
+                <th class=" text-center" 
+                    *ngFor="let size of sizeCol; let i = index" >
+                    {{i+1}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr class="" 
+                    *ngFor="let size of sizeCol; let i = index">
+                      <td class="">
+                        {{i+1}}
+                      </td>
+                      <td class="border border-color"
+                          *ngFor="let size of sizeCol; let j = index" 
+                          [ngClass]="{'border-color-opponent': setOpponentStyle(i+1, j+1)}" 
+                          [ngClass]="{'border-color-miss': setMissStyle(i+1, j+1)}">
+                        <button class="btn btn-main"
+                                [disabled]="!filledPlayersCoordinate" 
+                                (click)="shoot(i+1, j+1, name)"></button>
+                      </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> 
+      
+      <div *ngIf="!filledPlayersCoordinate">
+        <div class="row">
+          <div class="col">
+              <div class="text-align">
+                <span>Set first </span>
+              </div>
+              <div class="img-size">
+                  <img src="../../../assets/images/ships/1.PNG" class=" img-thumbnail img-opt" alt="">
+              </div>
+          </div>
+          <div class="col align-check-box">
+              <div *ngIf="!shipInfo.battleship.isState">
+                  <span class="size-sign">&#9989;</span>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="text-align-2">
+              <span>Set second</span>
+            </div>
+              <div class="img-size-2">
+                  <img src="../../../assets/images/ships/2.PNG" class=" img-thumbnail img-opt" alt="">
+              </div>
+          </div>
+          <div class="col align-check-box-2">
+              <div *ngIf="!shipInfo.cruiser.isState">
+                  <span class="size-sign">&#9989;</span>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="text-align-3">
+              <span>Set third</span>
+            </div>
+              <div class="img-size-3">
+                  <img src="../../../assets/images/ships/3.PNG" class=" img-thumbnail img-opt" alt="">
+              </div>
+          </div>
+          <div class="col align-check-box-3">
+              <div *ngIf="!shipInfo.destroyer.isState">
+                  <span class="size-sign">&#9989;</span>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="text-align-3">
+              <span>Set fourth</span>
+            </div>
+              <div class="img-size-3">
+                  <img src="../../../assets/images/ships/4.PNG" class=" img-thumbnail img-opt" alt="">
+              </div>
+          </div>
+          <div class="col align-check-box-3">
+              <div *ngIf="!shipInfo.torpedoBoat.isState">
+                  <span class="size-sign">&#9989;</span>
+              </div>
+          </div>
+        </div>
+
+        
+        
+        
+      </div>
+
+      <div *ngIf="!filledPlayersCoordinate">
+        <button class="btn btn-neon"
+                [disabled]="!coordinateCount" 
+                (click)="sendCoordinatePlayer()">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Start
+        </button>
+      </div>
+
+
+      <div *ngIf="filledPlayersCoordinate" class="page-content page-container" id="page-content">
+        <div class="padding">
+            <div class="row container d-flex justify-content-lg-start">
+                <div class="col-md-6">
+                    <div class="card card-bordered">
+                        <div class="card-header">
+                            <h4 class="card-title"><strong>Chat</strong></h4> 
+                            <button class="btn btn-xs btn-secondary" 
+                                    data-abc="true"
+                                    [disabled]="message.length==0"
+                                    (click)="sendMessage()">Send
+                            </button>
+                        </div>
+                        <div ngx-auto-scroll observe-attributes class="ps-container ps-theme-default ps-active-y ps-container-div" id="chat-content" style="overflow-y: scroll !important;">
+                            <div class="media media-chat" *ngFor="let entity of player"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                                <div class="media-body">
+                                    <p>Hi player {{entity.name}} joined</p>
+                                    
+                                </div>
+                            </div>
+                            <div class="media media-chat" *ngFor="let msg of messages"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                                <div class="media-body">
+                                    <p>{{msg.name}}: {{msg.text}}</p>
+                                    
+                                </div>
+                            </div>
+                            <div  class="media media-chat" *ngFor="let crd of coordinates"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                                <div class="media-body">
+                                    <p>{{crd.name}}: walked {{crd.firstCoordinate}}, {{crd.secondCoordinate}}</p>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="ps-scrollbar-x-rail ps-scrollbar-div">
+                                <div class="ps-scrollbar-x ps-scrollbar-w" tabindex="0"></div>
+                            </div>
+                            <div class="ps-scrollbar-y-rail ps-scrollbar-y-div" >
+                                <div class="ps-scrollbar-y ps-scrollbar-y-s" tabindex="0"></div>
+                            </div>
+                        </div>
+                        <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                            <input class="publisher-input" 
+                                   type="text" 
+                                   placeholder="Write something"
+                                   [(ngModel)]="message"/> 
+                                   <span class="publisher-btn file-group"> 
+                                       <i class="fa fa-paperclip file-browser"></i> 
+                                       <input type="file"> 
+                                    </span> 
+                                    <a class="publisher-btn" 
+                                       href="#" data-abc="true">
+                                       <i class="fa fa-smile"></i>
+                                    </a> 
+                                    <a class="publisher-btn text-info" 
+                                       href="#" data-abc="true">
+                                       <i class="fa fa-paper-plane"></i>
+                                    </a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </ng-template>
+  </ng-template>
+
+  <div class="wave wave1"></div>
+  <div class="wave wave2"></div>  
+  <div class="wave wave3"></div>
+  <div class="wave wave4"></div>
+</section>

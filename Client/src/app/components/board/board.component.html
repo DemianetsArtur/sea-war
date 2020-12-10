@@ -1,0 +1,30 @@
+
+ <section>
+
+    <div class="container input-div">
+        <h2>Ready to sink some ships?</h2>
+        <form  action="">
+            <div class="input-field">
+                <input type="text"
+                       class=" input-group"
+                       name="first" 
+                       [(ngModel)]="nameClient" 
+                       placeholder="Please Enter Your Name" 
+                       required="">
+                <span></span>
+            </div>
+            <input class="btn" 
+                   type="submit" 
+                   value="Go" 
+                   name="" 
+                   [disabled]="nameClient.length==0 && playerCount" 
+                   (click)="setNameClient()">
+        </form>
+    </div>
+
+
+     <div class="wave wave1"></div>
+     <div class="wave wave2"></div>
+     <div class="wave wave3"></div>
+     <div class="wave wave4"></div>
+ </section>
