@@ -3,10 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Social_Network.API</RootNamespace>
+    <UserSecretsId>88eca55e-1d54-42d7-a4ca-3dd5b96081f9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Social-Network.BLL\Social-Network.BLL.csproj" />
+    <ProjectReference Include="..\Social-Network.DAL\Social-Network.DAL.csproj" />
   </ItemGroup>
 
 

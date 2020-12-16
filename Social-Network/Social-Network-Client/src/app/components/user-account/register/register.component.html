@@ -1,0 +1,81 @@
+<div class="col-md-6 offset-md-3 mt-5">    
+    <div *ngIf="registerForm.errors?.invalidLogin" class="alert alert-danger mt-3 mb-0">    
+      Data is incorrect.    
+    </div>    
+    <div class="card">    
+      <h5 class="card-header">Sign Up</h5>    
+      <div class="card-body">    
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">    
+          <div class="form-group">    
+            <label for="name">Username</label>    
+            <input type="text" formControlName="name" class="form-control" tabindex="1" autofocus    
+              [ngClass]="{ 'is-invalid': submitted && registerFormControl.name.errors }" />    
+            <div *ngIf="submitted && registerFormControl.name.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.name.errors.required">Username is required</div>    
+            </div>    
+          </div>
+          <div class="form-group">    
+            <label for="email">Email</label>    
+            <input type="email" formControlName="email" class="form-control" tabindex="2"    
+              [ngClass]="{ 'is-invalid': submitted && registerFormControl.email.errors || submitted && registerForm.controls['email'].hasError('email') }" />    
+            <div *ngIf="submitted && registerFormControl.email.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.email.errors.required">Email is required</div>    
+            </div>
+            <div *ngIf="submitted && registerForm.controls['email'].hasError('email')" class="invalid-feedback">    
+                <div *ngIf="registerForm.controls['email'].hasError('email')">Email must be with @ symbol</div>    
+            </div>     
+          </div> 
+          <div class="form-group">    
+            <label for="firstName">First Name</label>    
+            <input type="firstName" formControlName="firstName" class="form-control" tabindex="2"    
+              [ngClass]="{ 'is-invalid': submitted && registerFormControl.firstName.errors }" />    
+            <div *ngIf="submitted && registerFormControl.firstName.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.firstName.errors.required">First Name is required</div>    
+            </div>    
+          </div>
+          <div class="form-group">    
+            <label for="lastName">Last Name</label>    
+            <input type="lastName" formControlName="lastName" class="form-control" tabindex="2"    
+              [ngClass]="{ 'is-invalid': submitted && registerFormControl.lastName.errors }" />    
+            <div *ngIf="submitted && registerFormControl.lastName.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.lastName.errors.required">Last Name is required</div>    
+            </div>    
+          </div>    
+          <div class="form-group">    
+            <label for="password">Password</label>    
+            <input type="password" formControlName="password" class="form-control" tabindex="2"    
+              [ngClass]="{ 'is-invalid': submitted && registerFormControl.password.errors || submitted && registerForm.controls['password'].hasError('minlength') }" />    
+            <div *ngIf="submitted && registerFormControl.password.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.password.errors.required">Password is required</div>  
+            </div> 
+            <div *ngIf="submitted && registerForm.controls['password'].hasError('minlength')" class="invalid-feedback">   
+                <div *ngIf="registerForm.controls['password'].hasError('minlength')">Must be at least 8 characters!</div>  
+            </div>    
+          </div>
+          <div class="form-group">    
+            <label for="confirmPassword">Confirm Password</label>    
+            <input type="password" formControlName="confirmPassword" class="form-control" tabindex="2"    
+              [ngClass]="{ 'is-invalid': submitted && registerFormControl.confirmPassword.errors || submitted && equalPassword}" />    
+            <div *ngIf="submitted && registerFormControl.confirmPassword.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.confirmPassword.errors.required">Password is required</div>    
+            </div>
+            <div *ngIf="submitted && equalPassword" class="invalid-feedback">    
+                <div *ngIf="equalPassword">Password is not equal</div>    
+            </div>
+          </div>
+          <div class="form-group">    
+            <label for="aboutMe">About Me</label>    
+            <input type="aboutMe" formControlName="aboutMe" class="form-control" tabindex="2"    
+              [ngClass]="{ 'is-invalid': submitted && registerFormControl.aboutMe.errors }" />    
+            <div *ngIf="submitted && registerFormControl.aboutMe.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.aboutMe.errors.required">About Me is required</div>    
+            </div>    
+          </div>
+          <button [disabled]="loading" class="btn btn-primary">    
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>    
+            Sign Up    
+          </button>    
+        </form>    
+      </div>    
+    </div>    
+  </div>
