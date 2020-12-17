@@ -8,13 +8,14 @@ import { AdminHomeComponent } from './components/user-account/admin-home/admin-h
 import { AdminGuard } from './guards/user-account/admin/admin.guard';
 import { RegisterComponent } from './components/user-account/register/register.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'user-home', component: UserHomeComponent, canActivate: [UserGuard] },
-  { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] }
+  { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] },
+  { path: 'user-profile', component: UserProfileComponent, canActivate: [UserGuard] }
 ];
 
 @NgModule({

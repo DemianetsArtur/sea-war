@@ -18,11 +18,6 @@
           [ngClass]="{ show: isExpanded }"
         >
           <ul class="navbar-nav flex-grow">
-            <li class="nav-item"
-                [routerLinkActive]="['link-active']"
-                [routerLinkActiveOptions]="{ exact: true }">
-              <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-            </li>
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
               <a class="nav-link text-dark" *ngIf="!userData.isLoggedIn" [routerLink]='["/login"]'>Sign In</a>
             </li>
@@ -30,16 +25,16 @@
               <a class="nav-link text-dark" *ngIf="!userData.isLoggedIn" [routerLink]='["/register"]'>Sign Up</a>
             </li>
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" *ngIf="userData.isLoggedIn && userData.role===userRole.User" [routerLink]='["/user-home"]' [routerLink]=''>UserHome</a>
+              <a class="nav-link text-dark" *ngIf="userData.isLoggedIn && userData.role===userRole.User" [routerLink]='["/user-profile"]' [routerLink]=''>Profile</a>
             </li>
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" *ngIf="userData.isLoggedIn && userData.role===userRole.Admin" [routerLink]='["/admin-home"]' [routerLink]=''>AdminHome</a>
+              <a class="nav-link text-dark" *ngIf="userData.isLoggedIn && userData.role===userRole.Admin" [routerLink]='["/admin-home"]' [routerLink]=''>Admin Profile</a>
             </li>
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
               <a class="nav-link text-dark" *ngIf="userData.isLoggedIn" (click)=logout() [routerLink]=''>Sign Out</a>
             </li>
             <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="userData.isLoggedIn">
-              <a class="nav-link text-dark">Welcome <b>{{userData.email}}</b> </a>
+              <a class="nav-link text-dark">Welcome <b>{{userData.name}}</b> </a>
             </li>
           </ul>
         </div>
