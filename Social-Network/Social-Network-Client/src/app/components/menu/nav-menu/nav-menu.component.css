@@ -12,6 +12,15 @@ a.navbar-brand {
       font-size: 16px;
     }
   }
+
+  .margin-bottom{
+    margin-bottom: 0 !important;
+  }
+
+  /* .color-items{
+    background: #000;
+    color: #fff;
+  } */
   
   .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
