@@ -1,4 +1,4 @@
-import { UserAccountRegister } from './../../../models/user-account/user-account-register/user-account-register';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ConnectService } from '../../../services/connect/connect.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   public file!: FormData ;
   public fileEmpty = false;
   public typeIncorrect = false;
+  public faUserCircle = faUserCircle;
 
   constructor(private formBuilder: FormBuilder, 
               private route: ActivatedRoute,    
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit = () => {
-    
+    debugger;
     this.submitted = true;
     if (this.registerForm.invalid) {
       return;
@@ -109,7 +110,7 @@ export class RegisterComponent implements OnInit {
       ])],
       aboutMe: [null, Validators.required],
       confirmPassword: [null, Validators.required],
-      image: [ null,  ]
+      date: [ null, Validators.required ]
     });
   }
 }

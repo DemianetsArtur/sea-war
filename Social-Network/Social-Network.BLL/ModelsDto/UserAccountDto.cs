@@ -13,6 +13,8 @@
         public string LastName { get;set; }
         
         public string AboutMe { get; set; }
-        
+
+        public string Date { get; set; }
+
     }
 }

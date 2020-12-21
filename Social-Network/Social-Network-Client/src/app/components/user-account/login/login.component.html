@@ -1,4 +1,4 @@
-<div class="col-md-6 offset-md-3 mt-5">    
+<!-- <div class="col-md-6 offset-md-3 mt-5">    
     <div *ngIf="loginForm.errors?.invalidLogin" class="alert alert-danger mt-3 mb-0">    
       Username or Password is incorrect.    
     </div>    
@@ -32,4 +32,55 @@
         </form>    
       </div>    
     </div>    
-  </div>   
+  </div>    -->
+
+  <section>
+    <div class="container">
+      <div class="contactinfo">
+        <div>
+          <h2>Sign In</h2>
+          <ul class="info">
+            <li>
+              <span></span>
+              <span>Social Network</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="contactFrom">
+        
+        <h2>Fill Data</h2>
+        <div>
+          <form class="formBox" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="inputBox w100">
+            <input formControlName="name" 
+                   type="text" 
+                   name="" 
+                   [ngClass]="{ 'is-invalid': submitted && loginFormControl.name.errors }" required>
+            <span>Nick Name</span>
+            <div *ngIf="submitted && loginFormControl.name.errors" class="invalid-feedback">    
+              <div *ngIf="loginFormControl.name.errors.required"><span class="text-invalid">Nick Name is required</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w100">
+            <input type="password" 
+                   name=""
+                   formControlName="password"
+                   [ngClass]="{ 'is-invalid': submitted && loginFormControl.password.errors || submitted && loginForm.controls['password'].hasError('minlength') }" 
+                   required>
+            <span>Password</span>
+            <div *ngIf="submitted && loginFormControl.password.errors" class="invalid-feedback">    
+              <div *ngIf="loginFormControl.password.errors.required"><span class="text-invalid">Password is required</span></div>  
+            </div> 
+            <div *ngIf="submitted && loginForm.controls['password'].hasError('minlength')" class="invalid-feedback">   
+                <div *ngIf="loginForm.controls['password'].hasError('minlength')"><span class="text-invalid">Must be at least 8 characters!</span></div>  
+            </div>
+          </div>
+          <div class="inputBox w100"> 
+            <input [disabled]="loading" type="submit" value="Send">
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

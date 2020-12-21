@@ -19,5 +19,7 @@ namespace Social_Network.API.Infrastructure.ViewModels.UserAccount
         
         [Required] public string UserType { get; set; }
 
+        [Required] public string Date { get; set; }
+
     }
 }

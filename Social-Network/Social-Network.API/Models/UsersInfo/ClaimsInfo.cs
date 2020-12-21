@@ -9,5 +9,7 @@
         public const string LastName = "lastName";
 
         public const string AboutMe = "aboutMe";
+
+        public const string Date = "date";
     }
 }

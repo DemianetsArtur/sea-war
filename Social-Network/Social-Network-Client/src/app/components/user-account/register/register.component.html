@@ -1,99 +1,138 @@
-<div class="col-md-6 offset-md-3 mt-5">    
-    <div *ngIf="registerForm.errors?.invalidLogin" class="alert alert-danger mt-3 mb-0">    
-      Data is incorrect.    
-    </div>    
-    <div class="card">    
-      <h5 class="card-header">Sign Up</h5>    
-      <div class="card-body">    
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">    
-          <div class="form-group">    
-            <label for="name">Username</label>    
-            <input type="text" formControlName="name" class="form-control" tabindex="1" autofocus    
-              [ngClass]="{ 'is-invalid': submitted && registerFormControl.name.errors }" />    
-            <div *ngIf="submitted && registerFormControl.name.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.name.errors.required">Username is required</div>    
-            </div>    
-          </div>
-          <div class="form-group">    
-            <label for="email">Email</label>    
-            <input type="email" formControlName="email" class="form-control" tabindex="2"    
-              [ngClass]="{ 'is-invalid': submitted && registerFormControl.email.errors || submitted && registerForm.controls['email'].hasError('email') }" />    
-            <div *ngIf="submitted && registerFormControl.email.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.email.errors.required">Email is required</div>    
-            </div>
-            <div *ngIf="submitted && registerForm.controls['email'].hasError('email')" class="invalid-feedback">    
-                <div *ngIf="registerForm.controls['email'].hasError('email')">Email must be with @ symbol</div>    
-            </div>     
-          </div> 
-          <div class="form-group">    
-            <label for="firstName">First Name</label>    
-            <input type="firstName" formControlName="firstName" class="form-control" tabindex="2"    
-              [ngClass]="{ 'is-invalid': submitted && registerFormControl.firstName.errors }" />    
+<section>
+    <div class="container">
+      <div class="contactinfo">
+        <div>
+          <h2>Sign Up</h2>
+          <ul class="info">
+            <li>
+              <span><fa-icon [icon]="faUserCircle"></fa-icon></span>
+              <span>Social Network</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="contactFrom">
+        
+        <h2>Fill Data</h2>
+        <div>
+          <form class="formBox" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="inputBox w50">
+            <input type="text" 
+                   name=""
+                   formControlName="firstName"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.firstName.errors }" 
+                   required>
+            <span>First Name</span>
             <div *ngIf="submitted && registerFormControl.firstName.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.firstName.errors.required">First Name is required</div>    
-            </div>    
+              <div *ngIf="registerFormControl.firstName.errors.required"><span class="text-invalid">First Name is required</span></div>    
+            </div>
           </div>
-          <div class="form-group">    
-            <label for="lastName">Last Name</label>    
-            <input type="lastName" formControlName="lastName" class="form-control" tabindex="2"    
-              [ngClass]="{ 'is-invalid': submitted && registerFormControl.lastName.errors }" />    
+          <div class="inputBox w50">
+            <input type="text" 
+                   name=""
+                   formControlName="lastName"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.lastName.errors }" 
+                   required>
+            <span>Last Name</span>
             <div *ngIf="submitted && registerFormControl.lastName.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.lastName.errors.required">Last Name is required</div>    
-            </div>    
-          </div>    
-          <div class="form-group">    
-            <label for="password">Password</label>    
-            <input type="password" formControlName="password" class="form-control" tabindex="2"    
-              [ngClass]="{ 'is-invalid': submitted && registerFormControl.password.errors || submitted && registerForm.controls['password'].hasError('minlength') }" />    
+              <div *ngIf="registerFormControl.lastName.errors.required"><span class="text-invalid">Last Name is required</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input formControlName="name" 
+                   type="text" 
+                   name="" 
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.name.errors }" required>
+            <span>Nick Name</span>
+            <div *ngIf="submitted && registerFormControl.name.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.name.errors.required"><span class="text-invalid">Nick Name is required</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input type="email" 
+                   name=""
+                   formControlName="email"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.email.errors || submitted && registerForm.controls['email'].hasError('email') }"
+                   required>
+            <span>Email Address</span>
+            <div *ngIf="submitted && registerForm.controls['email'].hasError('email')" class="invalid-feedback">    
+              <div *ngIf="registerForm.controls['email'].hasError('email')"><span class="text-invalid">Email Address must be with @ symbol</span></div>    
+            </div>
+            <div *ngIf="submitted && registerFormControl.email.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.email.errors.required"><span class="text-invalid">Email Address is required</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input type="password" 
+                   name=""
+                   formControlName="password"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.password.errors || submitted && registerForm.controls['password'].hasError('minlength') }" 
+                   required>
+            <span>Password</span>
             <div *ngIf="submitted && registerFormControl.password.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.password.errors.required">Password is required</div>  
+              <div *ngIf="registerFormControl.password.errors.required"><span class="text-invalid">Password is required</span></div>  
             </div> 
             <div *ngIf="submitted && registerForm.controls['password'].hasError('minlength')" class="invalid-feedback">   
-                <div *ngIf="registerForm.controls['password'].hasError('minlength')">Must be at least 8 characters!</div>  
-            </div>    
+                <div *ngIf="registerForm.controls['password'].hasError('minlength')"><span class="text-invalid">Must be at least 8 characters!</span></div>  
+            </div>
           </div>
-          <div class="form-group">    
-            <label for="confirmPassword">Confirm Password</label>    
-            <input type="password" formControlName="confirmPassword" class="form-control" tabindex="2"    
-              [ngClass]="{ 'is-invalid': submitted && registerFormControl.confirmPassword.errors || submitted && equalPassword}" />    
+          <div class="inputBox w50">
+            <input type="password" 
+                   name=""
+                   formControlName="confirmPassword"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.confirmPassword.errors || submitted && equalPassword}"
+                   required>
+            <span>Confirm Password</span>
             <div *ngIf="submitted && registerFormControl.confirmPassword.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.confirmPassword.errors.required">Password is required</div>    
+              <div *ngIf="registerFormControl.confirmPassword.errors.required"><span class="text-invalid">Password is required!</span></div>    
             </div>
             <div *ngIf="submitted && equalPassword" class="invalid-feedback">    
-                <div *ngIf="equalPassword">Password is not equal</div>    
+                <div *ngIf="equalPassword"><span class="text-invalid">Password is not equal!</span></div>    
             </div>
           </div>
-          <div class="form-group">    
-            <label for="aboutMe">About Me</label>    
-            <input type="aboutMe" formControlName="aboutMe" class="form-control" tabindex="2"    
-              [ngClass]="{ 'is-invalid': submitted && registerFormControl.aboutMe.errors }" />    
-            <div *ngIf="submitted && registerFormControl.aboutMe.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.aboutMe.errors.required">About Me is required</div>    
-            </div>    
+          <div class="inputBox w50">
+            <input type="date" 
+                   name=""
+                   formControlName="date"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.date.errors }"
+                   required>
+            <span class="text-data">Date</span>
+            <div *ngIf="submitted && registerFormControl.date.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.date.errors.required"><span class="text-invalid">Date is required!</span></div>    
+            </div>
           </div>
-
-          <div class="form-group">    
-            <label for="image" class="form-label">Select Image</label> 
-            <input #fileInput
-                   class="form-control-file"
-                   type="file"
-                   accept="image/*" (change)="setFileOption(fileInput.files)" 
-                   tabindex="2" 
-                   [ngClass]="{ 'is-invalid': submitted && fileEmpty || submitted && typeIncorrect }"/>
+          <div class="inputBox w50">
+            <input #fileInput 
+                  type="file" 
+                  name="" 
+                  accept="image/*" 
+                  (change)="setFileOption(fileInput.files)"
+                  [ngClass]="{ 'is-invalid': submitted && fileEmpty || submitted && typeIncorrect }" 
+                  required>
+            <span class="text-data">Image</span>
             <div *ngIf="submitted && fileEmpty" class="invalid-feedback">    
-              <div *ngIf="fileEmpty">image is required</div>    
+              <div *ngIf="fileEmpty"><span class="text-invalid">Image is required!</span></div>    
             </div>
             <div *ngIf="submitted && typeIncorrect" class="invalid-feedback">    
-              <div *ngIf="typeIncorrect">type must be .jpeg</div>    
+              <div *ngIf="typeIncorrect"><span class="text-invalid">Type must be .jpeg!</span></div>    
             </div>
           </div>
-
-
-          <button [disabled]="loading" class="btn btn-primary">    
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>    
-            Sign Up    
-          </button>    
-        </form>    
-      </div>    
-    </div>    
-  </div>
+          <div class="inputBox w100">
+            <textarea name=""
+                      formControlName="aboutMe"
+                      [ngClass]="{ 'is-invalid': submitted && registerFormControl.aboutMe.errors }" 
+                      required></textarea>
+            <span>Write about you...</span>
+            <div *ngIf="submitted && registerFormControl.aboutMe.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.aboutMe.errors.required"><span class="text-invalid">About Me is required!</span></div>    
+            </div> 
+            
+          </div>
+          <div class="inputBox w100"> 
+            <input [disabled]="loading" type="submit" value="Send">
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

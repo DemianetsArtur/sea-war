@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { UserAccount } from 'src/app/models/user-account/user-account';
 import { UserRole } from 'src/app/models/user-account/user-role';
 import { ConnectService } from '../../services/connect/connect.service';
@@ -27,7 +26,6 @@ export class UserProfileComponent implements OnInit {
         this.imageDownload = value + this.optionInfo.blobConfig;
       });
     }
-
    }
 
   ngOnInit(): void {
