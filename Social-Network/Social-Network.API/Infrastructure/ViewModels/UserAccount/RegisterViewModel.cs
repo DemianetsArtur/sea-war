@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Social_Network.API.Infrastructure.ViewModels.UserAccount
 {
@@ -17,5 +18,6 @@ namespace Social_Network.API.Infrastructure.ViewModels.UserAccount
         [Required] public string AboutMe { get; set; }
         
         [Required] public string UserType { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Azure.Storage.Blobs;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Social_Network.BLL.Infrastructure.Interfaces;
 using Social_Network.BLL.Services;
@@ -17,8 +18,10 @@ namespace Social_Network.API.Infrastructure.Config
             var storageAccount = configuration["Table:StorageAccount"];
 
             services.AddSingleton<IUserAccountRepository>(opt => new UserAccountRepository(new TableManage(storageAccount, connectionString)));
-            services.AddSingleton<IUoW>(opt => new UoW(new TableManage(storageAccount, connectionString)));
+            services.AddSingleton<IBlobStorageRepository, BlobStorageRepository>();
+            services.AddSingleton<IUoW>(_ => new UoW(new TableManage(storageAccount, connectionString), new BlobServiceClient(connectionString)));
             services.AddSingleton<IUserAccountService, UserAccountService>();
+            services.AddSingleton<IBlobStorageService, BlobStorageService>();
         } 
     }
 }

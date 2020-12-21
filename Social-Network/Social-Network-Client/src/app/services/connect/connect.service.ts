@@ -1,19 +1,20 @@
 import { UserAccountRegister } from './../../models/user-account/user-account-register/user-account-register';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { OptionsInfoService } from '../options-info/options-info.service';
 import { map } from 'rxjs/operators';
 import { UserAccount } from '../../models/user-account/user-account';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserRole } from '../../models/user-account/user-role';
-
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectService {
   public userAccountData = new BehaviorSubject<UserAccount>(new UserAccount());
   public userAccountData$ = this.userAccountData.asObservable();
+  public fileToUpload!: FormData; 
+  public imageDownload!: any;
   constructor(private http: HttpClient, 
               private optionsInfo: OptionsInfoService, 
               private router: Router) { }
@@ -44,6 +45,9 @@ export class ConnectService {
       userAccountDetails.name = decodeUserAccountDetails.firstName;
       userAccountDetails.isLoggedIn = true;
       userAccountDetails.role = decodeUserAccountDetails.role;
+      userAccountDetails.firstName = decodeUserAccountDetails.firstName;
+      userAccountDetails.lastName = decodeUserAccountDetails.lastName;
+      userAccountDetails.aboutMe = decodeUserAccountDetails.aboutMe;
       this.userAccountData.next(userAccountDetails);
     }
   }
@@ -52,6 +56,27 @@ export class ConnectService {
     userRegisterDetails.userType = UserRole.User;
     return this.http.post<any>(this.optionsInfo.registerPost, userRegisterDetails);
   }
+
+  public imagePost = (files: any, name: string) => {
+    
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append(fileToUpload.type ,fileToUpload, name);
+
+    this.http.post(this.optionsInfo.imagePost, formData, { reportProgress: true, observe: 'events' })
+             .subscribe();
+  }
+
+  public imageDownloadGet = (name: string) => {
+    return this.http.get(this.optionsInfo.imageGet + '/' + name)
+               .pipe(map(result => result));
+
+  }
+
+
 
   public logout = () => {
     localStorage.removeItem(this.optionsInfo.authToken);

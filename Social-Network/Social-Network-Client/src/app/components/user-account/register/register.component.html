@@ -71,6 +71,24 @@
               <div *ngIf="registerFormControl.aboutMe.errors.required">About Me is required</div>    
             </div>    
           </div>
+
+          <div class="form-group">    
+            <label for="image" class="form-label">Select Image</label> 
+            <input #fileInput
+                   class="form-control-file"
+                   type="file"
+                   accept="image/*" (change)="setFileOption(fileInput.files)" 
+                   tabindex="2" 
+                   [ngClass]="{ 'is-invalid': submitted && fileEmpty || submitted && typeIncorrect }"/>
+            <div *ngIf="submitted && fileEmpty" class="invalid-feedback">    
+              <div *ngIf="fileEmpty">image is required</div>    
+            </div>
+            <div *ngIf="submitted && typeIncorrect" class="invalid-feedback">    
+              <div *ngIf="typeIncorrect">type must be .jpeg</div>    
+            </div>
+          </div>
+
+
           <button [disabled]="loading" class="btn btn-primary">    
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>    
             Sign Up    

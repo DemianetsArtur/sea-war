@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FileSaverModule } from 'ngx-filesaver';
+import { MenuProfileComponent } from './components/menu/menu-profile/menu-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NavMenuComponent,
     RegisterComponent,
     HomeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    MenuProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    FontAwesomeModule
+    FontAwesomeModule,
+    FileSaverModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },

@@ -3,6 +3,7 @@ using Social_Network.DAL.Entities;
 using Social_Network.DAL.Infrastructure.Interfaces;
 using Social_Network.DAL.Manages.Tables;
 using System.Linq;
+using Social_Network.DAL.Infrastructure.Models;
 
 namespace Social_Network.DAL.Infrastructure.Repositories
 {
@@ -60,7 +61,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         private CloudTable GetTable()
         {
             var storageKey = this._tableManage.StorageKey;
-            var tableName = "UserAccount";
+            var tableName = StorageInfo.TableName;
             var storageAccount = CloudStorageAccount.Parse(storageKey);
             var cloudTableClient = storageAccount.CreateCloudTableClient();
             var table = cloudTableClient.GetTableReference(tableName);

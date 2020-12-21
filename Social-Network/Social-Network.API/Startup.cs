@@ -1,7 +1,11 @@
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Social_Network.API.Infrastructure.Config;
 
@@ -24,6 +28,7 @@ namespace Social_Network.API
             services.SetAuthorization();
             services.SetMapperDi();
             services.SetCors(this.Configuration);
+            services.SetBlobStorage(this.Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -34,7 +39,7 @@ namespace Social_Network.API
             }
 
             app.UseCors(this.Configuration["Cors:CorsPolicy"]);
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

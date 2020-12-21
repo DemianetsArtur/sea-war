@@ -15,5 +15,7 @@ namespace Social_Network.DAL.Entities
         public string FirstName { get;set; }
         
         public string LastName { get;set; }
+        
+        public string AboutMe { get; set; }
     }
 }
