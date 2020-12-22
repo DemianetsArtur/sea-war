@@ -8,14 +8,72 @@
 
 .body{
     min-height: 60vh;
+    min-width: 40vh;
     background:white;
 }
 
+h1{
+    margin: 0 0 10px;
+    position: relative;
+    margin-top: -80px;
+    left: 32%;
+    color: #000;
+    font-size: 24px;
+}
 
+.box{
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    width: 500px;
+}
+
+input, .btn-search, .remove-btn{
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    box-sizing: border-box;
+    transition: .5s;
+}
+
+input[type="text"]{
+    background: rgb(224, 224, 224);
+    width: 280px;
+    height: 50px;
+    border: none;
+    outline: none;
+    padding: 0 25px;
+    color: black;
+    border-radius: 25px 0 0 25px;
+}
+
+.remove-btn{
+    margin-top: -5px;
+    position: relative;
+    width: 40px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: rgb(114, 114, 114);
+    color: black;  
+}
+
+.btn-search{
+    position: relative;
+    border-radius:  0 25px 25px 0;
+    width: 100px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: black;
+    color: linen;
+}
 
 .card{
     position: absolute;
-    top: 25%;
+    top: 30%;
     left: 50%;
     border: none;
 }
@@ -25,7 +83,7 @@
     background: #000;
     margin-bottom: 20px;
     transform: translate(-50%, -50%);
-    width: 800px; 
+    width: 750px; 
     color: #fff;
     padding-right: 10px;
     box-sizing: border-box;
@@ -52,8 +110,8 @@ ul li span{
 
 .card ul li button{
     position: absolute;
-    margin-top: 6px;
-    left: 85%;
+    margin-top: 5.5px;
+    left: 86%;
     background: #fff;
     color: #000;
     border: none;padding: 3px;

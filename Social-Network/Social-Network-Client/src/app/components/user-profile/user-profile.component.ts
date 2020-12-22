@@ -23,7 +23,7 @@ export class UserProfileComponent implements OnInit {
     });
     if (this.userData !== undefined){
       this.imageSubscription = this.connect.imageDownloadGet(this.userData.name).subscribe(value => {
-        this.imageDownload = value + this.optionInfo.blobConfig;
+        this.imageDownload = value;
       });
     }
     this.connect.userAllGet(this.userData.name);

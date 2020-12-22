@@ -2,14 +2,22 @@
     <app-menu-profile></app-menu-profile>
 </div>
 
-<div class="body"   >
+<div class="body">
+    <div class="box">
+        <h1>Search</h1>
+        <form action="">
+            <input #inputData type="text" name="" placeholder="Type Nick Name...">
+            <button class="remove-btn" (click)="removeFilterData()"><fa-icon [icon]="faTimes"></fa-icon></button>
+            <button class="btn-search" (click)="filterData(inputData.value)" >Search</button>
+        </form>
+    </div>
     <div class="card" >
         <div class="container" *ngFor="let users of userArray">
             <ul>
                 <li>
                     <span class="imgBx"><img [src]="users.imagePath" alt=""></span>
-                    <span class="name">{{users.name}}</span>
-                    <span class="first-name">{{users.firstName}}</span>
+                    <span class="name">Nick Name: {{users.name}}</span>
+                    <span class="first-name">Full Name: {{users.firstName}}</span>
                     <span class="last-name">{{users.lastName}}</span>
                     <button>Add Friends</button>
                 </li>

@@ -9,10 +9,14 @@ export class AlertService {
   constructor(private toastr: ToastrService) { }
 
   public sameUserAlert = () => {
-    this.toastr.error('','User with the same name already exists');
+    this.toastr.error('','User with the same name already exists!');
   }
 
   public userNotExist = () => {
-    this.toastr.error('', 'No such user exists');
+    this.toastr.error('', 'No such user exists!');
+  }
+
+  public userNickNameNotExist = () => {
+    this.toastr.error('', 'User with this nickname does not exist!');
   }
 }
