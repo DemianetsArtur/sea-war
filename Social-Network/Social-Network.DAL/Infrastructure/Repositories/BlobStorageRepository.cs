@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Microsoft.Azure.Cosmos.Table;
 using Social_Network.DAL.Infrastructure.Interfaces;
 using Social_Network.DAL.Infrastructure.Models;
 
@@ -19,7 +20,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         
         public async Task<Uri> FileUploadToBlobAsync(Stream content, string contentType, string fileName)
         {
-            var containerClient = this.GetContainerClient();
+            var containerClient = this.GetContainerClient(fileName);
             var blobClient = containerClient.GetBlobClient(fileName);
             await blobClient.UploadAsync(content, new BlobHttpHeaders {ContentType = contentType});
             return blobClient.Uri;
@@ -27,14 +28,13 @@ namespace Social_Network.DAL.Infrastructure.Repositories
 
         public async Task<Uri> GetFileFromBlobAsync(string fileName)
         {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(StorageInfo.ContainerName);
+            var containerClient = this.GetContainerClient(fileName);
             var blobClient = containerClient.GetBlobClient(fileName);
             var entity = await blobClient.DownloadAsync();
             return blobClient.Uri;
-            //return new DownloadFileInfo{ Content = entity.Value.Content, ContentType = entity.Value.ContentType};
         }
 
-        private BlobContainerClient GetContainerClient()
+        private BlobContainerClient GetContainerClient(string fileName)
         {
             var containerClient = this._blobServiceClient.GetBlobContainerClient(StorageInfo.ContainerName);
             containerClient.CreateIfNotExists(PublicAccessType.Blob);

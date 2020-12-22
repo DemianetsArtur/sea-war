@@ -1,15 +1,13 @@
-﻿using Microsoft.Azure.Cosmos.Table;
-
-namespace Social_Network.DAL.Entities
+﻿namespace Social_Network.BLL.ModelsDto
 {
-    public class UserAccount : TableEntity
+    public class FriendDto
     {
         public string Name { get; set; }
-
+        
         public string Email { get; set; }
 
         public string Password { get; set; }
-
+        
         public string UserType { get; set; }
         
         public string FirstName { get;set; }
@@ -17,9 +15,7 @@ namespace Social_Network.DAL.Entities
         public string LastName { get;set; }
         
         public string AboutMe { get; set; }
-        
-        public string Date { get; set; }
 
-        public string ImagePath { get; set; }
+        public string Date { get; set; }
     }
 }

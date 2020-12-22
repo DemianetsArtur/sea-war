@@ -15,6 +15,8 @@ export class ConnectService {
   public userAccountData$ = this.userAccountData.asObservable();
   public fileToUpload!: FormData; 
   public imageDownload!: any;
+  public userAccountArray = new BehaviorSubject<UserAccount[]>([]);
+  public userAccountArray$ = this.userAccountArray.asObservable();
   constructor(private http: HttpClient, 
               private optionsInfo: OptionsInfoService, 
               private router: Router) { }
@@ -48,6 +50,8 @@ export class ConnectService {
       userAccountDetails.firstName = decodeUserAccountDetails.firstName;
       userAccountDetails.lastName = decodeUserAccountDetails.lastName;
       userAccountDetails.aboutMe = decodeUserAccountDetails.aboutMe;
+      userAccountDetails.date = decodeUserAccountDetails.date;
+      userAccountDetails.imagePath = decodeUserAccountDetails.imagePath;
       this.userAccountData.next(userAccountDetails);
     }
   }
@@ -76,7 +80,14 @@ export class ConnectService {
 
   }
 
-
+  public userAllGet = (name: string) => {
+    return this.http.get<UserAccount[]>(this.optionsInfo.userAllGet + '/' + name).subscribe(value => {
+      if (value !== undefined){
+        this.userAccountArray.next(value);
+      }
+      debugger;
+    });
+  }
 
   public logout = () => {
     localStorage.removeItem(this.optionsInfo.authToken);

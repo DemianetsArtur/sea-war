@@ -9,5 +9,7 @@ namespace Social_Network.BLL.Infrastructure.Interfaces
         bool UserAccountFind(UserAccountDto entity);
 
         UserAccountDto UserAccountLoginFind(UserAccountDto entity);
+
+        void UserAccountReplace(string name, string imagePath);
     }
 }

@@ -11,5 +11,7 @@
         public const string AboutMe = "aboutMe";
 
         public const string Date = "date";
+
+        public const string ImagePath = "imagePath";
     }
 }

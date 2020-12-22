@@ -66,7 +66,6 @@ namespace Social_Network.API.Controllers
             if (this._userAccountService.UserAccountFind(userMapper))
             {
                 this._userAccountService.UserAccountCreate(userMapper);
-                //ImageUpload.ImgUpload(model);
                 return this.Ok();
             }
             else
@@ -88,6 +87,7 @@ namespace Social_Network.API.Controllers
             var fileInfo = await this._blobStorageService.FileUploadToBlobAsync(file.OpenReadStream(), 
                                                                                          file.ContentType, 
                                                                                          file.FileName);
+            this._userAccountService.UserAccountReplace(file.FileName, fileInfo.AbsoluteUri);
             return this.Ok();
         }
 
@@ -95,7 +95,6 @@ namespace Social_Network.API.Controllers
         public async Task<IActionResult> GetBlob(string fileName)
         {
             var data = await this._blobStorageService.GetFileFromBlobAsync(fileName);
-            //return File(data.Content, data.ContentType);
             if (string.IsNullOrWhiteSpace(fileName) || data == null)
             {
                 return this.BadRequest();
@@ -105,6 +104,5 @@ namespace Social_Network.API.Controllers
                 return this.Ok(data);
             }
         }
-
     }
 }

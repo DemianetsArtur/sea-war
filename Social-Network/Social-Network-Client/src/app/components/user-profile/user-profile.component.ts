@@ -26,6 +26,7 @@ export class UserProfileComponent implements OnInit {
         this.imageDownload = value + this.optionInfo.blobConfig;
       });
     }
+    this.connect.userAllGet(this.userData.name);
    }
 
   ngOnInit(): void {

@@ -4,5 +4,6 @@
     {
         IUserAccountRepository UserAccount { get; }
         IBlobStorageRepository BlobStorage { get; }
+        IFriendRepository Friend { get; }
     }
 }

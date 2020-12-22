@@ -18,6 +18,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FileSaverModule } from 'ngx-filesaver';
 import { MenuProfileComponent } from './components/menu/menu-profile/menu-profile.component';
+import { FriendListComponent } from './components/friend/friend-list/friend-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { MenuProfileComponent } from './components/menu/menu-profile/menu-profil
     RegisterComponent,
     HomeComponent,
     UserProfileComponent,
-    MenuProfileComponent
+    MenuProfileComponent,
+    FriendListComponent
   ],
   imports: [
     BrowserModule,

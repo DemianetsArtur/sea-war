@@ -28,6 +28,7 @@ namespace Social_Network.API.Infrastructure.Manages.JwtManage
                 new Claim(ClaimsInfo.LastName, entity.LastName),
                 new Claim(ClaimsInfo.AboutMe, entity.AboutMe),
                 new Claim(ClaimsInfo.Date, entity.Date),
+                new Claim(ClaimsInfo.ImagePath, entity.ImagePath),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

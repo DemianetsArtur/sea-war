@@ -15,6 +15,8 @@
         public string AboutMe { get; set; }
 
         public string Date { get; set; }
+        
+        public string ImagePath { get; set; }
 
     }
 }

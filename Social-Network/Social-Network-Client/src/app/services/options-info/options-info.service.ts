@@ -16,6 +16,7 @@ export class OptionsInfoService {
   public imagePost!: string;
   public imageGet!: string;
   public blobConfig!: string;
+  public userAllGet!: string;
 
   constructor() {
     this.host = 'https://localhost:44391/';
@@ -29,6 +30,7 @@ export class OptionsInfoService {
     this.header = new Headers({'Content-Type': 'application/json'});
     this.imagePost = this.host + 'api/useraccount/image-upload';
     this.imageGet = this.host + 'api/useraccount/getfile';
-    this.blobConfig = '?sv=2019-12-12&ss=bqtf&srt=sco&sp=rwdlacuptfx&se=2020-12-21T17:45:35Z&sig=Nz6z5%2BjuAapq5NTvkqD7Ir4RnoDlYQLqTvid3p8RUV4%3D&_=1608549404039';
+    this.blobConfig = '?sv=2019-12-12&ss=bqtf&srt=sco&sp=rwdlacuptfx&se=2020-12-22T16:12:04Z&sig=bm62tPLhiEyYlyRQDR9KL8VqZxSnXIoSF4%2BKwyAp8DI%3D&_=1608626588679';
+    this.userAllGet = this.host + 'api/friend/get-user-all';
   }
 }

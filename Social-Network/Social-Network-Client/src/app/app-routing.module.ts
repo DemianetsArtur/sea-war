@@ -9,13 +9,15 @@ import { AdminGuard } from './guards/user-account/admin/admin.guard';
 import { RegisterComponent } from './components/user-account/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { FriendListComponent } from './components/friend/friend-list/friend-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] },
-  { path: 'user-profile', component: UserProfileComponent, canActivate: [UserGuard] }
+  { path: 'user-profile', component: UserProfileComponent, canActivate: [UserGuard] },
+  { path: 'friend-list', component: FriendListComponent, canActivate: [UserGuard] }
 ];
 
 @NgModule({

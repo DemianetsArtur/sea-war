@@ -9,5 +9,7 @@ namespace Social_Network.DAL.Infrastructure.Interfaces
         bool UserAccountFind(UserAccount entity);
 
         UserAccount UserAccountLoginFind(UserAccount entity);
+
+        void UserAccountReplace(string name, string imagePath);
     }
 }

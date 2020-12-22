@@ -39,6 +39,24 @@ namespace Social_Network.DAL.Infrastructure.Repositories
             }
         }
 
+        public void UserAccountReplace(string name, string imagePath)
+        {   
+            var query = new TableQuery<UserAccount>()
+                .Where(TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, name));
+            var cloudTable = this.GetTable();
+            var entitiesTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
+            if (entitiesTable != null)
+            {
+                entitiesTable.ImagePath = imagePath;
+                this.UserAccountCreate(entitiesTable);
+            }
+        }
+
+        public void UserInsertImagePath(UserAccount entity, string path)
+        {
+            
+        }
+
         public UserAccount UserAccountLoginFind(UserAccount entity)
         {
             var nameQuery = TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, entity.Name);

@@ -26,6 +26,11 @@ namespace Social_Network.BLL.Services
             return this._mapper.Map<UserAccountDto>(user);
         }
 
+        public void UserAccountReplace(string name, string imagePath)
+        {
+            this._database.UserAccount.UserAccountReplace(name, imagePath);
+        }
+
         public bool UserAccountFind(UserAccountDto entity)
         {
             var userMapper = this._mapper.Map<UserAccount>(entity);

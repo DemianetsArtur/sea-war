@@ -1,0 +1,19 @@
+<div class="margin-menu">
+    <app-menu-profile></app-menu-profile>
+</div>
+
+<div class="body"   >
+    <div class="card" >
+        <div class="container" *ngFor="let users of userArray">
+            <ul>
+                <li>
+                    <span class="imgBx"><img [src]="users.imagePath" alt=""></span>
+                    <span class="name">{{users.name}}</span>
+                    <span class="first-name">{{users.firstName}}</span>
+                    <span class="last-name">{{users.lastName}}</span>
+                    <button>Add Friends</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
