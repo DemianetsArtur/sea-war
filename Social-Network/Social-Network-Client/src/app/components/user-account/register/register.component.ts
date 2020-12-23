@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               private connect: ConnectService, 
               private optionsInfo: OptionsInfoService, 
-              private alertService: AlertService, private cd: ChangeDetectorRef) { }
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.handlerFormBuilder();
@@ -66,8 +66,7 @@ export class RegisterComponent implements OnInit {
                   this.registerForm.reset();
                   this.registerForm.setErrors({ invalidLogin: true });
                 }))
-                .subscribe();
-                
+                .subscribe();          
   }
 
   public handlerTypeImage = (files: any) => {
@@ -88,7 +87,6 @@ export class RegisterComponent implements OnInit {
   public setFileOption = (files: any) => {
     this.handlerTypeImage(files);
     this.file = files;
-    
   }
   
   public get registerFormControl() {

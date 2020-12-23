@@ -7,12 +7,15 @@ import { UserAccount } from '../../models/user-account/user-account';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserRole } from '../../models/user-account/user-role';
+import { EditUserAccount } from '../../models/edit-user-account/edit-user-account';
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectService {
   public userAccountData = new BehaviorSubject<UserAccount>(new UserAccount());
   public userAccountData$ = this.userAccountData.asObservable();
+  public userAccountCurrentValue = new BehaviorSubject<UserAccount>(new UserAccount());
+  public userAccountCurrentValue$ = this.userAccountCurrentValue.asObservable();
   public fileToUpload!: FormData; 
   public imageDownload!: any;
   public userAccountArray = new BehaviorSubject<UserAccount[]>([]);
@@ -47,11 +50,6 @@ export class ConnectService {
       userAccountDetails.name = decodeUserAccountDetails.firstName;
       userAccountDetails.isLoggedIn = true;
       userAccountDetails.role = decodeUserAccountDetails.role;
-      userAccountDetails.firstName = decodeUserAccountDetails.firstName;
-      userAccountDetails.lastName = decodeUserAccountDetails.lastName;
-      userAccountDetails.aboutMe = decodeUserAccountDetails.aboutMe;
-      userAccountDetails.date = decodeUserAccountDetails.date;
-      userAccountDetails.imagePath = decodeUserAccountDetails.imagePath;
       this.userAccountData.next(userAccountDetails);
     }
   }
@@ -61,8 +59,14 @@ export class ConnectService {
     return this.http.post<any>(this.optionsInfo.registerPost, userRegisterDetails);
   }
 
+  public userEditPost = (editUserAccount: EditUserAccount, userInfo: UserAccount) => {
+    editUserAccount.changedName = userInfo.name;
+    return this.http.post<any>(this.optionsInfo.editPost, editUserAccount);
+
+  }
+
   public imagePost = (files: any, name: string) => {
-    
+    debugger;
     if (files.length === 0) {
       return;
     }
@@ -85,7 +89,12 @@ export class ConnectService {
       if (value !== undefined){
         this.userAccountArray.next(value);
       }
-      debugger;
+    });
+  }
+
+  public userGet = (name: string) => {
+    return this.http.get<UserAccount>(this.optionsInfo.userGet + '/' + name).subscribe(value => {
+      this.userAccountCurrentValue.next(value);
     });
   }
 

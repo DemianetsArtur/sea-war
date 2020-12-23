@@ -20,21 +20,28 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         
         public async Task<Uri> FileUploadToBlobAsync(Stream content, string contentType, string fileName)
         {
-            var containerClient = this.GetContainerClient(fileName);
+            var containerClient = this.GetContainerClient();
             var blobClient = containerClient.GetBlobClient(fileName);
             await blobClient.UploadAsync(content, new BlobHttpHeaders {ContentType = contentType});
             return blobClient.Uri;
         }
 
+        public async Task FileDeleteBlobAsync(string nameFile)
+        {
+            var containerClient = this.GetContainerClient();
+            var blobClient = containerClient.GetBlobClient(nameFile);
+            await blobClient.DeleteAsync();
+        }
+
         public async Task<Uri> GetFileFromBlobAsync(string fileName)
         {
-            var containerClient = this.GetContainerClient(fileName);
+            var containerClient = this.GetContainerClient();
             var blobClient = containerClient.GetBlobClient(fileName);
             var entity = await blobClient.DownloadAsync();
             return blobClient.Uri;
         }
 
-        private BlobContainerClient GetContainerClient(string fileName)
+        private BlobContainerClient GetContainerClient()
         {
             var containerClient = this._blobServiceClient.GetBlobContainerClient(StorageInfo.ContainerName);
             containerClient.CreateIfNotExists(PublicAccessType.Blob);

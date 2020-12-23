@@ -10,5 +10,6 @@ namespace Social_Network.DAL.Infrastructure.Interfaces
     {
         Task<Uri> FileUploadToBlobAsync(Stream content, string contentType, string fileName);
         Task<Uri> GetFileFromBlobAsync(string fileName);
+        Task FileDeleteBlobAsync(string nameFile);
     }
 }

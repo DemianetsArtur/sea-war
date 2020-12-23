@@ -17,6 +17,9 @@ export class OptionsInfoService {
   public imageGet!: string;
   public blobConfig!: string;
   public userAllGet!: string;
+  public editPath!: string;
+  public userGet!: string;
+  public editPost!: string;
 
   constructor() {
     this.host = 'https://localhost:44391/';
@@ -32,5 +35,8 @@ export class OptionsInfoService {
     this.imageGet = this.host + 'api/useraccount/getfile';
     this.blobConfig = '?sv=2019-12-12&ss=bqtf&srt=sco&sp=rwdlacuptfx&se=2020-12-22T16:12:04Z&sig=bm62tPLhiEyYlyRQDR9KL8VqZxSnXIoSF4%2BKwyAp8DI%3D&_=1608626588679';
     this.userAllGet = this.host + 'api/friend/get-user-all';
+    this.editPath = '/edit-user';
+    this.userGet = this.host + 'api/useraccount/user-get';
+    this.editPost = this.host + 'api/edit/user-edit';
   }
 }

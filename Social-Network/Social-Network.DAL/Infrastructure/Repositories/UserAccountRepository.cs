@@ -39,6 +39,14 @@ namespace Social_Network.DAL.Infrastructure.Repositories
             }
         }
 
+        public UserAccount UserGet(string name)
+        {
+            var query = new TableQuery<UserAccount>()
+                .Where(TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, name));
+            var cloudTable = this.GetTable();
+            return cloudTable.ExecuteQuery(query).FirstOrDefault();
+        }
+
         public void UserAccountReplace(string name, string imagePath)
         {   
             var query = new TableQuery<UserAccount>()

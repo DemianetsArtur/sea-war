@@ -11,5 +11,9 @@ namespace Social_Network.BLL.Infrastructure.Interfaces
         UserAccountDto UserAccountLoginFind(UserAccountDto entity);
 
         void UserAccountReplace(string name, string imagePath);
+
+        UserAccountDto GetUser(string name);
+
+        void UserChangedCreate(UserAccountDto entity);
     }
 }

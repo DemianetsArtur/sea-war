@@ -1,0 +1,87 @@
+
+<section>
+    <div class="container">
+        <div class="menu-edit">
+            <app-menu-profile></app-menu-profile>
+        </div>
+      <div class="contactinfo">
+        <div>
+          <h2>Edit Data</h2>
+          <ul class="info">
+            <li>
+              <span><fa-icon class="sign-color" [icon]="faUsers"></fa-icon></span>
+              <span>{{userAccountCurrentData.name}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="contactFrom">
+        
+        <h2>Edit Data</h2>
+        <div>
+          <form class="formBox" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+          <div class="inputBox w50">
+            <input type="text" 
+                   name=""
+                   formControlName="firstName"
+                   [ngClass]="{ 'is-invalid': submitted && editFormControl.firstName.errors }" 
+                   required>
+            <span class="text-data">First Name: {{userAccountCurrentData.firstName}}</span>
+          </div>
+          <div class="inputBox w50">
+            <input type="text" 
+                   name=""
+                   formControlName="lastName"
+                   [ngClass]="{ 'is-invalid': submitted && editFormControl.lastName.errors }" 
+                   required>
+            <span class="text-data">Last Name: {{userAccountCurrentData.lastName}}</span>
+          </div>
+          <div class="inputBox w50">
+            <input type="email" 
+                   name=""
+                   formControlName="email"
+                   [ngClass]="{ 'is-invalid': submitted && editFormControl.email.errors || submitted && editForm.controls['email'].hasError('email') }"
+                   required>
+            <span class="text-data">Email Address: {{userAccountCurrentData.email}}</span>
+            <div *ngIf="submitted && editForm.controls['email'].hasError('email')" class="invalid-feedback">    
+              <div *ngIf="editForm.controls['email'].hasError('email')"><span class="text-invalid">Email Address must be with @ symbol</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input type="date" 
+                   name=""
+                   formControlName="date"
+                   [ngClass]="{ 'is-invalid': submitted && editFormControl.date.errors }"
+                   required>
+            <span class="text-data">Date: {{userAccountCurrentData.date}}</span>
+          </div>
+          <div class="inputBox w50">
+            <input #fileInput
+                  class="input-file"
+                  type="file" 
+                  name="" 
+                  accept="image/*" 
+                  (change)="setFileOption(fileInput.files)"
+                  [ngClass]="{ 'is-invalid': submitted && typeIncorrect }" 
+                  required>
+            <span class="text-data-input text-white">Upload Image</span>
+            <div *ngIf="submitted && typeIncorrect" class="invalid-feedback">    
+              <div *ngIf="typeIncorrect"><span class="text-invalid">Type must be .png .jpeg!</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w100">
+            <textarea name=""
+                      formControlName="aboutMe"
+                      [ngClass]="{ 'is-invalid': submitted && editFormControl.aboutMe.errors }" 
+                      required>{{userAccountCurrentData.aboutMe}}</textarea>
+            <span class="text-data">Write about you...</span>
+            
+          </div>
+          <div class="inputBox w100"> 
+            <input [disabled]="loading" type="submit" value="Send">
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

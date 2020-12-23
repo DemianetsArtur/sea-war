@@ -25,5 +25,10 @@ namespace Social_Network.BLL.Services
         {
             return this._database.BlobStorage.FileUploadToBlobAsync(content, contentType, fileName);
         }
+
+        public Task FileDeleteBlobAsync(string nameFile)
+        {
+            return this._database.BlobStorage.FileDeleteBlobAsync(nameFile);
+        }
     }
 }

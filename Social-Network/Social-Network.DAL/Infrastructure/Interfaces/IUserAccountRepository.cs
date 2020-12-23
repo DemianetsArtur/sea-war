@@ -11,5 +11,7 @@ namespace Social_Network.DAL.Infrastructure.Interfaces
         UserAccount UserAccountLoginFind(UserAccount entity);
 
         void UserAccountReplace(string name, string imagePath);
+
+        UserAccount UserGet(string name);
     }
 }

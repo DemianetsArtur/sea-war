@@ -37,6 +37,11 @@ namespace Social_Network.BLL.Services
             return this._database.UserAccount.UserAccountFind(userMapper);
         }
 
+        public UserAccountDto GetUser(string name)
+        {
+            return this._mapper.Map<UserAccountDto>(this._database.UserAccount.UserGet(name));
+        }
+
         public void UserAccountCreate(UserAccountDto entity) 
         {
             var userMapper = this._mapper.Map<UserAccount>(entity);
@@ -47,6 +52,21 @@ namespace Social_Network.BLL.Services
             userMapper.PartitionKey = date;
             userMapper.RowKey = guidKey;
             this._database.UserAccount.UserAccountCreate(userMapper);
+        }
+
+        public void UserChangedCreate(UserAccountDto entity)
+        {
+            var user = this._database.UserAccount.UserGet(entity.Name);
+            var userMapp = this._mapper.Map<UserAccount>(entity);
+            userMapp.Password = user.Password;
+            userMapp.UserType = user.UserType;
+            userMapp.PartitionKey = user.PartitionKey;
+            userMapp.RowKey = user.RowKey;
+            if (string.IsNullOrEmpty(entity.ImagePath))
+            {
+                this._database.BlobStorage.FileDeleteBlobAsync(userMapp.Name);
+            }
+            this._database.UserAccount.UserAccountCreate(userMapp);
         }
     }
 }

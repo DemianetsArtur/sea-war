@@ -63,6 +63,8 @@ namespace Social_Network.API.Controllers
             }
 
             var userMapper = this._mapper.Map<UserAccountDto>(model);
+            
+            
             if (this._userAccountService.UserAccountFind(userMapper))
             {
                 this._userAccountService.UserAccountCreate(userMapper);
@@ -71,6 +73,20 @@ namespace Social_Network.API.Controllers
             else
             {
                 return this.BadRequest(model);
+            }
+        }
+
+        [HttpGet("user-get/{name}")]
+        public IActionResult UserGet(string name)
+        {
+            var user = this._userAccountService.GetUser(name);
+            if (user != null)
+            {
+                return this.Ok(user);
+            }
+            else
+            {
+                return this.BadRequest();
             }
         }
 

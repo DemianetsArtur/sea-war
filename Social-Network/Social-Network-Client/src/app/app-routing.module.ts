@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/user-account/register/register.c
 import { HomeComponent } from './components/home/home.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FriendListComponent } from './components/friend/friend-list/friend-list.component';
+import { EditComponent } from './components/edit/edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [UserGuard] },
-  { path: 'friend-list', component: FriendListComponent, canActivate: [UserGuard] }
+  { path: 'friend-list', component: FriendListComponent, canActivate: [UserGuard] },
+  { path: 'edit-user', component: EditComponent, canActivate: [UserGuard] }
 ];
 
 @NgModule({

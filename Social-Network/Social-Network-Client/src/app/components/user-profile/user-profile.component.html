@@ -1,12 +1,12 @@
 <app-menu-profile></app-menu-profile>
 <div class="body">
     <div class="card">
-        <div class="imgBx"><img [src]="imageDownload" alt=""></div>
+        <div class="imgBx"><img [src]="userAccountCurrentData.imagePath" alt=""></div>
         <div class="content">
-            <h3>{{userData.firstName}} {{userData.lastName}}</h3>
-            <h3>Nick Name: {{userData.name}}</h3>
-            <h3>Date: {{userData.date}}</h3>
-            <p>About Me: {{userData.aboutMe}}</p>
+            <h3>Full Name: {{userAccountCurrentData.firstName}} {{userAccountCurrentData.lastName}}</h3>
+            <h3>Nick Name: {{userAccountCurrentData.name}}</h3>
+            <h3>Date: {{userAccountCurrentData.date}}</h3>
+            <p>About Me: {{userAccountCurrentData.aboutMe}}</p>
         </div>
     </div>
 </div>
