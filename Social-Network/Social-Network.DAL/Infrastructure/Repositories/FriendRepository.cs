@@ -22,15 +22,21 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         {
             var query = new TableQuery<UserAccount>()
                 .Where(TableQuery.GenerateFilterCondition("Name", QueryComparisons.NotEqual, name));
-            var cloudTable = this.GetTable();
+            var cloudTable = this.GetTable(StorageInfo.UserAccountTable);
             var entitiesTable = cloudTable.ExecuteQuery(query).ToList();
             return entitiesTable;
         }
 
-        private CloudTable GetTable()
+        public void FriendAdd()
+        {
+            
+        }
+
+
+        private CloudTable GetTable(string name)
         {
             var storageKey = this._tableManage.StorageKey;
-            var tableName = StorageInfo.TableName;
+            var tableName = name;
             var storageAccount = CloudStorageAccount.Parse(storageKey);
             var cloudTableClient = storageAccount.CreateCloudTableClient();
             var table = cloudTableClient.GetTableReference(tableName);

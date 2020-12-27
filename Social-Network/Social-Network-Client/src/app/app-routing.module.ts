@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FriendListComponent } from './components/friend/friend-list/friend-list.component';
 import { EditComponent } from './components/edit/edit.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'admin-home', component: AdminHomeComponent, canActivate: [AdminGuard] },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [UserGuard] },
   { path: 'friend-list', component: FriendListComponent, canActivate: [UserGuard] },
-  { path: 'edit-user', component: EditComponent, canActivate: [UserGuard] }
+  { path: 'edit-user', component: EditComponent, canActivate: [UserGuard] },
+  { path: 'notification', component: NotificationComponent, canActivate: [UserGuard] }
 ];
 
 @NgModule({

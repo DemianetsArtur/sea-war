@@ -89,6 +89,7 @@ export class ConnectService {
       if (value !== undefined){
         this.userAccountArray.next(value);
       }
+      debugger;
     });
   }
 

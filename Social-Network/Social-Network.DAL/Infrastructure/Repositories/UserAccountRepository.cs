@@ -87,7 +87,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         private CloudTable GetTable()
         {
             var storageKey = this._tableManage.StorageKey;
-            var tableName = StorageInfo.TableName;
+            var tableName = StorageInfo.UserAccountTable;
             var storageAccount = CloudStorageAccount.Parse(storageKey);
             var cloudTableClient = storageAccount.CreateCloudTableClient();
             var table = cloudTableClient.GetTableReference(tableName);

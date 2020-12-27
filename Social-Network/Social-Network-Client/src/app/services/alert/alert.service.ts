@@ -19,4 +19,8 @@ export class AlertService {
   public userNickNameNotExist = () => {
     this.toastr.error('', 'User with this nickname does not exist!');
   }
+
+  public imageChange = () => {
+    this.toastr.success('', 'You have successfully changed the image!');
+  }
 }

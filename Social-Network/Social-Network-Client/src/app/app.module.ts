@@ -20,6 +20,7 @@ import { FileSaverModule } from 'ngx-filesaver';
 import { MenuProfileComponent } from './components/menu/menu-profile/menu-profile.component';
 import { FriendListComponent } from './components/friend/friend-list/friend-list.component';
 import { EditComponent } from './components/edit/edit.component';
+import { NotificationComponent } from './components/notification/notification.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { EditComponent } from './components/edit/edit.component';
     UserProfileComponent,
     MenuProfileComponent,
     FriendListComponent,
-    EditComponent
+    EditComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

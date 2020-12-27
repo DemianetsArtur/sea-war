@@ -20,6 +20,7 @@ export class EditComponent implements OnInit {
   public returnUrl!: string;
   public equalPassword = false;
   public file!: FormData ;
+  public isDateGreater = false;
   public fileEmpty = false;
   public typeIncorrect = false;
   public faUsers = faHouseUser;
@@ -41,7 +42,8 @@ export class EditComponent implements OnInit {
       this.userAccountCurrentData = value;
     });   
     this.handlerFormBuilder();
-    this.handlerAboutMeSetValue(); 
+    this.handlerAboutMeSetValue();
+    this.handlerDataEdit(); 
   }
 
   ngOnInit(): void {
@@ -81,7 +83,6 @@ export class EditComponent implements OnInit {
     if(this.file === undefined || this.file === null){
       this.editForm.controls.imagePath.setValue(this.userAccountCurrentData.imagePath);
     }
-    debugger;
   }
 
   public onSubmit = () => {
@@ -94,6 +95,12 @@ export class EditComponent implements OnInit {
     if (this.typeIncorrect){
       return;
     }
+    this.handlerDateValidation(this.editForm.controls.date.value);
+
+    if (this.isDateGreater){
+      return;
+    }
+
     this.loading = true;
     const returnUrl = this.route.snapshot.queryParamMap.get(this.optionsInfo.returnUrl) || '/';
     this.connect.userEditPost(this.editForm.value, this.userAccountCurrentData)
@@ -112,6 +119,20 @@ export class EditComponent implements OnInit {
     }       
   }
 
+  public handlerDateValidation = (date: any) => {
+    const dateNow = new Date();
+    const dateLessInfo = dateNow.getFullYear() - 140;
+    const dateLess = new Date(dateLessInfo);
+
+    const givenData = new Date(date);
+    this.isDateGreater = false;
+    if (givenData > dateNow || givenData < dateLess){
+      this.isDateGreater = true;
+    }
+    debugger;
+
+  }
+
   public get editFormControl() {
     return this.editForm.controls;
   }
@@ -123,16 +144,11 @@ export class EditComponent implements OnInit {
 
   public handlerTypeImage = (files: any) => {
     this.typeIncorrect = true;
-    if (files[0].type === 'image/png') {
-      this.typeIncorrect = false;
-    }
-    
-    if (files[0].type === 'image/jpeg') {
+    if (files[0].type === 'image/png' || files[0].type === 'image/jpeg') {
+      this.alertService.imageChange();
       this.typeIncorrect = false;
     }
   }
-
-  
 
   private handlerFormBuilder = () => {
     this.editForm = this.formBuilder.group({

@@ -1,6 +1,8 @@
-﻿namespace Social_Network.DAL.Entities
+﻿using Microsoft.Azure.Cosmos.Table;
+
+namespace Social_Network.DAL.Entities
 {
-    public class Friend
+    public class Friend : TableEntity
     {
         public string Name { get; set; }
 

@@ -29,6 +29,7 @@ export class FriendListComponent implements OnInit {
       this.allUser = value;
       this.userArray = this.allUser;
     });
+    
   }
   }
 

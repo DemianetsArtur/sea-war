@@ -42,7 +42,7 @@
                    formControlName="email"
                    [ngClass]="{ 'is-invalid': submitted && editFormControl.email.errors || submitted && editForm.controls['email'].hasError('email') }"
                    required>
-            <span class="text-data">Email Address: {{userAccountCurrentData.email}}</span>
+            <span class="text-data">Email: {{userAccountCurrentData.email}}</span>
             <div *ngIf="submitted && editForm.controls['email'].hasError('email')" class="invalid-feedback">    
               <div *ngIf="editForm.controls['email'].hasError('email')"><span class="text-invalid">Email Address must be with @ symbol</span></div>    
             </div>
@@ -51,9 +51,12 @@
             <input type="date" 
                    name=""
                    formControlName="date"
-                   [ngClass]="{ 'is-invalid': submitted && editFormControl.date.errors }"
+                   [ngClass]="{ 'is-invalid': submitted && isDateGreater }"
                    required>
             <span class="text-data">Date: {{userAccountCurrentData.date}}</span>
+            <div *ngIf="submitted && isDateGreater" class="invalid-feedback">    
+              <div *ngIf="isDateGreater"><span class="text-invalid">Invalid date!</span></div>    
+            </div>
           </div>
           <div class="inputBox w50">
             <input #fileInput

@@ -11,17 +11,23 @@
             <button class="btn-search" (click)="filterData(inputData.value)" >Search</button>
         </form>
     </div>
-    <div class="card" >
-        <div class="container" *ngFor="let users of userArray">
-            <ul>
-                <li>
-                    <span class="imgBx"><img [src]="users.imagePath" alt=""></span>
-                    <span class="name">Nick Name: {{users.name}}</span>
-                    <span class="first-name">Full Name: {{users.firstName}}</span>
-                    <span class="last-name">{{users.lastName}}</span>
-                    <button>Add Friends</button>
-                </li>
-            </ul>
+    <div >
+        <div class="events" >
+            <div class="container">
+                <ul *ngFor="let users of userArray">
+                    <li>
+                        <div class="time">
+                            <span class="imgBx"><img [src]="users.imagePath" alt=""></span>
+                        </div>
+                        <div class="details">
+                            <h3>Nick Name: {{users.name}}</h3>
+                            <p>Full Name: {{users.firstName}} {{users.lastName}}</p>
+                            <button class="accept-btn">Add Friends</button>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

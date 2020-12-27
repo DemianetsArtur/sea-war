@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Social_Network.API.Infrastructure.ViewModels.Edit;
 using Social_Network.BLL.Infrastructure.Interfaces;
 using Social_Network.BLL.ModelsDto;
-using Social_Network.BLL.Services;
 
 namespace Social_Network.API.Controllers
 {
@@ -27,7 +25,7 @@ namespace Social_Network.API.Controllers
         
         [HttpPost]
         [Route("user-edit")]
-        public async Task<IActionResult> UserEdit([FromBody] EditViewModel model )
+        public IActionResult UserEdit([FromBody] EditViewModel model )
         {
             if (!ModelState.IsValid)
             {

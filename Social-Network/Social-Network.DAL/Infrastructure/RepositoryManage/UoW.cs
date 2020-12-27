@@ -11,10 +11,9 @@ namespace Social_Network.DAL.Infrastructure.RepositoryManage
         private readonly BlobServiceClient _blobServiceClient;
 
         public IUserAccountRepository UserAccount { get; }
-
         public IBlobStorageRepository BlobStorage { get; }
-
         public IFriendRepository Friend { get; }
+        public INotificationRepository Notification { get; }
 
         public UoW(TableManage tableManage, BlobServiceClient blobServiceClient)
         {
@@ -23,6 +22,7 @@ namespace Social_Network.DAL.Infrastructure.RepositoryManage
             this.UserAccount = new UserAccountRepository(this._tableManage);
             this.BlobStorage = new BlobStorageRepository(this._blobServiceClient);
             this.Friend = new FriendRepository(this._tableManage);
+            this.Notification = new NotificationRepository(this._tableManage);
         }
     }
 }
