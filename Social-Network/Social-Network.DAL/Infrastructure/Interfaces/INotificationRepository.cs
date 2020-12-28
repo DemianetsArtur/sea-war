@@ -1,9 +1,12 @@
-﻿using Social_Network.DAL.Entities;
+﻿using System.Collections.Generic;
+using Social_Network.DAL.Entities;
 
 namespace Social_Network.DAL.Infrastructure.Interfaces
 {
     public interface INotificationRepository
     {
-        void NotificationCreate(Notification entity);
+        void EventAddToFriend(Notification entity);
+        ICollection<Notification> GetEventAddToFriend();
+        void EventAddToFriendRemove(Notification entity);
     }
 }

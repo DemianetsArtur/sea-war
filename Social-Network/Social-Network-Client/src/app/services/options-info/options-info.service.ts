@@ -20,6 +20,11 @@ export class OptionsInfoService {
   public editPath!: string;
   public userGet!: string;
   public editPost!: string;
+  public eventAddToFriend!: string;
+  public getEventAddToFriend!: string;
+  public removeEvent!: string;
+  public hubToConnect!: string;
+  public addToFriendPost!: string;
 
   constructor() {
     this.host = 'https://localhost:44391/';
@@ -38,5 +43,10 @@ export class OptionsInfoService {
     this.editPath = '/edit-user';
     this.userGet = this.host + 'api/useraccount/user-get';
     this.editPost = this.host + 'api/edit/user-edit';
+    this.eventAddToFriend = this.host + 'api/notification/event-add-to-friend';
+    this.getEventAddToFriend = this.host + 'api/notification/get-event-add-to-friend';
+    this.removeEvent = this.host + 'api/notification/remove-event-add-to-friend';
+    this.hubToConnect = this.host + 'hubToConnect';
+    this.addToFriendPost = this.host + 'api/friend/user-add-to-friends';
   }
 }

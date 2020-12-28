@@ -60,11 +60,6 @@ namespace Social_Network.DAL.Infrastructure.Repositories
             }
         }
 
-        public void UserInsertImagePath(UserAccount entity, string path)
-        {
-            
-        }
-
         public UserAccount UserAccountLoginFind(UserAccount entity)
         {
             var nameQuery = TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, entity.Name);

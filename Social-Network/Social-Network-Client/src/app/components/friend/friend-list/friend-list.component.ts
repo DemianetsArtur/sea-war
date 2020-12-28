@@ -4,6 +4,9 @@ import { ConnectService } from 'src/app/services/connect/connect.service';
 import { OptionsInfoService } from 'src/app/services/options-info/options-info.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AlertService } from '../../../services/alert/alert.service';
+import { NotificationFriendInfo } from '../../../models/notification/notification-add-to-friend/notification-friend-info';
+import { tap, catchError } from 'rxjs/operators';
+import { Friend } from '../../../models/friend/friend';
 
 @Component({
   selector: 'app-friend-list',
@@ -13,10 +16,14 @@ import { AlertService } from '../../../services/alert/alert.service';
 export class FriendListComponent implements OnInit {
   public userAccountSubscription!: any;
   public userAccountArraySubscription!: any;
+  public usersInFriendsSubscription!: any;
   public userData = new UserAccount();
   public userArray!: any[];
   public allUser!: any[];
   public faTimes = faTimes;
+  public blockAddToFriend = false;
+  public usersInFriends: Friend[] = [];
+
   constructor(private connect: ConnectService, 
               private optionInfo: OptionsInfoService, 
               private alert: AlertService) {
@@ -36,6 +43,19 @@ export class FriendListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public addFriend = (nameResponse: string, nameToResponse: string) => {
+    const notificationInfo = new NotificationFriendInfo();
+    notificationInfo.userNameResponse = nameResponse;
+    notificationInfo.userNameToResponse = nameToResponse;
+    this.connect.eventAddToFriend(notificationInfo).pipe(tap(data => {
+        //this.blockAddToFriend = true;
+        this.connect.startConnection();
+        this.connect.handlerGetNotificationAddToFriend();
+    }),catchError(async (err) => {
+      
+    })).subscribe();
+  }
+
   public filterData = (valueFilter: string) => {
     if (valueFilter === ""){
       this.userArray = this.allUser;
@@ -53,4 +73,9 @@ export class FriendListComponent implements OnInit {
     this.userArray = this.allUser;
   }
 
+  private getUsersInFriends = () => {
+    this.usersInFriendsSubscription = this.connect.usersInFriends$.subscribe(value => {
+      this.usersInFriends = value;
+    });
+  }
 }

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using Microsoft.Azure.Cosmos.Table;
 using Social_Network.DAL.Entities;
 using Social_Network.DAL.Infrastructure.Interfaces;
@@ -22,26 +22,25 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         {
             var query = new TableQuery<UserAccount>()
                 .Where(TableQuery.GenerateFilterCondition("Name", QueryComparisons.NotEqual, name));
-            var cloudTable = this.GetTable(StorageInfo.UserAccountTable);
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
             var entitiesTable = cloudTable.ExecuteQuery(query).ToList();
             return entitiesTable;
         }
 
-        public void FriendAdd()
+        public ICollection<Friend> UsersInFriendship()
         {
-            
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.FriendTable);
+            var query = new TableQuery<Friend>();
+            var entitiesTable = cloudTable.ExecuteQuery(query).ToList();
+            return entitiesTable;
         }
 
-
-        private CloudTable GetTable(string name)
+        public void UserAddToFriends(Friend entity)
         {
-            var storageKey = this._tableManage.StorageKey;
-            var tableName = name;
-            var storageAccount = CloudStorageAccount.Parse(storageKey);
-            var cloudTableClient = storageAccount.CreateCloudTableClient();
-            var table = cloudTableClient.GetTableReference(tableName);
-            table.CreateIfNotExists();
-            return table;
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.FriendTable);
+            var operation = TableOperation.InsertOrReplace(entity);
+            cloudTable.Execute(operation);
         }
+
     }
 }

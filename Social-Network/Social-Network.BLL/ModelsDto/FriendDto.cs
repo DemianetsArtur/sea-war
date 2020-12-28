@@ -2,20 +2,7 @@
 {
     public class FriendDto
     {
-        public string Name { get; set; }
-        
-        public string Email { get; set; }
-
-        public string Password { get; set; }
-        
-        public string UserType { get; set; }
-        
-        public string FirstName { get;set; }
-        
-        public string LastName { get;set; }
-        
-        public string AboutMe { get; set; }
-
-        public string Date { get; set; }
+        public string UserNameResponse { get; set; }
+        public string UserNameToResponse { get; set; }
     }
 }

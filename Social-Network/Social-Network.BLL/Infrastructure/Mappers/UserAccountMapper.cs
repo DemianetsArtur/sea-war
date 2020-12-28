@@ -2,7 +2,7 @@
 using Social_Network.BLL.ModelsDto;
 using Social_Network.DAL.Entities;
 
-namespace Social_Network.BLL.Infrastructure.EntitiesMapp
+namespace Social_Network.BLL.Infrastructure.Mappers
 {
     public class UserAccountMapper : Profile
     {

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Social_Network.API.Infrastructure.Config;
+using Social_Network.API.Infrastructure.Manages.HubConnect;
 
 namespace Social_Network.API
 {
@@ -29,6 +30,7 @@ namespace Social_Network.API
             services.SetMapperDi();
             services.SetCors(this.Configuration);
             services.SetBlobStorage(this.Configuration);
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,6 +53,7 @@ namespace Social_Network.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<HubConnect>(this.Configuration["Hub:HubToConnect"]);
             });
         }
     }

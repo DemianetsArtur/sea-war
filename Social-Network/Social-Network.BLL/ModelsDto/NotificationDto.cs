@@ -2,7 +2,8 @@
 {
     public class NotificationDto
     {
+        public string UserNameResponse { get; set; }
+        public string UserNameToResponse { get; set; }
         public string NameResponse { get; set; }
-        public string NameToResponse { get; set; }
     }
 }

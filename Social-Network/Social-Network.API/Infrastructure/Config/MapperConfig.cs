@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Social_Network.API.Infrastructure.Mappers;
-using Social_Network.BLL.Infrastructure.EntitiesMapp;
-using Social_Network.DAL.Infrastructure.Mappers;
-using UserAccountMapper = Social_Network.BLL.Infrastructure.EntitiesMapp.UserAccountMapper;
+using Social_Network.BLL.Infrastructure.Mappers;
+using UserAccountMapper = Social_Network.BLL.Infrastructure.Mappers.UserAccountMapper;
 
 namespace Social_Network.API.Infrastructure.Config
 {
@@ -17,6 +16,8 @@ namespace Social_Network.API.Infrastructure.Config
                 opt.AddProfile(new FriendMapper());
                 opt.AddProfile(new UserEditMapper());
                 opt.AddProfile(new NotificationMapper());
+                opt.AddProfile(new NotificationResponseMapper());
+                opt.AddProfile(new FriendViewModelMapper());
             });
             var mapper = configuration.CreateMapper();
             services.AddSingleton(mapper);

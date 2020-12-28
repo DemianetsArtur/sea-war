@@ -1,15 +1,15 @@
 <app-menu-profile></app-menu-profile>
 
 <div class="events">
-    <ul>
+    <ul *ngFor="let notification of notificationAddToFriend">
         <li>
             <div class="time">
                 <h2><span>Event</span></h2>
             </div>
             <div class="details">
-                <h3>Friendship event</h3>
-                <p>Full Name: Jon Jons</p>
-                <button class="accept-btn">accept</button><button class="cancel">cancel</button>
+                <h3>{{notification.nameResponse}}</h3>
+                <p>From {{notification.userNameResponse}}</p>
+                <button class="accept-btn" (click)="acceptEvent(notification)">accept</button><button class="cancel" (click)="cancelEvent(notification)">cancel</button>
             </div>
             <div style="clear: both;"></div>
         </li>

@@ -6,5 +6,7 @@ namespace Social_Network.BLL.Infrastructure.Interfaces
     public interface IFriendService
     {
         ICollection<UserAccountDto> FriendAll(string name);
+        void UserAddToFriends(FriendDto entity);
+        ICollection<FriendDto> UsersInFriendship();
     }
 }

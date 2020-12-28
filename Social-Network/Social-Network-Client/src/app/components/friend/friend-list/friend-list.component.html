@@ -22,7 +22,9 @@
                         <div class="details">
                             <h3>Nick Name: {{users.name}}</h3>
                             <p>Full Name: {{users.firstName}} {{users.lastName}}</p>
-                            <button class="accept-btn">Add Friends</button>
+                            <button class="accept-btn" 
+                                    [disabled]="blockAddToFriend" 
+                                    (click)="addFriend(userData.name, users.name)">Add Friends</button>
                         </div>
                         <div style="clear: both;"></div>
                     </li>
