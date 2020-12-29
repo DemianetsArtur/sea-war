@@ -1,0 +1,90 @@
+<div>
+    <app-menu-profile></app-menu-profile>
+</div>
+<div class="container">
+    <mdb-card class="chat-room">
+        <mdb-card-body class="grey lighten-3">
+            <div class="row px-lg-2 px-2">
+                <div class="col-md-6 col-xl-4 px-0 ">
+                    <div class=" friend-lis white z-depth-1 px-3 pt-3 pb-0">
+                        <ul class="list-unstyled t " *ngFor="let users of userArray">
+                            <li class="active grey lighten-3 p-2">
+                                <button href="#" class="d-flex justify-content-between profile-btn" (click)="selectUserForMessage(users)" >
+                                    <img [src]="users.imagePath" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1">
+                                    <div class="text-small">
+                                        <strong></strong>
+                                        <p class="last-message text-muted">Nick Name: {{users.name}} </p>
+                                        <p>Full Name: {{users.firstName }} {{users.lastName}}</p>
+                                    </div>
+                                    <div class="chat-footer">
+                                        <p class="text-smaller text-muted mb-0"></p>
+                                        <mdb-badge danger="true" class="float-right">send</mdb-badge>
+                                    </div>
+                                </button>
+                            </li>    
+                        </ul>
+                    </div>
+                </div>
+    
+                <div class="page-content page-container" id="page-content">
+                    <div class="padding">
+                        <div class="row container d-flex justify-content-lg-start">
+                            <div class="col-md-6">
+                                <div class="card card-bordered">
+                                    <div class="card-header">
+                                        <h4 class="card-title"><strong>Send Messages</strong></h4> 
+                                        <button class="btn btn-xs btn-secondary"
+                                                [disabled]="userText.length === 0 || messageInfo.userNameResponse === undefined"
+                                                (click)="sendMessage()" 
+                                                data-abc="true">Send
+                                                <!-- "
+                                                
+                                                " -->
+                                        </button>
+                                    </div>
+                                    <div ngx-auto-scroll observe-attributes class="ps-container ps-theme-default ps-active-y ps-container-div" id="chat-content" style="overflow-y: scroll !important;">
+                                        
+                                        <div  class="media media-chat" *ngFor="let msg of messageAllArray"> 
+                                            <img class="avatar" [src]="msg.userImageResponse" alt="...">
+                                            
+                                            <div class="media-body">
+                                                <p>{{msg.text }}</p>
+                                                <p>{{msg.time}}</p>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="ps-scrollbar-x-rail ps-scrollbar-div">
+                                            <div class="ps-scrollbar-x ps-scrollbar-w" tabindex="0"></div>
+                                        </div>
+                                        <div class="ps-scrollbar-y-rail ps-scrollbar-y-div" >
+                                            <div class="ps-scrollbar-y ps-scrollbar-y-s" tabindex="0"></div>
+                                        </div>
+                                    </div>
+                                    <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" [src]="userAccountCurrentData.imagePath" alt="...">
+                                        <input class="publisher-input" 
+                                               type="text" 
+                                               placeholder="Write something"
+                                               [(ngModel)]="userText"
+                                               /> 
+                                               <span class="publisher-btn file-group"> 
+                                                   <i class="fa fa-paperclip file-browser"></i> 
+                                                   <input type="file"> 
+                                                </span> 
+                                                <a class="publisher-btn" 
+                                                   href="#" data-abc="true">
+                                                   <i class="fa fa-smile"></i>
+                                                </a> 
+                                                <a class="publisher-btn text-info" 
+                                                   href="#" data-abc="true">
+                                                   <i class="fa fa-paper-plane"></i>
+                                                </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+        </mdb-card-body>
+    </mdb-card>
+</div>

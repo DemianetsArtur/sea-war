@@ -11,7 +11,7 @@
             <button class="btn-search" (click)="filterData(inputData.value)" >Search</button>
         </form>
     </div>
-    <div >
+    <div>
         <div class="events" >
             <div class="container">
                 <ul *ngFor="let users of userArray">
@@ -22,9 +22,14 @@
                         <div class="details">
                             <h3>Nick Name: {{users.name}}</h3>
                             <p>Full Name: {{users.firstName}} {{users.lastName}}</p>
-                            <button class="accept-btn" 
-                                    [disabled]="blockAddToFriend" 
+                            <div *ngIf="!users.isFriends">
+                                <button class="accept-btn" 
+                                    [disabled]="users.isBlock" 
                                     (click)="addFriend(userData.name, users.name)">Add Friends</button>
+                            </div>
+                            <div *ngIf="users.isFriends">
+                                <button class="in-friends-btn">In Your Friends</button>
+                            </div>
                         </div>
                         <div style="clear: both;"></div>
                     </li>

@@ -8,4 +8,7 @@ export class UserAccount {
     aboutMe!: string;
     isLoggedIn!: boolean;
     role!: string;
+
+    isFriends = false;
+    isBlock = false;
 }

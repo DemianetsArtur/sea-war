@@ -6,9 +6,9 @@
     font-family: 'Poppins', sans-serif;   
 }
 .navigation{
-    position: fixed;
+    position:absolute;
     width: 60px;
-    height: 93%;
+    height: 118.5%;
     background: black;
     transition: 0.5s;
     overflow: hidden;

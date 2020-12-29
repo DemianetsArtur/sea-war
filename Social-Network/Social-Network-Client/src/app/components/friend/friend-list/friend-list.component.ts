@@ -18,10 +18,11 @@ export class FriendListComponent implements OnInit {
   public userAccountArraySubscription!: any;
   public usersInFriendsSubscription!: any;
   public userData = new UserAccount();
-  public userArray!: any[];
+  public userArray!: UserAccount[];
   public allUser!: any[];
   public faTimes = faTimes;
   public blockAddToFriend = false;
+  public usersInFriendsArray: Friend[] = [];
   public usersInFriends: Friend[] = [];
 
   constructor(private connect: ConnectService, 
@@ -31,29 +32,36 @@ export class FriendListComponent implements OnInit {
       this.userData = value;
     });
     this.userAccountArraySubscription = this.connect.userAllGet(this.userData.name);
-    if (this.userData !== undefined){
-    this.userAccountArraySubscription = this.connect.userAccountArray$.subscribe(value => {
-      this.allUser = value;
-      this.userArray = this.allUser;
-    });
-    
-  }
+    this.usersInFriendsSubscription = this.connect.usersInFriendsGet();
   }
 
   ngOnInit(): void {
+    this.hubConnect(); 
   }
 
+  
+
   public addFriend = (nameResponse: string, nameToResponse: string) => {
+    debugger;
+    this.setIsBlock(nameToResponse);
     const notificationInfo = new NotificationFriendInfo();
     notificationInfo.userNameResponse = nameResponse;
     notificationInfo.userNameToResponse = nameToResponse;
     this.connect.eventAddToFriend(notificationInfo).pipe(tap(data => {
-        //this.blockAddToFriend = true;
         this.connect.startConnection();
         this.connect.handlerGetNotificationAddToFriend();
     }),catchError(async (err) => {
       
     })).subscribe();
+  }
+
+  private setIsBlock = (nameResponse: string) => {
+    for(const user of this.userArray){
+      if(user.name === nameResponse){
+        user.isBlock = true;
+      }
+    }
+    debugger;
   }
 
   public filterData = (valueFilter: string) => {
@@ -75,7 +83,38 @@ export class FriendListComponent implements OnInit {
 
   private getUsersInFriends = () => {
     this.usersInFriendsSubscription = this.connect.usersInFriends$.subscribe(value => {
-      this.usersInFriends = value;
     });
   }
+
+  private hubConnect = () => {
+    this.connect.startConnection();
+    this.connect.handlerGetUsersInFriendship();
+    this.getUsersInFriends();
+
+    if (this.userData !== undefined){
+      this.userAccountArraySubscription = this.connect.userAccountArray$.subscribe(value => {
+        this.allUser = value;
+        this.userArray = this.allUser;
+        
+      });
+      this.usersInFriendsSubscription = this.connect.usersInFriends$.subscribe(value => {
+        this.usersInFriendsArray = value;
+        this.usersInFriends = this.usersInFriendsArray.filter(name => name.userNameResponse === this.userData.name);
+        if (this.usersInFriendsArray.length !== 0){
+          this.setUsersParameters();
+        }
+        console.log(this.usersInFriends);
+      });     
+    }
+  }
+  private setUsersParameters = () => {
+    
+    for(const users of this.userArray){
+      for(const friends of this.usersInFriends){
+        if(users.name === friends.userNameToResponse){
+          users.isFriends = true;
+        }
+      }
+    }
+  } 
 }

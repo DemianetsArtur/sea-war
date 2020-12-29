@@ -25,6 +25,9 @@ export class OptionsInfoService {
   public removeEvent!: string;
   public hubToConnect!: string;
   public addToFriendPost!: string;
+  public getUsersInFriends!: string;
+  public messagePost!: string;
+  public messageAllGet!: string;
 
   constructor() {
     this.host = 'https://localhost:44391/';
@@ -48,5 +51,8 @@ export class OptionsInfoService {
     this.removeEvent = this.host + 'api/notification/remove-event-add-to-friend';
     this.hubToConnect = this.host + 'hubToConnect';
     this.addToFriendPost = this.host + 'api/friend/user-add-to-friends';
+    this.getUsersInFriends = this.host + 'api/friend/get-users-in-friends';
+    this.messagePost = this.host + 'api/message/message-create';
+    this.messageAllGet = this.host + 'api/message/message-all-get';
   }
 }

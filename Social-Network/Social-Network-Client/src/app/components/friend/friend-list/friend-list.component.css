@@ -123,6 +123,10 @@
     background: rgb(247, 233, 36);
     color: #000;
 }
+.events ul li .details .in-friends-btn:hover{
+    background: rgb(85, 255, 70);
+    color: #000;  
+}
 
 .events ul li .details .cancel:hover{
     background: rgb(247, 233, 36);

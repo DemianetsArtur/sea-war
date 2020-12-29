@@ -13,9 +13,9 @@
 
 
 .menu-edit{
-    position: absolute;
-    left: -18%;
-    top: -0.5%;
+    position: relative;
+    left: -17.5%;
+    top: -5px;
 }
 
 .text-invalid{
@@ -39,7 +39,7 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 92.5vh;
+    min-height: 92.9vh;
     background: #111;
 }
 section::before{

@@ -21,11 +21,13 @@ namespace Social_Network.API.Infrastructure.Config
             services.AddSingleton<IBlobStorageRepository, BlobStorageRepository>();
             services.AddSingleton<IFriendRepository>(opt => new FriendRepository(new TableManage(storageAccount, connectionString)));
             services.AddSingleton<INotificationRepository>(_ => new NotificationRepository(new TableManage(storageAccount, connectionString)));
+            services.AddSingleton<IMessageRepository>(_ => new MessageRepository(new TableManage(storageAccount, connectionString)));
             services.AddSingleton<IUoW>(_ => new UoW(new TableManage(storageAccount, connectionString), new BlobServiceClient(connectionString)));
             services.AddSingleton<IUserAccountService, UserAccountService>();
             services.AddSingleton<IBlobStorageService, BlobStorageService>();
             services.AddSingleton<IFriendService, FriendService>();
             services.AddSingleton<INotificationService, NotificationService>();
+            services.AddSingleton<IMessageService, MessageService>();
         } 
     }
 }

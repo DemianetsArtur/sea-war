@@ -35,6 +35,12 @@ export class UserProfileComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.hubConnect();
+  }
+  
+  private hubConnect = () => {
+    this.connect.startConnection();
+    this.connect.handlerGetUsersInFriendship();
   }
 
 }

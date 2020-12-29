@@ -12,6 +12,8 @@ import { NotificationFriendInfo } from '../../models/notification/notification-a
 import * as signalR from '@aspnet/signalr';
 import { HubInfoService } from '../hub-info/hub-info.service';
 import { Friend } from '../../models/friend/friend';
+import { MessageInfo } from '../../models/message/message-info';
+import { MessageGet } from '../../models/message/message-get';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +31,8 @@ export class ConnectService {
   public notificationAddToFriends$ = this.notificationAddToFriends.asObservable();
   public usersInFriends = new BehaviorSubject<Friend[]>([]);
   public usersInFriends$ = this.usersInFriends.asObservable();
+  public messageAll = new BehaviorSubject<MessageGet[]>([]);
+  public messageAll$ = this.messageAll.asObservable();
 
   constructor(private http: HttpClient, 
               private optionsInfo: OptionsInfoService, 
@@ -57,8 +61,15 @@ export class ConnectService {
   public handlerGetUsersInFriendship = () => {
     this.hubConnection.on(this.hubInfo.usersInFriendship, (value: Friend[]) => {
       this.usersInFriends.next(value);
-      debugger;
     });
+    this.startConnection();
+  }
+
+  public handlerGetMessageAll = () => {
+    this.hubConnection.on(this.hubInfo.messageAll, (value: MessageGet[]) => {
+      this.messageAll.next(value);
+    });
+    debugger;
     this.startConnection();
   }
 
@@ -103,6 +114,14 @@ export class ConnectService {
 
   }
 
+  public messagePost = (messageInfo: MessageInfo) => {
+    return this.http.post<MessageInfo>(this.optionsInfo.messagePost, messageInfo);
+  }
+
+  public messageAllGet = (messageInfo: MessageInfo) => {
+    return this.http.post<MessageGet[]>(this.optionsInfo.messageAllGet, messageInfo);
+  }
+
   public addToFriendPost = (friendInfo: Friend) => {
     return this.http.post(this.optionsInfo.addToFriendPost, friendInfo);
   }
@@ -132,6 +151,14 @@ export class ConnectService {
         this.userAccountArray.next(value);
       }
     });
+  }
+
+  public usersInFriendsGet = () => {
+    return this.http.get<Friend[]>(this.optionsInfo.getUsersInFriends).subscribe(value => {
+      if(value !== undefined){
+        this.usersInFriends.next(value);
+      }
+    })
   }
 
   public eventAddToFriend = (notificationInfo: NotificationFriendInfo) => {

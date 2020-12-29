@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Social_Network.API.Infrastructure.ViewModels.Friend;
-using Social_Network.API.Infrastructure.ViewModels.Notification;
 using Social_Network.BLL.Infrastructure.Interfaces;
 using Social_Network.BLL.ModelsDto;
 
@@ -46,6 +45,21 @@ namespace Social_Network.API.Controllers
             this._notificationService.EventAddToFriendRemove(notificationRemoveMapper);
             
             return this.Ok();
+        }
+
+        [HttpGet]
+        [Route("get-users-in-friends")]
+        public IActionResult GetUsersInFriendship()
+        {
+            var getUsersInFriendship = this._friendService.UsersInFriendship();
+            if (getUsersInFriendship == null)
+            {
+                return this.Ok();
+            }
+            else
+            {
+                return this.Ok(getUsersInFriendship);
+            }
         }
 
 

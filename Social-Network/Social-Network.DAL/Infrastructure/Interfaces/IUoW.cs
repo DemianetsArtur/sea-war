@@ -6,5 +6,6 @@
         IBlobStorageRepository BlobStorage { get; }
         IFriendRepository Friend { get; }
         INotificationRepository Notification { get; }
+        IMessageRepository Message { get; }
     }
 }
