@@ -28,6 +28,9 @@ export class OptionsInfoService {
   public getUsersInFriends!: string;
   public messagePost!: string;
   public messageAllGet!: string;
+  public eventMessagePost!: string;
+  public messagesPath!: string;
+  public eventMessageRemove!: string;
 
   constructor() {
     this.host = 'https://localhost:44391/';
@@ -54,5 +57,8 @@ export class OptionsInfoService {
     this.getUsersInFriends = this.host + 'api/friend/get-users-in-friends';
     this.messagePost = this.host + 'api/message/message-create';
     this.messageAllGet = this.host + 'api/message/message-all-get';
+    this.eventMessagePost = this.host + 'api/notification/event-messages-create';
+    this.messagesPath = '/messages';
+    this.eventMessageRemove = this.host + 'api/notification/event-messages-remove';
   }
 }

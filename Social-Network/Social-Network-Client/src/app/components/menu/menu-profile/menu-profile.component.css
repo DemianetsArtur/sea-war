@@ -6,12 +6,13 @@
     font-family: 'Poppins', sans-serif;   
 }
 .navigation{
-    position: fixed;
-    width: 60px;
-    height: 93%;
+    position: absolute;
+    width: 70px;
+    height: 49.3%;
     background: black;
     transition: 0.5s;
     overflow: hidden;
+    border-radius: 0 10px 10px 0;
 }
 .navigation:hover{
     width: 200px;
@@ -63,4 +64,17 @@
     line-height: 60px;
     text-align: start;
     white-space: nowrap;
+}
+
+.navigation ul li a .number{
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    color: #000;
+    line-height: 25px;
+    text-align: center;
 }

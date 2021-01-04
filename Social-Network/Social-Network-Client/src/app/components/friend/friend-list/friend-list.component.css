@@ -133,11 +133,11 @@
 
 }
 
-h1{
+.box h1{
     margin: 0 0 10px;
     position: relative;
     margin-top: -80px;
-    left: 32%;
+    left: 40%;
     color: #000;
     font-size: 24px;
 }
@@ -145,7 +145,7 @@ h1{
 .box{
     position: absolute;
     top: 20%;
-    left: 35%;
+    left: 33%;
     width: 500px;
 }
 
@@ -160,7 +160,7 @@ input, .btn-search, .remove-btn{
 input[type="text"]{
     position: relative;
     background: rgb(224, 224, 224);
-    width: 280px;
+    width: 350px;
     height: 50px;
     border: none;
     outline: none;

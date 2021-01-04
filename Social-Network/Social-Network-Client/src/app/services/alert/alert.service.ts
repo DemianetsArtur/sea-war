@@ -23,4 +23,16 @@ export class AlertService {
   public imageChange = () => {
     this.toastr.success('', 'You have successfully changed the image!');
   }
+
+  public imageTypeInvalid = () => {
+    this.toastr.error('', 'Invalid Image Type!');
+  }
+
+  public imageTypeValid = () => {
+    this.toastr.success('', 'Valid Image Type!');
+  }
+
+  public userMessagesInvalid = () => {
+    this.toastr.warning('', 'No messages with this User!');
+  }
 }

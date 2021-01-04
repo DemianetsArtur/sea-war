@@ -4,6 +4,10 @@ import { ConnectService } from 'src/app/services/connect/connect.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MessageInfo } from '../../models/message/message-info';
 import { MessageGet } from 'src/app/models/message/message-get';
+import { NotificationFriendInfo } from '../../models/notification/notification-add-to-friend/notification-friend-info';
+import { NotificationMessages } from '../../models/notification-messages/notification-messages';
+import { catchError, tap } from 'rxjs/operators';
+import { AlertService } from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-messages',
@@ -22,8 +26,10 @@ export class MessagesComponent implements OnInit {
   public messageInfo = new MessageInfo();
   public userText = '';
   public messageAllArray!: MessageGet[];
+  public messagesEmpty = true;
 
-  constructor(private connect: ConnectService) {
+  constructor(private connect: ConnectService, 
+              private alertService: AlertService) {
     this.userAccountSubscription = this.connect.userAccountData$.subscribe(value => {
       this.userData = value;
     });
@@ -54,11 +60,23 @@ export class MessagesComponent implements OnInit {
 
   public sendMessage = () => {
     this.messageInfo.text = this.userText;
-    debugger;
     this.connect.messagePost(this.messageInfo).subscribe(_ => {
       this.userText = '';
       this.messageAllGet(this.messageInfo);
     });
+    this.eventMessagesCreate();
+  }
+
+  private eventMessagesCreate = () => {
+    const notificationInfo = new NotificationMessages();
+    notificationInfo.userNameResponse = this.userData.name;
+    notificationInfo.userNameToResponse = this.messageInfo.userNameToResponse;
+    notificationInfo.textMessage = this.messageInfo.text;
+    this.connect.eventMessagePost(notificationInfo).pipe(tap(data => {
+      this.connect.startConnection();
+      this.connect.handlerGetNotificationAddToFriend();
+    }),catchError(async (err) => {
+    })).subscribe();
   }
 
   private messageAllGet = (messageInfo: MessageInfo) => {
@@ -67,11 +85,15 @@ export class MessagesComponent implements OnInit {
       this.messageAllSubscription = this.connect.messageAll$.subscribe(value => {
       if (value !== undefined) {
         this.messageAllArray = value;
-        console.log("message ", value);
+        if(this.messageAllArray.length === 0){
+          this.messagesEmpty = true;
+        }
+        else{
+          this.messagesEmpty = false;
+        }
       }
     });
     }
-    debugger;
   }
 
   private hubConnect = () =>{
@@ -79,5 +101,4 @@ export class MessagesComponent implements OnInit {
     this.connect.handlerGetMessageAll();
     this.messageAllGet(this.messageInfo);
   }
-
 }

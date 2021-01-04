@@ -34,6 +34,7 @@
         <li>
             <a [routerLink]="['/notification']">
                 <span class="icon"><fa-icon [icon]="faBell"></fa-icon></span>
+                <div *ngIf="notificationInfo.length > 0"><span class="number">{{notificationInfo.length}}</span></div>
                 <span class="title">Notifications</span>
             </a>
         </li>

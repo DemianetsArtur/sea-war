@@ -1,6 +1,6 @@
 import { UserAccountRegister } from './../../models/user-account/user-account-register/user-account-register';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { OptionsInfoService } from '../options-info/options-info.service';
 import { map } from 'rxjs/operators';
 import { UserAccount } from '../../models/user-account/user-account';
@@ -14,6 +14,7 @@ import { HubInfoService } from '../hub-info/hub-info.service';
 import { Friend } from '../../models/friend/friend';
 import { MessageInfo } from '../../models/message/message-info';
 import { MessageGet } from '../../models/message/message-get';
+import { NotificationMessages } from 'src/app/models/notification-messages/notification-messages';
 @Injectable({
   providedIn: 'root'
 })
@@ -166,15 +167,20 @@ export class ConnectService {
                .pipe(map(res => res));
   }
 
+  public eventMessagePost = (notificationInfo: NotificationMessages) => {
+    return this.http.post(this.optionsInfo.eventMessagePost, notificationInfo);
+  }
+
   public getEventAddToFriend = (notificationInfo: NotificationFriendInfo) => {
-    // const httpOptions = {
-    //   headers: new HttpHeaders({'Content-Type': 'application/json'})
-    // }
     return this.http.post(this.optionsInfo.getEventAddToFriend, notificationInfo).subscribe();
   }
 
   public removeEvent = (notificationInfo: NotificationFriendInfo) => {
     return this.http.post(this.optionsInfo.removeEvent, notificationInfo);
+  }
+
+  public eventMessagesRemove = (notificationInfo: NotificationMessages) => {
+    return this.http.post(this.optionsInfo.eventMessageRemove, notificationInfo);
   }
 
   public userGet = (name: string) => {

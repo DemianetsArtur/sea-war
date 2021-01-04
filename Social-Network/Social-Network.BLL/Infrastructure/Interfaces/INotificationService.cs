@@ -9,5 +9,8 @@ namespace Social_Network.BLL.Infrastructure.Interfaces
         ICollection<NotificationDto> GetEventAddToFriend();
 
         void EventAddToFriendRemove(NotificationDto entity);
+        void EventMessageCreate(NotificationDto entity);
+        void EventMessagesRemove(NotificationDto entity);
+        NotificationDto EventMessagesGet(NotificationDto entity);
     }
 }

@@ -129,8 +129,6 @@ export class EditComponent implements OnInit {
     if (givenData > dateNow || givenData < dateLess){
       this.isDateGreater = true;
     }
-    debugger;
-
   }
 
   public get editFormControl() {

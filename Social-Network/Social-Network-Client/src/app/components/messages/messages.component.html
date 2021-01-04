@@ -25,66 +25,72 @@
                         </ul>
                     </div>
                 </div>
-    
-                <div class="page-content page-container" id="page-content">
-                    <div class="padding">
-                        <div class="row container d-flex justify-content-lg-start">
-                            <div class="col-md-6">
-                                <div class="card card-bordered">
-                                    <div class="card-header">
-                                        <h4 class="card-title"><strong>Send Messages</strong></h4> 
-                                        <button class="btn btn-xs btn-secondary"
-                                                [disabled]="userText.length === 0 || messageInfo.userNameResponse === undefined"
-                                                (click)="sendMessage()" 
-                                                data-abc="true">Send
-                                                <!-- "
-                                                
-                                                " -->
-                                        </button>
-                                    </div>
-                                    <div ngx-auto-scroll observe-attributes class="ps-container ps-theme-default ps-active-y ps-container-div" id="chat-content" style="overflow-y: scroll !important;">
-                                        
-                                        <div  class="media media-chat" *ngFor="let msg of messageAllArray"> 
-                                            <img class="avatar" [src]="msg.userImageResponse" alt="...">
+                <div class="col-md-6 col-xl-4 px-0">
+                    <div class="page-content page-container" id="page-content">
+                        <div class="padding">
+                            <div class="row container d-flex justify-content-lg-start">
+                                <div class="col-md-6">
+                                    <div class="card card-bordered">
+                                        <div class="card-header">
+                                            <h4 class="card-title"><strong>Send Messages</strong></h4> 
+                                            <button class="btn btn-xs btn-secondary"
+                                                    [disabled]="userText.length === 0 || messageInfo.userNameResponse === undefined"
+                                                    (click)="sendMessage()" 
+                                                    data-abc="true">Send
+                                            </button>
+                                        </div>
+                                        <div ngx-auto-scroll observe-attributes class="ps-container ps-theme-default ps-active-y ps-container-div" id="chat-content" style="overflow-y: scroll !important;">
                                             
-                                            <div class="media-body">
-                                                <p>{{msg.text }}</p>
-                                                <p>{{msg.time}}</p>
+                                            <div  class="media media-chat" *ngFor="let msg of messageAllArray"> 
+                                                <img class="avatar" [src]="msg.userImageResponse" alt="...">
                                                 
+                                                <div class="media-body">
+                                                    <p>{{msg.text }}</p>
+                                                    <p>{{msg.time}}</p>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div *ngIf="messagesEmpty">
+                                                <div  class="media media-chat"> 
+                                                    <div class="media-body">
+                                                        <p>You have no messages yet!</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="ps-scrollbar-x-rail ps-scrollbar-div">
+                                                <div class="ps-scrollbar-x ps-scrollbar-w" tabindex="0"></div>
+                                            </div>
+                                            <div class="ps-scrollbar-y-rail ps-scrollbar-y-div" >
+                                                <div class="ps-scrollbar-y ps-scrollbar-y-s" tabindex="0"></div>
                                             </div>
                                         </div>
-                                        
-                                        <div class="ps-scrollbar-x-rail ps-scrollbar-div">
-                                            <div class="ps-scrollbar-x ps-scrollbar-w" tabindex="0"></div>
+                                        <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" [src]="userAccountCurrentData.imagePath" alt="...">
+                                            <input class="publisher-input" 
+                                                   type="text" 
+                                                   placeholder="Write something"
+                                                   [(ngModel)]="userText"
+                                                   /> 
+                                                   <span class="publisher-btn file-group"> 
+                                                       <i class="fa fa-paperclip file-browser"></i> 
+                                                       <input type="file"> 
+                                                    </span> 
+                                                    <a class="publisher-btn" 
+                                                       href="#" data-abc="true">
+                                                       <i class="fa fa-smile"></i>
+                                                    </a> 
+                                                    <a class="publisher-btn text-info" 
+                                                       href="#" data-abc="true">
+                                                       <i class="fa fa-paper-plane"></i>
+                                                    </a> 
                                         </div>
-                                        <div class="ps-scrollbar-y-rail ps-scrollbar-y-div" >
-                                            <div class="ps-scrollbar-y ps-scrollbar-y-s" tabindex="0"></div>
-                                        </div>
-                                    </div>
-                                    <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" [src]="userAccountCurrentData.imagePath" alt="...">
-                                        <input class="publisher-input" 
-                                               type="text" 
-                                               placeholder="Write something"
-                                               [(ngModel)]="userText"
-                                               /> 
-                                               <span class="publisher-btn file-group"> 
-                                                   <i class="fa fa-paperclip file-browser"></i> 
-                                                   <input type="file"> 
-                                                </span> 
-                                                <a class="publisher-btn" 
-                                                   href="#" data-abc="true">
-                                                   <i class="fa fa-smile"></i>
-                                                </a> 
-                                                <a class="publisher-btn text-info" 
-                                                   href="#" data-abc="true">
-                                                   <i class="fa fa-paper-plane"></i>
-                                                </a> 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div></div>
+                </div>
+            </div>
         </mdb-card-body>
     </mdb-card>
 </div>

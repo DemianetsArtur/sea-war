@@ -20,15 +20,34 @@ namespace Social_Network.BLL.Services
             this._mapper = mapper;
         }
 
+        public NotificationDto EventMessagesGet(NotificationDto entity)
+        {
+            var notificationMapper = this._mapper.Map<Notification>(entity);
+            var notificationGet =
+                this._mapper.Map<NotificationDto>(this._database.Notification.EventMessagesGet(notificationMapper));
+            return notificationGet;
+        }
+
         public void EventAddToFriend(NotificationDto entity)
         {
             var dateFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
             var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
             var guidKey = Guid.NewGuid().ToString();
-            var notificationMapp = this._mapper.Map<Notification>(entity);
-            notificationMapp.PartitionKey = date;
-            notificationMapp.RowKey = guidKey;
-            this._database.Notification.EventAddToFriend(notificationMapp);
+            var notificationMapper = this._mapper.Map<Notification>(entity);
+            notificationMapper.PartitionKey = date;
+            notificationMapper.RowKey = guidKey;
+            this._database.Notification.EventAddToFriend(notificationMapper);
+        }
+
+        public void EventMessageCreate(NotificationDto entity)
+        {
+            var dateFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
+            var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
+            var guidKey = Guid.NewGuid().ToString();
+            var notificationMapper = this._mapper.Map<Notification>(entity);
+            notificationMapper.PartitionKey = date;
+            notificationMapper.RowKey = guidKey;
+            this._database.Notification.EventMessageCreate(notificationMapper);
         }
 
         public ICollection<NotificationDto> GetEventAddToFriend()
@@ -41,6 +60,12 @@ namespace Social_Network.BLL.Services
         {
             var notificationMapper = this._mapper.Map<Notification>(entity);
             this._database.Notification.EventAddToFriendRemove(notificationMapper);
+        }
+
+        public void EventMessagesRemove(NotificationDto entity)
+        {
+            var notificationMapper = this._mapper.Map<Notification>(entity);
+            this._database.Notification.EventMessagesRemove(notificationMapper);
         }
     }
 }

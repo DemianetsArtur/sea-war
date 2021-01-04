@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit {
   public fileEmpty = false;
   public typeIncorrect = false;
   public faUserCircle = faUserCircle;
+  public isDateGreater = false;
 
   constructor(private formBuilder: FormBuilder, 
               private route: ActivatedRoute,    
@@ -38,6 +39,9 @@ export class RegisterComponent implements OnInit {
     debugger;
     this.submitted = true;
     if (this.registerForm.invalid) {
+      if (this.file === undefined){
+        this.fileEmpty = true;
+      }
       return;
     }
     if (this.registerForm.controls.confirmPassword.value !== this.registerForm.controls.password.value) {
@@ -51,6 +55,16 @@ export class RegisterComponent implements OnInit {
       this.fileEmpty = true;
       return;
     }
+
+    if (this.typeIncorrect){
+      return;
+    }
+
+    this.handlerDateValidation(this.registerForm.controls.date.value);
+    if (this.isDateGreater){
+      return;
+    }
+
     this.loading = true;
     const returnUrl = this.route.snapshot.queryParamMap.get(this.optionsInfo.returnUrl) || '/';
     this.connect.registerPost(this.registerForm.value)
@@ -70,17 +84,26 @@ export class RegisterComponent implements OnInit {
   }
 
   public handlerTypeImage = (files: any) => {
-    debugger;
-    this.typeIncorrect = false;
-    this.fileEmpty = false;
-    // if (files[0].type !== 'image/png') {
-    //   this.typeIncorrect = true;
-    // }
-    if (files.length === 0) {
-      this.fileEmpty = true;
+    this.typeIncorrect = true;
+    if (files[0].type === 'image/png' || files[0].type === 'image/jpeg') {
+      this.alertService.imageTypeValid();
+      this.typeIncorrect = false;
+      this.fileEmpty = false;
     }
-    if (files[0].type !== 'image/jpeg') {
-      this.typeIncorrect = true;
+    else{
+      this.alertService.imageTypeInvalid();
+    }
+  }
+
+  public handlerDateValidation = (date: any) => {
+    const dateNow = new Date();
+    const dateLessInfo = dateNow.getFullYear() - 140;
+    const dateLess = new Date(dateLessInfo);
+
+    const givenData = new Date(date);
+    this.isDateGreater = false;
+    if (givenData > dateNow || givenData < dateLess){
+      this.isDateGreater = true;
     }
   }
 

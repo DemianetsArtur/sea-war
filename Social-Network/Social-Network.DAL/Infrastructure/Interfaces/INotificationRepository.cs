@@ -8,5 +8,8 @@ namespace Social_Network.DAL.Infrastructure.Interfaces
         void EventAddToFriend(Notification entity);
         ICollection<Notification> GetEventAddToFriend();
         void EventAddToFriendRemove(Notification entity);
+        void EventMessageCreate(Notification entity);
+        void EventMessagesRemove(Notification entity);
+        Notification EventMessagesGet(Notification entity);
     }
 }

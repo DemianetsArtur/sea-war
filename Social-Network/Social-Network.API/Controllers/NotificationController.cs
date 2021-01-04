@@ -33,21 +33,40 @@ namespace Social_Network.API.Controllers
         
         [HttpPost]
         [Route("event-add-to-friend")]
-        public IActionResult AddToFriend([FromBody] NotificationVieModel model)
+        public IActionResult AddToFriend([FromBody] NotificationViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return this.BadRequest();
             }
 
-            var notificationMapp = this._mapper.Map<NotificationDto>(model);
-            this._notificationService.EventAddToFriend(notificationMapp);
+            var notificationMapper = this._mapper.Map<NotificationDto>(model);
+            this._notificationService.EventAddToFriend(notificationMapper);
+            return this.Ok();
+        }
+
+        [HttpPost]
+        [Route("event-messages-create")]
+        public IActionResult EventMessagesCreate([FromBody] NotificationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            var notificationMapper = this._mapper.Map<NotificationDto>(model);
+            var notificationGet = this._notificationService.EventMessagesGet(notificationMapper);
+            if (notificationGet != null)
+            {
+                this._notificationService.EventMessagesRemove(notificationMapper);
+            }
+            this._notificationService.EventMessageCreate(notificationMapper);
             return this.Ok();
         }
 
         [HttpPost]
         [Route("get-event-add-to-friend")]
-        public async Task<IActionResult> GetAddToFriend([FromBody] NotificationVieModel model)
+        public async Task<IActionResult> GetAddToFriend([FromBody] NotificationViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -71,6 +90,20 @@ namespace Social_Network.API.Controllers
 
             var notificationMapper = this._mapper.Map<NotificationDto>(model);
             this._notificationService.EventAddToFriendRemove(notificationMapper);
+            return this.Ok();
+        }
+
+        [HttpPost]
+        [Route("event-messages-remove")]
+        public IActionResult EventMessagesRemove([FromBody] NotificationRemoveViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+            
+            var notificationMapper = this._mapper.Map<NotificationDto>(model);
+            this._notificationService.EventMessagesRemove(notificationMapper);
             return this.Ok();
         }
     }

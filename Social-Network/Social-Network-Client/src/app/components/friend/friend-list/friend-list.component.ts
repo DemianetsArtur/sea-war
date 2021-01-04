@@ -24,6 +24,7 @@ export class FriendListComponent implements OnInit {
   public blockAddToFriend = false;
   public usersInFriendsArray: Friend[] = [];
   public usersInFriends: Friend[] = [];
+  public userFind = '';
 
   constructor(private connect: ConnectService, 
               private optionInfo: OptionsInfoService, 
@@ -42,7 +43,6 @@ export class FriendListComponent implements OnInit {
   
 
   public addFriend = (nameResponse: string, nameToResponse: string) => {
-    debugger;
     this.setIsBlock(nameToResponse);
     const notificationInfo = new NotificationFriendInfo();
     notificationInfo.userNameResponse = nameResponse;
@@ -61,10 +61,10 @@ export class FriendListComponent implements OnInit {
         user.isBlock = true;
       }
     }
-    debugger;
   }
 
   public filterData = (valueFilter: string) => {
+    debugger;
     if (valueFilter === ""){
       this.userArray = this.allUser;
     }
@@ -79,6 +79,7 @@ export class FriendListComponent implements OnInit {
 
   public removeFilterData = () => {
     this.userArray = this.allUser;
+    this.userFind = '';
   }
 
   private getUsersInFriends = () => {

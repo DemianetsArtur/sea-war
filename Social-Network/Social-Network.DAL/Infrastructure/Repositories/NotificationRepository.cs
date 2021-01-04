@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Azure.Cosmos.Table;
 using Social_Network.DAL.Entities;
@@ -24,6 +23,12 @@ namespace Social_Network.DAL.Infrastructure.Repositories
             this.NotificationCreate(entity);
         }
 
+        public void EventMessageCreate(Notification entity)
+        {
+            entity.NameResponse = NotificationInfo.EventMessages;
+            this.NotificationCreate(entity);
+        }
+
         public ICollection<Notification> GetEventAddToFriend()
         {
             var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.NotificationTable);
@@ -33,6 +38,35 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         }
 
         public void EventAddToFriendRemove(Notification entity)
+        {
+            this.EventRemove(entity);
+        }
+
+        public Notification EventMessagesGet(Notification entity)
+        {
+            var userNameResponseQuery =
+                TableQuery.GenerateFilterCondition("UserNameResponse", QueryComparisons.Equal, entity.UserNameResponse);
+            var userNameToResponseQuery = 
+                TableQuery.GenerateFilterCondition("UserNameToResponse", QueryComparisons.Equal, entity.UserNameToResponse);
+            var nameResponseQuery = 
+                TableQuery.GenerateFilterCondition("NameResponse", QueryComparisons.Equal, NotificationInfo.EventMessages);
+            var usersNameCombineFilter =
+                TableQuery.CombineFilters(userNameResponseQuery, TableOperators.And, userNameToResponseQuery);
+            var combineQuery = 
+                TableQuery.CombineFilters(usersNameCombineFilter, TableOperators.And, nameResponseQuery);
+            var query = new TableQuery<Notification>().Where(combineQuery);
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.NotificationTable);
+            var entityTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
+            return entityTable;
+        }
+
+        public void EventMessagesRemove(Notification entity)
+        {
+            entity.NameResponse = NotificationInfo.EventMessages;
+            this.EventRemove(entity);
+        }
+
+        private void EventRemove(Notification entity)
         {
             var userNameResponseQuery =
                 TableQuery.GenerateFilterCondition("UserNameResponse", QueryComparisons.Equal, entity.UserNameResponse);

@@ -13,7 +13,7 @@
       </div>
       <div class="contactFrom">
         
-        <h2>Fill Data</h2>
+        <h2>Fill Personal Data</h2>
         <div>
           <form class="formBox" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="inputBox w50">
@@ -94,27 +94,32 @@
             <input type="date" 
                    name=""
                    formControlName="date"
-                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.date.errors }"
+                   [ngClass]="{ 'is-invalid': submitted && isDateGreater || submitted && registerFormControl.date.errors }"
                    required>
             <span class="text-data">Date</span>
             <div *ngIf="submitted && registerFormControl.date.errors" class="invalid-feedback">    
               <div *ngIf="registerFormControl.date.errors.required"><span class="text-invalid">Date is required!</span></div>    
             </div>
+            <div *ngIf="submitted && isDateGreater" class="invalid-feedback">    
+              <div *ngIf="isDateGreater"><span class="text-invalid">Invalid date!</span></div>    
+            </div>
           </div>
+
           <div class="inputBox w50">
-            <input #fileInput 
+            <input #fileInput
+                  class="input-file"
                   type="file" 
                   name="" 
                   accept="image/*" 
                   (change)="setFileOption(fileInput.files)"
-                  [ngClass]="{ 'is-invalid': submitted && fileEmpty || submitted && typeIncorrect }" 
+                  [ngClass]="{ 'is-invalid': submitted && typeIncorrect || submitted && fileEmpty }" 
                   required>
-            <span class="text-data">Image</span>
-            <div *ngIf="submitted && fileEmpty" class="invalid-feedback">    
-              <div *ngIf="fileEmpty"><span class="text-invalid">Image is required!</span></div>    
-            </div>
+            <span class="text-data-input text-white">Upload Image</span>
             <div *ngIf="submitted && typeIncorrect" class="invalid-feedback">    
-              <div *ngIf="typeIncorrect"><span class="text-invalid">Type must be .jpeg!</span></div>    
+              <div *ngIf="typeIncorrect"><span class="text-invalid">Type must be .png .jpeg!</span></div>    
+            </div>
+            <div *ngIf="submitted && fileEmpty" class="invalid-feedback" style="margin-top: 10px;">    
+              <div *ngIf="fileEmpty"><span class="text-invalid" >Image is required!</span></div>    
             </div>
           </div>
           <div class="inputBox w100">

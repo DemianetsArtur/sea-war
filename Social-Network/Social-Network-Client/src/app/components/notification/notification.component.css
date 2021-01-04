@@ -11,15 +11,15 @@
     width: 50%;
     height: 100%;
     left: 30%;
-    top: 200px;
-    background: rgba(0, 0, 0, .5);
+    top: 150px;
+    background: rgba(255, 255, 255, 0.5);
     float:none;
     box-sizing: border-box;
     
 }
 
 .events ul{
-    position: absolute;
+    position: relative;
     
     transform: translateY(-50%);
     top: 50%;
@@ -60,8 +60,8 @@
     position: absolute;
     margin: 0;
     padding: 0;
-    top: 35%;
-    left: 20%;
+    top: 37%;
+    left: 30%;
     transform: translateY(-50%, -50%);
 }
 
@@ -109,3 +109,4 @@
     background: rgb(247, 233, 36);
 
 }
+

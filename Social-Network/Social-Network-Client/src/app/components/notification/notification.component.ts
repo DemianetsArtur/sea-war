@@ -3,6 +3,9 @@ import { UserAccount } from 'src/app/models/user-account/user-account';
 import { ConnectService } from 'src/app/services/connect/connect.service';
 import { NotificationFriendInfo } from '../../models/notification/notification-add-to-friend/notification-friend-info';
 import { Friend } from '../../models/friend/friend';
+import { NotificationInfoService } from 'src/app/services/notification/notification-info/notification-info.service';
+import { Router } from '@angular/router';
+import { OptionsInfoService } from 'src/app/services/options-info/options-info.service';
 
 @Component({
   selector: 'app-notification',
@@ -16,7 +19,10 @@ export class NotificationComponent implements OnInit {
   public userData = new UserAccount();
   public notificationAddToFriend: NotificationFriendInfo[] = []; 
   public notificationArray!: NotificationFriendInfo[]; 
-  constructor(private connect: ConnectService) {
+  constructor(private connect: ConnectService, 
+              public notificationInfo: NotificationInfoService,
+              private router: Router, 
+              private optionInfo: OptionsInfoService) {
     this.userAccountSubscription = this.connect.userAccountData$.subscribe(value => {
       this.userData = value;
     });   
@@ -36,7 +42,15 @@ export class NotificationComponent implements OnInit {
       if (value !== undefined) {
         this.notificationArray = value;
         this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameToResponse === this.userData.name);
+        debugger;
       }
+    });
+  }
+
+  public viewMessages = (notificationInfo: NotificationFriendInfo) => {
+    this.connect.eventMessagesRemove(notificationInfo).subscribe(res => {
+      this.router.navigate([this.optionInfo.messagesPath]);
+      this.hubConnect(); 
     });
   }
 
@@ -61,5 +75,4 @@ export class NotificationComponent implements OnInit {
     this.connect.handlerGetNotificationAddToFriend();
     this.getNotificationAddToFriend(this.userData.name);
   }
-
 }

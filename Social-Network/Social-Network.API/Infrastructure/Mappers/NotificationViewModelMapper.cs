@@ -9,8 +9,8 @@ namespace Social_Network.API.Infrastructure.Mappers
     {
         public NotificationResponseMapper()
         {
-            this.CreateMap<NotificationVieModel, NotificationDto>();
-            this.CreateMap<NotificationDto, NotificationVieModel>();
+            this.CreateMap<NotificationViewModel, NotificationDto>();
+            this.CreateMap<NotificationDto, NotificationViewModel>();
 
             this.CreateMap<NotificationRemoveViewModel, NotificationDto>();
             this.CreateMap<NotificationDto, NotificationRemoveViewModel>();

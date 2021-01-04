@@ -8,8 +8,10 @@
             </div>
             <div class="details">
                 <h3>{{notification.nameResponse}}</h3>
-                <p>From {{notification.userNameResponse}}</p>
-                <button class="accept-btn" (click)="acceptEvent(notification)">accept</button><button class="cancel" (click)="cancelEvent(notification)">cancel</button>
+                <p>From {{notification.userNameResponse}} </p>
+                <div *ngIf="notificationInfo.eventMessages === notification.nameResponse">Message: {{notification.textMessage}}</div>
+                <div *ngIf="notificationInfo.eventMessages !== notification.nameResponse"><button class="accept-btn" (click)="acceptEvent(notification)">accept</button><button class="cancel" (click)="cancelEvent(notification)">cancel</button></div>
+                <div *ngIf="notificationInfo.eventMessages === notification.nameResponse"><button class="accept-btn" (click)="viewMessages(notification)">View</button></div>
             </div>
             <div style="clear: both;"></div>
         </li>

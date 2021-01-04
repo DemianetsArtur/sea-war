@@ -21,7 +21,7 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 92.5vh;
+    min-height: 97.5vh;
     background: #111;
 }
 section::before{
@@ -36,7 +36,7 @@ section::before{
 }
 
 section .container{
-    margin-top: -100px;
+    margin-top: -45px;
     position: relative;
     min-width: 1100px;
     min-height: 600px;
