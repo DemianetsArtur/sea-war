@@ -17,6 +17,7 @@ export class FriendListComponent implements OnInit {
   public userAccountSubscription!: any;
   public userAccountArraySubscription!: any;
   public usersInFriendsSubscription!: any;
+  public notificationAddToFriendSubscription!: any;
   public userData = new UserAccount();
   public userArray!: UserAccount[];
   public allUser!: any[];
@@ -25,6 +26,9 @@ export class FriendListComponent implements OnInit {
   public usersInFriendsArray: Friend[] = [];
   public usersInFriends: Friend[] = [];
   public userFind = '';
+  public notificationAddToFriend: NotificationFriendInfo[] = []; 
+  public notificationArray!: NotificationFriendInfo[];
+  public unblock = false;
 
   constructor(private connect: ConnectService, 
               private optionInfo: OptionsInfoService, 
@@ -87,9 +91,27 @@ export class FriendListComponent implements OnInit {
     });
   }
 
+  private getNotificationAddToFriend = (nameToResponse: string) => {
+    const notificationInfo = new NotificationFriendInfo();
+    notificationInfo.userNameToResponse = nameToResponse;
+    notificationInfo.userNameResponse = nameToResponse;
+    this.connect.getEventAddToFriend(notificationInfo);
+    this.notificationAddToFriendSubscription = this.connect.notificationAddToFriends$.subscribe(value => {
+      if (value !== undefined) {
+        this.notificationArray = value;
+        this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name);
+        console.log("n:", this.notificationAddToFriend);
+        if (this.notificationAddToFriend.length !== 0){
+          this.setUserBlock();
+        }
+      }
+    });
+  }
+
   private hubConnect = () => {
     this.connect.startConnection();
     this.connect.handlerGetUsersInFriendship();
+    this.connect.handlerGetNotificationAddToFriend();
     this.getUsersInFriends();
 
     if (this.userData !== undefined){
@@ -104,8 +126,26 @@ export class FriendListComponent implements OnInit {
         if (this.usersInFriendsArray.length !== 0){
           this.setUsersParameters();
         }
-        console.log(this.usersInFriends);
-      });     
+      });  
+      this.notificationAddToFriendSubscription = this.connect.notificationAddToFriends$.subscribe(value => {
+        if (value !== undefined) {
+          this.notificationArray = value;
+          this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name);
+          console.log("n:", this.notificationAddToFriend);
+          if (this.notificationAddToFriend.length !== 0){
+            this.setUserBlock();
+          }
+          else{
+            for(const user of this.userArray){
+              if(user.isBlock === true){
+                debugger;
+                user.isBlock = false;
+              }
+              debugger;
+            }
+          }
+        }
+      });   
     }
   }
   private setUsersParameters = () => {
@@ -117,5 +157,16 @@ export class FriendListComponent implements OnInit {
         }
       }
     }
-  } 
+  }
+  
+  private setUserBlock = () => {
+    debugger;
+    for (const user of this.userArray){
+      for (const event of this.notificationAddToFriend){
+        if(user.name === event.userNameToResponse){
+          user.isBlock = true;
+        }
+      }
+    }
+  }
 }

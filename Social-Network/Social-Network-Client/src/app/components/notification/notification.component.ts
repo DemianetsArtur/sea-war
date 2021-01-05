@@ -42,7 +42,6 @@ export class NotificationComponent implements OnInit {
       if (value !== undefined) {
         this.notificationArray = value;
         this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameToResponse === this.userData.name);
-        debugger;
       }
     });
   }
