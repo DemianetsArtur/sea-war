@@ -1,8 +1,36 @@
-<div class="margin-menu">
-    <app-menu-profile></app-menu-profile>
+
+<app-menu-profile></app-menu-profile>
+
+<div class="box">
+    <h1>Search</h1>
+    <form action="">
+        <input type="text" name="" [(ngModel)]="userFind" [ngModelOptions]="{standalone: true}" placeholder="Type Nick Name...">
+        <button [disabled]="userFind.length === 0" class="remove-btn" (click)="removeFilterData()"><fa-icon [icon]="faTimes"></fa-icon></button>
+        <button [disabled]="userFind.length === 0" class="btn-search" (click)="filterData(userFind)" >Search</button>
+    </form>
 </div>
 
-<div class="body">
+<mat-card class="example-card" *ngFor="let users of userArray">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+          <img mat-card-avatar 
+               class="example-header-image" 
+               [src]="users.imagePath" alt="">
+      </div>
+      <mat-card-title>{{users.name}}</mat-card-title>
+      <mat-card-subtitle>{{users.firstName}} {{users.lastName}}</mat-card-subtitle>
+      
+    </mat-card-header>
+    <div *ngIf="!users.isFriends">
+        <button mat-button class="btn-friends" 
+            [disabled]="users.isBlock" 
+            (click)="addFriend(userData.name, users.name)">Add Friends</button>
+    </div>
+    <div *ngIf="users.isFriends">
+        <button mat-button class="btn-friends">In Your Friends</button>
+    </div>
+  </mat-card>
+<!-- <div class="body">
     <div class="box">
         <h1>Search</h1>
         <form action="">
@@ -37,4 +65,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

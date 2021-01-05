@@ -9,7 +9,7 @@
                     <div class=" friend-lis white z-depth-1 px-3 pt-3 pb-0">
                         <ul class="list-unstyled t " *ngFor="let users of userArray">
                             <li class="active grey lighten-3 p-2">
-                                <button href="#" class="d-flex justify-content-between profile-btn" (click)="selectUserForMessage(users)" >
+                                <button matRipple class="d-flex justify-content-between profile-btn" (click)="selectUserForMessage(users)" >
                                     <img [src]="users.imagePath" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1">
                                     <div class="text-small">
                                         <strong></strong>
