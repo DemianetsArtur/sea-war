@@ -31,7 +31,7 @@ namespace Social_Network.BLL.Services
         public void UserAddToFriends(FriendDto entity)
         {
             var dateFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
-            var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
+            var date = DateTime.Now.ToString(OptionsInfo.TimeConfig, dateFormat);
             var guidKey = Guid.NewGuid().ToString();
             var friendMapper = this._mapper.Map<Friend>(entity);
             friendMapper.PartitionKey = date;

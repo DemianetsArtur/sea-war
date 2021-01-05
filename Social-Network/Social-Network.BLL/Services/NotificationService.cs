@@ -31,7 +31,7 @@ namespace Social_Network.BLL.Services
         public void EventAddToFriend(NotificationDto entity)
         {
             var dateFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
-            var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
+            var date = DateTime.Now.ToString(OptionsInfo.TimeConfig, dateFormat);
             var guidKey = Guid.NewGuid().ToString();
             var notificationMapper = this._mapper.Map<Notification>(entity);
             notificationMapper.PartitionKey = date;
@@ -42,7 +42,7 @@ namespace Social_Network.BLL.Services
         public void EventMessageCreate(NotificationDto entity)
         {
             var dateFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
-            var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
+            var date = DateTime.Now.ToString(OptionsInfo.TimeConfig, dateFormat);
             var guidKey = Guid.NewGuid().ToString();
             var notificationMapper = this._mapper.Map<Notification>(entity);
             notificationMapper.PartitionKey = date;

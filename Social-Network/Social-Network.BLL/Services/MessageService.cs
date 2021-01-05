@@ -24,13 +24,15 @@ namespace Social_Network.BLL.Services
 
         public void MessageCreate(MessageDto entity)
         {
+            var timeFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
             var dateFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
+            var time = DateTime.Now.ToString(OptionsInfo.TimeConfig, timeFormat);
             var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
             var guidKey = Guid.NewGuid().ToString();
             var messageMapper = this._mapper.Map<Message>(entity);
             messageMapper.PartitionKey = date;
             messageMapper.RowKey = guidKey;
-            messageMapper.Time = date;
+            messageMapper.Time = time;
             this._database.Message.MessageCreate(messageMapper);
         }
 

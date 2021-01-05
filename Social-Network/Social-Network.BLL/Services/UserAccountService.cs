@@ -46,7 +46,7 @@ namespace Social_Network.BLL.Services
         {
             var userMapper = this._mapper.Map<UserAccount>(entity);
             var dateFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
-            var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
+            var date = DateTime.Now.ToString(OptionsInfo.TimeConfig, dateFormat);
             var guidKey = Guid.NewGuid().ToString();
 
             userMapper.PartitionKey = date;

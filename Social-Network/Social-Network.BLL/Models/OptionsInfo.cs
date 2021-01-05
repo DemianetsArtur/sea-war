@@ -2,6 +2,7 @@
 {
     public static class OptionsInfo
     {
-        public const string DateConfig = "hh.mm.ss";
+        public const string TimeConfig = "hh.mm.ss";
+        public const string DateConfig = "dd.mm.yyyy";
     }
 }
