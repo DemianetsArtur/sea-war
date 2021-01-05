@@ -7,6 +7,7 @@ import { AlertService } from '../../../services/alert/alert.service';
 import { NotificationFriendInfo } from '../../../models/notification/notification-add-to-friend/notification-friend-info';
 import { tap, catchError } from 'rxjs/operators';
 import { Friend } from '../../../models/friend/friend';
+import { NotificationInfoService } from 'src/app/services/notification/notification-info/notification-info.service';
 
 @Component({
   selector: 'app-friend-list',
@@ -32,7 +33,8 @@ export class FriendListComponent implements OnInit {
 
   constructor(private connect: ConnectService, 
               private optionInfo: OptionsInfoService, 
-              private alert: AlertService) {
+              private alert: AlertService,
+              private notificationInfoService: NotificationInfoService) {
     this.userAccountSubscription = this.connect.userAccountData$.subscribe(value => {
       this.userData = value;
     });
@@ -99,7 +101,8 @@ export class FriendListComponent implements OnInit {
     this.notificationAddToFriendSubscription = this.connect.notificationAddToFriends$.subscribe(value => {
       if (value !== undefined) {
         this.notificationArray = value;
-        this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name);
+        this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name && name.nameResponse === this.notificationInfoService.eventAddToFriend);
+        debugger;
         console.log("n:", this.notificationAddToFriend);
         if (this.notificationAddToFriend.length !== 0){
           this.setUserBlock();
@@ -163,7 +166,7 @@ export class FriendListComponent implements OnInit {
     debugger;
     for (const user of this.userArray){
       for (const event of this.notificationAddToFriend){
-        if(user.name === event.userNameToResponse){
+        if(user.name === event.userNameToResponse && event.nameResponse === this.notificationInfoService.eventAddToFriend){
           user.isBlock = true;
         }
       }

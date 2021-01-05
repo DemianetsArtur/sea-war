@@ -77,7 +77,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
             var usersNameCombineFilter =
                 TableQuery.CombineFilters(userNameResponseQuery, TableOperators.And, userNameToResponseQuery);
             var combineQuery = 
-                TableQuery.CombineFilters(userNameToResponseQuery, TableOperators.And, usersNameCombineFilter);
+                TableQuery.CombineFilters(usersNameCombineFilter, TableOperators.And, nameResponseQuery);
             var query = new TableQuery<Notification>().Where(combineQuery);
             var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.NotificationTable);
             var entityTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
