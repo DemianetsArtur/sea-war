@@ -24,9 +24,6 @@ export class UserProfileComponent implements OnInit {
     });
     this.userAccountCurrentSubscription = this.connect.userGet(this.userData.name);
     if (this.userData !== undefined){
-      this.imageSubscription = this.connect.imageDownloadGet(this.userData.name).subscribe(value => {
-        this.imageDownload = value;
-      });
       this.userAccountCurrentSubscription = this.connect.userAccountCurrentValue$.subscribe(value => {
         this.userAccountCurrentData = value;
       });

@@ -40,19 +40,17 @@ export class EditComponent implements OnInit {
     this.userAccountCurrentSubscription = this.connect.userGet(this.userData.name);
     this.userAccountCurrentSubscription = this.connect.userAccountCurrentValue$.subscribe(value => {
       this.userAccountCurrentData = value;
+      if(this.userAccountCurrentData.name !== undefined){
+        this.handlerDataEdit();
+      }
     });   
     this.handlerFormBuilder();
-    this.handlerAboutMeSetValue();
-    this.handlerDataEdit(); 
+    this.handlerDataEdit();
   }
 
   ngOnInit(): void {
 
     
-  }
-
-  public handlerAboutMeSetValue = () => {
-    this.editForm.controls.aboutMe.setValue(this.userAccountCurrentData.aboutMe);
   }
 
   private handlerDataEdit = () => {
@@ -87,7 +85,6 @@ export class EditComponent implements OnInit {
 
   public onSubmit = () => {
     this.submitted = true;
-    
     if (this.editForm.invalid) {
       this.handlerDataEdit();
       return;
@@ -108,7 +105,6 @@ export class EditComponent implements OnInit {
                   window.location.reload();
                 }),
                 catchError(async (err) => {
-                  this.alertService.sameUserAlert();
                   this.loading = false;
                   this.editForm.reset();
                   this.editForm.setErrors({ invalidLogin: true });
@@ -141,10 +137,14 @@ export class EditComponent implements OnInit {
   }
 
   public handlerTypeImage = (files: any) => {
+
     this.typeIncorrect = true;
     if (files[0].type === 'image/png' || files[0].type === 'image/jpeg') {
-      this.alertService.imageChange();
+      this.alertService.imageTypeValid();
       this.typeIncorrect = false;
+    }
+    else{
+      this.alertService.imageTypeInvalid();
     }
   }
 
