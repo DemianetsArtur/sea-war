@@ -9,6 +9,17 @@
     background:white;
 }
 
+.example-card {
+    top: 40px;
+    left: 35%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+  
+  .example-header-image {
+    background-size: cover;
+  }
+
 .card{
     position: absolute;
     top: 50%;

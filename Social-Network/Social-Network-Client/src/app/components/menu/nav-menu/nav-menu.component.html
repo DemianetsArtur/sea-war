@@ -1,45 +1,4 @@
 <header>
-    <!-- <nav class="margin-bottom navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
-      <div class="container color-items">
-        <a class="navbar-brand" 
-            [routerLink]="['/']">Social Network</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target=".navbar-collapse"
-          aria-label="Toggle navigation"
-          [attr.aria-expanded]="isExpanded"
-          (click)="toggle()">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-          [ngClass]="{ show: isExpanded }"
-        >
-          <ul class="navbar-nav flex-grow">
-            <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" *ngIf="!userData.isLoggedIn" [routerLink]='["/login"]'>Sign In</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" *ngIf="!userData.isLoggedIn" [routerLink]='["/register"]'>Sign Up</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" *ngIf="userData.isLoggedIn && userData.role===userRole.User" [routerLink]='["/user-profile"]' [routerLink]=''>Profile</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" *ngIf="userData.isLoggedIn && userData.role===userRole.Admin" [routerLink]='["/admin-home"]' [routerLink]=''>Admin Profile</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]='["link-active"]'>
-              <a class="nav-link text-dark" *ngIf="userData.isLoggedIn" (click)=logout() [routerLink]=''>Sign Out</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]='["link-active"]' *ngIf="userData.isLoggedIn">
-              <a class="nav-link text-dark">Welcome <b>{{userData.name}}</b> </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav> -->
     <mat-toolbar color="" class="margin-bottom navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black border-bottom box-shadow mb-3">
       <div class="container color-items">
         <div><a class="navbar-brand" [routerLink]="['/']">Social Network</a></div>
@@ -64,10 +23,5 @@
           </li>
         </ul>
       </div>
-      
-      <!-- <span class="nav-tool-items">
-        <a mat-button routerLink="signin" routerLinkActive="active">Signin</a>
-        <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Signup</a>
-      </span> -->
     </mat-toolbar>
   </header>
