@@ -214,12 +214,12 @@ section .container .contactFrom .formBox .inputBox textarea:valid ~ span{
     transform: translateY(-20px);  
 }
 
-section .container .contactFrom .formBox .inputBox input[type="submit"]{
+.submit{
     position: relative;
     cursor: pointer;
     background: #111;
     color: #fff;
     border: none;
-    max-width: 200px;
-    padding: 12px;
+    width: 150px;
+    padding: 10px;
 }

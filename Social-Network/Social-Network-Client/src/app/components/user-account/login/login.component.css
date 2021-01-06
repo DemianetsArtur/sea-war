@@ -167,7 +167,6 @@ section .container .contactFrom .formBox .inputBox input:focus ~ span,
 section .container .contactFrom .formBox .inputBox textarea:focus ~ span,
 section .container .contactFrom .formBox .inputBox input:valid ~ span,
 section .container .contactFrom .formBox .inputBox textarea:valid ~ span{
-    transform: translateY(-20px);
     font-size: 12px;
     font-weight: 400;
     letter-spacing: 1px;
@@ -177,10 +176,10 @@ section .container .contactFrom .formBox .inputBox textarea:valid ~ span{
     transform: translateY(-20px);  
 }
 
-section .container .contactFrom .formBox .inputBox input[type="submit"]{
+.submit{
     position: relative;
     cursor: pointer;
-    margin-top: -40px;
+    margin-top: 10px;
     min-width: 150px;
     background: #111;
     color: #fff;

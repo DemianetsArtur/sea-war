@@ -1,6 +1,6 @@
   <section>
     <div class="container">
-      <div class="contactinfo">
+      <mat-card class="contactinfo">
         <div>
           <h2>Sign In</h2>
           <ul class="info">
@@ -10,8 +10,8 @@
             </li>
           </ul>
         </div>
-      </div>
-      <div class="contactFrom">
+      </mat-card>
+      <mat-card class="contactFrom">
         
         <h2>Fill Personal Data</h2>
         <div>
@@ -41,10 +41,10 @@
             </div>
           </div>
           <div class="inputBox w100"> 
-            <input [disabled]="loading" type="submit" value="Send">
+            <button mat-button [disabled]="loading" class="submit" value="Send">Sign In</button>
           </div>
           </form>
         </div>
-      </div>
+      </mat-card>
     </div>
   </section>
