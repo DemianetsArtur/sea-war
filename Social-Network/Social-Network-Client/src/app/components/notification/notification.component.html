@@ -13,7 +13,6 @@
                 <div *ngIf="notificationInfo.eventMessages !== notification.nameResponse"><button mat-stroked-button color="black" class="accept-btn" (click)="acceptEvent(notification)">accept</button><button mat-stroked-button class="cancel" (click)="cancelEvent(notification)">cancel</button></div>
                 <div *ngIf="notificationInfo.eventMessages === notification.nameResponse"><button mat-stroked-button color="black" class="view-btn" (click)="viewMessages(notification)">View</button></div>
             </div>
-            <div style="clear: both;"></div>
         </li>
     </ul>
 </div>

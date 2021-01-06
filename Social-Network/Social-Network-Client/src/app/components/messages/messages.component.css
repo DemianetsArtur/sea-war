@@ -7,7 +7,7 @@
 }
 
 .border-chat{
-    border: 2px solid #000;
+    border: 1px solid #000;
     border-radius: 10px;
 }
 
@@ -18,22 +18,27 @@
     text-transform: uppercase;
     background: #fff;
     padding:  6px 10px;
-    border: 2px solid #262626;
-    margin-top: 15px;
+    border: 1px solid #262626;
+
     border-radius: 10px;
     font-size: 16px;
 }
 
+.profile-btn:focus{
+  border: 1px solid #262626;
+  border-radius: 0;
+}
+
 .container{
     position: relative;
-    top: 80px;
+    top: 40px;
     margin-left: 200px;
 }
 
 .page-content{
     position: relative;
     margin-left: 300px;
-    margin-top: -380px;
+    margin-top: -300px;
 }
 
 
