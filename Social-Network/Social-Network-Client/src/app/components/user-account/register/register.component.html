@@ -56,10 +56,10 @@
                    required>
             <span>Email Address</span>
             <div *ngIf="submitted && registerForm.controls['email'].hasError('email')" class="invalid-feedback">    
-              <div *ngIf="registerForm.controls['email'].hasError('email')"><span class="text-invalid">Email Address must be with @ symbol</span></div>    
+              <div *ngIf="registerForm.controls['email'].hasError('email')"><span class="text-invalid">Email Address is incorrect!</span></div>    
             </div>
             <div *ngIf="submitted && registerFormControl.email.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.email.errors.required"><span class="text-invalid">Email Address is required</span></div>    
+              <div *ngIf="registerFormControl.email.errors.required"><span class="text-invalid">Email Address is required!</span></div>    
             </div>
           </div>
           <div class="inputBox w50">

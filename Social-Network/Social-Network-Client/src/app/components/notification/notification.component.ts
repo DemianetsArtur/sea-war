@@ -71,7 +71,7 @@ export class NotificationComponent implements OnInit {
 
   private hubConnect = () =>{
     this.connect.startConnection();
-    this.connect.handlerGetNotificationAddToFriend();
     this.getNotificationAddToFriend(this.userData.name);
+    this.connect.handlerGetNotificationAddToFriend();
   }
 }

@@ -115,6 +115,7 @@ export class FriendListComponent implements OnInit {
     this.connect.startConnection();
     this.connect.handlerGetUsersInFriendship();
     this.connect.handlerGetNotificationAddToFriend();
+    this.getNotificationAddToFriend(this.userData.name);
     this.getUsersInFriends();
 
     if (this.userData !== undefined){
@@ -133,9 +134,10 @@ export class FriendListComponent implements OnInit {
       this.notificationAddToFriendSubscription = this.connect.notificationAddToFriends$.subscribe(value => {
         if (value !== undefined) {
           this.notificationArray = value;
-          this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name);
-          console.log("n:", this.notificationAddToFriend);
+          this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name 
+                                                                       && name.nameResponse === this.notificationInfoService.eventAddToFriend);
           if (this.notificationAddToFriend.length !== 0){
+            console.log('notif: ',this.notificationAddToFriend);
             this.setUserBlock();
           }
           else{
@@ -168,6 +170,9 @@ export class FriendListComponent implements OnInit {
       for (const event of this.notificationAddToFriend){
         if(user.name === event.userNameToResponse && event.nameResponse === this.notificationInfoService.eventAddToFriend){
           user.isBlock = true;
+        }
+        else{
+          user.isBlock = false;
         }
       }
     }
