@@ -8,11 +8,11 @@
 .navigation{
     position: absolute;
     width: 70px;
-    height: 49.3%;
+    height: 360px;
     background: black;
     transition: 0.5s;
     overflow: hidden;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 0 10px 0;
 }
 .navigation:hover{
     width: 200px;

@@ -105,6 +105,10 @@
     color: #000;
 }
 
+.events ul li .details .view-btn{
+    margin-top: 0;
+}
+
 .events ul li .details .cancel:hover{
     background: rgb(247, 233, 36);
 
