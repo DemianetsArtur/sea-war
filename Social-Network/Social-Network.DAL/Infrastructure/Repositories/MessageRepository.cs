@@ -27,13 +27,13 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         public ICollection<Message> MessageAll(Message entity)
         {
             var userNameResponseQuery =
-                TableQuery.GenerateFilterCondition("UserNameResponse", QueryComparisons.Equal, entity.UserNameResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameResponseQuery, QueryComparisons.Equal, entity.UserNameResponse);
             var userNameToResponseQuery = 
-                TableQuery.GenerateFilterCondition("UserNameToResponse", QueryComparisons.Equal, entity.UserNameToResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameToResponseQuery, QueryComparisons.Equal, entity.UserNameToResponse);
             var userNameReverseResponseQuery = 
-                TableQuery.GenerateFilterCondition("UserNameToResponse", QueryComparisons.Equal, entity.UserNameResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameToResponseQuery, QueryComparisons.Equal, entity.UserNameResponse);
             var userNameReverseToResponseQuery = 
-                TableQuery.GenerateFilterCondition("UserNameResponse", QueryComparisons.Equal, entity.UserNameToResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameResponseQuery, QueryComparisons.Equal, entity.UserNameToResponse);
             
             var usersNameCombineFilter =
                 TableQuery.CombineFilters(userNameResponseQuery, TableOperators.And, userNameToResponseQuery);
@@ -44,7 +44,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
                 TableQuery.CombineFilters(usersNameCombineFilter, TableOperators.Or, userNameReverseCombineFilter);
             var query = new TableQuery<Message>().Where(combineQuery);
             var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.MessageTable);
-            var entityTable = cloudTable.ExecuteQuery(query).OrderBy(date => date.PartitionKey).ToList();
+            var entityTable = cloudTable.ExecuteQuery(query).OrderBy(date => date.Time).ToList();
             return entityTable;
         }
     }

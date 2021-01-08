@@ -58,9 +58,8 @@ export class UserProfileComponent implements OnInit {
     this.userAccountCurrentSubscription = this.connect.userAll$.subscribe((value) => {
       if (value !== undefined){
         if(value.find(opt => opt.name === this.userData.name)?.imagePath === null){
-          debugger;
-          delay(5000);
-        
+          delay(5000);  
+          this.hubConnect();
         }
 
         this.userAllArray = value.filter(opt => opt.name === this.userData.name);

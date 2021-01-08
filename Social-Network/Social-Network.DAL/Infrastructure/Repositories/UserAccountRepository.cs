@@ -28,7 +28,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         public bool UserAccountFind(UserAccount entity)
         {
             var query = new TableQuery<UserAccount>()
-                .Where(TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, entity.Name));
+                .Where(TableQuery.GenerateFilterCondition(TableQueries.UserAccountNameQuery, QueryComparisons.Equal, entity.Name));
             var cloudTable = this.GetTable();
             var entitiesTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
             if (entitiesTable != null)
@@ -44,7 +44,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         public UserAccount UserGet(string name)
         {
             var query = new TableQuery<UserAccount>()
-                .Where(TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, name));
+                .Where(TableQuery.GenerateFilterCondition(TableQueries.UserAccountNameQuery, QueryComparisons.Equal, name));
             var cloudTable = this.GetTable();
             return cloudTable.ExecuteQuery(query).FirstOrDefault();
         }
@@ -52,7 +52,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         public void UserAccountReplace(string name, string imagePath)
         {   
             var query = new TableQuery<UserAccount>()
-                .Where(TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, name));
+                .Where(TableQuery.GenerateFilterCondition(TableQueries.UserAccountNameQuery, QueryComparisons.Equal, name));
             var cloudTable = this.GetTable();
             var entitiesTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
             if (entitiesTable != null)
@@ -64,8 +64,8 @@ namespace Social_Network.DAL.Infrastructure.Repositories
 
         public UserAccount UserAccountLoginFind(UserAccount entity)
         {
-            var nameQuery = TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, entity.Name);
-            var passwordQuery = TableQuery.GenerateFilterCondition("Password", QueryComparisons.Equal, entity.Password);
+            var nameQuery = TableQuery.GenerateFilterCondition(TableQueries.UserAccountNameQuery, QueryComparisons.Equal, entity.Name);
+            var passwordQuery = TableQuery.GenerateFilterCondition(TableQueries.PasswordQuery, QueryComparisons.Equal, entity.Password);
             var combineQuery = TableQuery.CombineFilters(nameQuery, TableOperators.And, passwordQuery);
 
             var query = new TableQuery<UserAccount>().Where(combineQuery);

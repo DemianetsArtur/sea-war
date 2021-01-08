@@ -34,7 +34,7 @@
                                         <div class="card-header">
                                             <h4 class="card-title"><strong>Send Messages</strong></h4> 
                                             <button class="btn btn-xs btn-secondary"
-                                                    [disabled]="userText.length === 0 || messageInfo.userNameResponse === undefined"
+                                                    [disabled]="userText.length === 0 || messageInfo.userNameResponse === undefined || userText.trim() < 2"
                                                     (click)="sendMessage()" 
                                                     data-abc="true">Send
                                             </button>

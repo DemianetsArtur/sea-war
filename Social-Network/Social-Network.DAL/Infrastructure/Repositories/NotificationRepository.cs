@@ -45,11 +45,11 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         public Notification EventMessagesGet(Notification entity)
         {
             var userNameResponseQuery =
-                TableQuery.GenerateFilterCondition("UserNameResponse", QueryComparisons.Equal, entity.UserNameResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameResponseQuery, QueryComparisons.Equal, entity.UserNameResponse);
             var userNameToResponseQuery = 
-                TableQuery.GenerateFilterCondition("UserNameToResponse", QueryComparisons.Equal, entity.UserNameToResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameToResponseQuery, QueryComparisons.Equal, entity.UserNameToResponse);
             var nameResponseQuery = 
-                TableQuery.GenerateFilterCondition("NameResponse", QueryComparisons.Equal, NotificationInfo.EventMessages);
+                TableQuery.GenerateFilterCondition(TableQueries.NameResponseQuery, QueryComparisons.Equal, NotificationInfo.EventMessages);
             var usersNameCombineFilter =
                 TableQuery.CombineFilters(userNameResponseQuery, TableOperators.And, userNameToResponseQuery);
             var combineQuery = 
@@ -69,11 +69,11 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         private void EventRemove(Notification entity)
         {
             var userNameResponseQuery =
-                TableQuery.GenerateFilterCondition("UserNameResponse", QueryComparisons.Equal, entity.UserNameResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameResponseQuery, QueryComparisons.Equal, entity.UserNameResponse);
             var userNameToResponseQuery = 
-                TableQuery.GenerateFilterCondition("UserNameToResponse", QueryComparisons.Equal, entity.UserNameToResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameToResponseQuery, QueryComparisons.Equal, entity.UserNameToResponse);
             var nameResponseQuery = 
-                TableQuery.GenerateFilterCondition("NameResponse", QueryComparisons.Equal, entity.NameResponse);
+                TableQuery.GenerateFilterCondition(TableQueries.NameResponseQuery, QueryComparisons.Equal, entity.NameResponse);
             var usersNameCombineFilter =
                 TableQuery.CombineFilters(userNameResponseQuery, TableOperators.And, userNameToResponseQuery);
             var combineQuery = 

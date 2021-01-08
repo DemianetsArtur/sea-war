@@ -36,7 +36,6 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit = () => {
-    debugger;
     this.submitted = true;
     if (this.registerForm.invalid) {
       if (this.file === undefined){

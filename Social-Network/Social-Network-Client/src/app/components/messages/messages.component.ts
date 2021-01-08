@@ -60,6 +60,7 @@ export class MessagesComponent implements OnInit {
 
   public sendMessage = () => {
     this.messageInfo.text = this.userText;
+    debugger;
     this.connect.messagePost(this.messageInfo).subscribe(_ => {
       this.userText = '';
       this.messageAllGet(this.messageInfo);
