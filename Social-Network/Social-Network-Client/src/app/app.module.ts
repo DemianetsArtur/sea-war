@@ -16,7 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FileSaverModule } from 'ngx-filesaver';
 import { MenuProfileComponent } from './components/menu/menu-profile/menu-profile.component';
 import { FriendListComponent } from './components/friend/friend-list/friend-list.component';
 import { EditComponent } from './components/edit/edit.component';
@@ -55,7 +54,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FontAwesomeModule,
-    FileSaverModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MatInputModule,
