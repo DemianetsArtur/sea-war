@@ -5,6 +5,9 @@ using Social_Network.BLL.ModelsDto;
 using Social_Network.DAL.Entities;
 using Social_Network.DAL.Infrastructure.Interfaces;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Social_Network.BLL.Services
 {
@@ -62,11 +65,16 @@ namespace Social_Network.BLL.Services
             userMapp.UserType = user.UserType;
             userMapp.PartitionKey = user.PartitionKey;
             userMapp.RowKey = user.RowKey;
-            if (string.IsNullOrEmpty(entity.ImagePath))
-            {
-                this._database.BlobStorage.FileDeleteBlobAsync(userMapp.Name);
-            }
+            // if (string.IsNullOrEmpty(entity.ImagePath))
+            // {
+            //      this._database.BlobStorage.FileDeleteBlobAsync(userMapp.Name);
+            // }
             this._database.UserAccount.UserAccountCreate(userMapp);
+        }
+
+        public ICollection<UserAccountDto> UserAll()
+        {
+            return this._mapper.Map<ICollection<UserAccountDto>>(this._database.UserAccount.UserAll());
         }
     }
 }

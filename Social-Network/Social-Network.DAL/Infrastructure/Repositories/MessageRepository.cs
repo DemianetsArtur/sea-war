@@ -44,7 +44,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
                 TableQuery.CombineFilters(usersNameCombineFilter, TableOperators.Or, userNameReverseCombineFilter);
             var query = new TableQuery<Message>().Where(combineQuery);
             var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.MessageTable);
-            var entityTable = cloudTable.ExecuteQuery(query).OrderBy(date => date.PartitionKey).OrderBy(time => time.Time).ToList();
+            var entityTable = cloudTable.ExecuteQuery(query).OrderBy(date => date.PartitionKey).ToList();
             return entityTable;
         }
     }

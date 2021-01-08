@@ -1,4 +1,5 @@
-﻿using Social_Network.DAL.Entities;
+﻿using System.Collections.Generic;
+using Social_Network.DAL.Entities;
 
 namespace Social_Network.DAL.Infrastructure.Interfaces
 {
@@ -13,5 +14,7 @@ namespace Social_Network.DAL.Infrastructure.Interfaces
         void UserAccountReplace(string name, string imagePath);
 
         UserAccount UserGet(string name);
+
+        ICollection<UserAccount> UserAll();
     }
 }

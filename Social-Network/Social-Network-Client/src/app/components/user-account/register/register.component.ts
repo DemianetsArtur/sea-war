@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
     this.connect.registerPost(this.registerForm.value)
                 .pipe(tap(data => {
                    
-                  this.connect.imagePost(this.file, this.registerForm.controls.name.value);
+                  this.connect.imagePost(this.file, this.registerForm.controls.name.value)?.subscribe();
                   this.router.navigate([returnUrl]);
                   this.router.navigate(['/login'],{queryParams: {brandNew: true,email:this.registerForm.controls.email.value}});
                 }),

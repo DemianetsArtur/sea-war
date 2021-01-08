@@ -79,9 +79,11 @@ namespace Social_Network.API.Controllers
         [HttpGet("user-get/{name}")]
         public IActionResult UserGet(string name)
         {
+            Task.Delay(2000);
             var user = this._userAccountService.GetUser(name);
             if (user != null)
             {
+                
                 return this.Ok(user);
             }
             else
@@ -103,6 +105,7 @@ namespace Social_Network.API.Controllers
             var fileInfo = await this._blobStorageService.FileUploadToBlobAsync(file.OpenReadStream(), 
                                                                                          file.ContentType, 
                                                                                          file.FileName);
+            
             this._userAccountService.UserAccountReplace(file.FileName, fileInfo.AbsoluteUri);
             return this.Ok();
         }

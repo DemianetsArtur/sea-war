@@ -12,22 +12,26 @@ namespace Social_Network.API.Infrastructure.Manages.HubConnect
         private readonly IMapper _mapper;
         private readonly INotificationService _notificationService;
         private readonly IFriendService _friendService;
+        private readonly IUserAccountService _userAccountService;
 
         public HubConnect(IConfiguration configuration, 
                           IMapper mapper, 
                           INotificationService notificationService, 
-                          IFriendService friendService)
+                          IFriendService friendService, 
+                          IUserAccountService userAccountService)
         {
             this._notificationService = notificationService;
             this._configuration = configuration;
             this._mapper = mapper;
             this._friendService = friendService;
+            this._userAccountService = userAccountService;
         }
 
         public override async Task OnConnectedAsync()
         {
             await this.GetEventAddToFriends();
             await this.GetUsersInFriendship();
+            await this.GetUserAll();
             await base.OnConnectedAsync();
         }
 
@@ -36,6 +40,14 @@ namespace Social_Network.API.Infrastructure.Manages.HubConnect
             var getEventAddToFriends = this._notificationService.GetEventAddToFriend();
             var nameResponse = this._configuration["HubInfo:GetEventAddToFriends"];
             await this.Clients.All.SendAsync(nameResponse, getEventAddToFriends);
+        }
+
+        private async Task GetUserAll()
+        {
+            await Task.Delay(5000);
+            var userAll = this._userAccountService.UserAll();
+            var nameResponse = "userAllHub";
+            await this.Clients.All.SendAsync(nameResponse, userAll);
         }
 
         private async Task GetUsersInFriendship()

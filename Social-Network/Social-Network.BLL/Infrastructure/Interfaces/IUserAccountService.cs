@@ -1,4 +1,5 @@
-﻿using Social_Network.BLL.ModelsDto;
+﻿using System.Collections.Generic;
+using Social_Network.BLL.ModelsDto;
 
 namespace Social_Network.BLL.Infrastructure.Interfaces
 {
@@ -15,5 +16,7 @@ namespace Social_Network.BLL.Infrastructure.Interfaces
         UserAccountDto GetUser(string name);
 
         void UserChangedCreate(UserAccountDto entity);
+
+        ICollection<UserAccountDto> UserAll();
     }
 }

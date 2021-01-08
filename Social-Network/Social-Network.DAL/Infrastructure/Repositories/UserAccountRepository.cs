@@ -1,4 +1,6 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Microsoft.Azure.Cosmos.Table;
 using Social_Network.DAL.Entities;
 using Social_Network.DAL.Infrastructure.Interfaces;
 using Social_Network.DAL.Manages.Tables;
@@ -77,6 +79,14 @@ namespace Social_Network.DAL.Infrastructure.Repositories
             {
                 return null;
             }
+        }
+
+        public ICollection<UserAccount> UserAll()
+        {
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
+            var query = new TableQuery<UserAccount>();
+            var entitiesTable = cloudTable.ExecuteQuery(query).ToList();
+            return entitiesTable;
         }
 
         private CloudTable GetTable()

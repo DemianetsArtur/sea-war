@@ -34,6 +34,8 @@ export class ConnectService {
   public usersInFriends$ = this.usersInFriends.asObservable();
   public messageAll = new BehaviorSubject<MessageGet[]>([]);
   public messageAll$ = this.messageAll.asObservable();
+  public userAll = new BehaviorSubject<UserAccount[]>([]);
+  public userAll$ = this.userAll.asObservable();
 
   constructor(private http: HttpClient, 
               private optionsInfo: OptionsInfoService, 
@@ -57,6 +59,13 @@ export class ConnectService {
         this.notificationAddToFriends.next(value);
     });
     this.startConnection();
+  }
+
+  public handlerGetUserAll = () => {
+    this.hubConnection.on(this.hubInfo.userAll, (value: UserAccount[]) => {
+      this.userAll.next(value);
+  });
+  this.startConnection();
   }
 
   public handlerGetUsersInFriendship = () => {
@@ -136,8 +145,7 @@ export class ConnectService {
     const formData = new FormData();
     formData.append(fileToUpload.type ,fileToUpload, name);
 
-    this.http.post(this.optionsInfo.imagePost, formData, { reportProgress: true, observe: 'events' })
-             .subscribe();
+    return this.http.post(this.optionsInfo.imagePost, formData, { reportProgress: true, observe: 'events' });
   }
 
   public imageDownloadGet = (name: string) => {

@@ -9,9 +9,16 @@
             <div class="details">
                 <h3>{{notification.nameResponse}}</h3>
                 <p>From {{notification.userNameResponse}} </p>
-                <div *ngIf="notificationInfo.eventMessages === notification.nameResponse"><mat-card-subtitle>Message: {{notification.textMessage}}</mat-card-subtitle></div>
-                <div *ngIf="notificationInfo.eventMessages !== notification.nameResponse"><button mat-stroked-button color="black" class="accept-btn" (click)="acceptEvent(notification)">accept</button><button mat-stroked-button class="cancel" (click)="cancelEvent(notification)">cancel</button></div>
-                <div *ngIf="notificationInfo.eventMessages === notification.nameResponse"><button mat-stroked-button color="black" class="view-btn" (click)="viewMessages(notification)">View</button></div>
+                <div *ngIf="notificationInfo.eventMessages === notification.nameResponse">
+                    <mat-card-subtitle>Message: {{notification.textMessage}}</mat-card-subtitle>
+                </div>
+                <div *ngIf="notificationInfo.eventMessages !== notification.nameResponse">
+                    <button mat-stroked-button color="black" class="accept-btn" (click)="acceptEvent(notification)">accept</button>
+                    <button mat-stroked-button class="cancel" (click)="cancelEvent(notification)">cancel</button>
+                </div>
+                <div *ngIf="notificationInfo.eventMessages === notification.nameResponse">
+                    <button mat-stroked-button color="black" class="view-btn" (click)="viewMessages(notification)">View</button>
+                </div>
             </div>
         </li>
     </ul>

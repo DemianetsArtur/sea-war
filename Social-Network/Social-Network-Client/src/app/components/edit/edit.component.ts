@@ -46,11 +46,11 @@ export class EditComponent implements OnInit {
     });   
     this.handlerFormBuilder();
     this.handlerDataEdit();
+    this.hubConnect();
   }
 
   ngOnInit(): void {
-
-    
+    this.hubConnect();
   }
 
   private handlerDataEdit = () => {
@@ -100,6 +100,15 @@ export class EditComponent implements OnInit {
 
     this.loading = true;
     const returnUrl = this.route.snapshot.queryParamMap.get(this.optionsInfo.returnUrl) || '/';
+    // if (this.file !== undefined){
+    //   this.editForm.controls.imagePath.setValue('');
+    // }
+    if (this.file !== undefined){
+        this.connect.imagePost(this.file, this.userAccountCurrentData.name)?.subscribe(value => {
+        //this.editForm.controls.imagePath.setValue(null);
+      });
+      this.hubConnect();
+    }
     this.connect.userEditPost(this.editForm.value, this.userAccountCurrentData)
                 .pipe(tap(data => {
                   window.location.reload();
@@ -109,10 +118,21 @@ export class EditComponent implements OnInit {
                   this.editForm.reset();
                   this.editForm.setErrors({ invalidLogin: true });
                 }))
-                .subscribe(); 
-    if (this.file !== undefined){
-      this.connect.imagePost(this.file, this.userAccountCurrentData.name );
-    }       
+                .subscribe(opt => {
+                  
+                });
+                // if (this.file !== undefined){
+                //   this.connect.imagePost(this.file, this.userAccountCurrentData.name)?.subscribe(value => {
+                    
+                //   });
+                //   this.hubConnect();
+                // }
+                this.hubConnect();           
+  }
+
+  private hubConnect = () => {
+    this.connect.startConnection();
+    this.connect.handlerGetUserAll();
   }
 
   public handlerDateValidation = (date: any) => {

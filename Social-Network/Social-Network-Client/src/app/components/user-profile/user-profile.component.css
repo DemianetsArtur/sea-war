@@ -6,6 +6,10 @@
     background:white;
 }
 
+.image-profile{
+    height: 300px;
+}
+
 .example-card {
     top: 40px;
     left: 35%;

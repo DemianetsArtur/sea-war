@@ -102,8 +102,6 @@ export class FriendListComponent implements OnInit {
       if (value !== undefined) {
         this.notificationArray = value;
         this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name && name.nameResponse === this.notificationInfoService.eventAddToFriend);
-        debugger;
-        console.log("n:", this.notificationAddToFriend);
         if (this.notificationAddToFriend.length !== 0){
           this.setUserBlock();
         }
@@ -143,10 +141,8 @@ export class FriendListComponent implements OnInit {
           else{
             for(const user of this.userArray){
               if(user.isBlock === true){
-                debugger;
                 user.isBlock = false;
               }
-              debugger;
             }
           }
         }
@@ -165,16 +161,17 @@ export class FriendListComponent implements OnInit {
   }
   
   private setUserBlock = () => {
-    debugger;
-    for (const user of this.userArray){
-      for (const event of this.notificationAddToFriend){
-        if(user.name === event.userNameToResponse && event.nameResponse === this.notificationInfoService.eventAddToFriend){
-          user.isBlock = true;
-        }
-        else{
-          user.isBlock = false;
-        }
+    for(const user of this.userArray){
+      const eventAddToFriends = this.notificationAddToFriend.filter(opt => opt.userNameToResponse === user.name 
+                                                                    && opt.nameResponse === this.notificationInfoService.eventAddToFriend);
+
+      if(eventAddToFriends.length !== 0){
+        user.isBlock = true;
       }
+      else{
+        user.isBlock = false;
+      }
+      
     }
   }
 }
