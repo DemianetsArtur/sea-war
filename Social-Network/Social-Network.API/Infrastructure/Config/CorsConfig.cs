@@ -9,10 +9,11 @@ namespace Social_Network.API.Infrastructure.Config
         {
             var corsPolicy = configuration["Cors:CorsPolicy"];
             var corsUrl = configuration["Cors:CorsUrl"];
+            var corsUrlApp = configuration["Cors:CorsUrlApp"];
             services.AddCors(cors =>
             {
                 cors.AddPolicy(corsPolicy, builder => builder
-                    .WithOrigins(corsUrl)
+                    .WithOrigins(corsUrlApp)
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());

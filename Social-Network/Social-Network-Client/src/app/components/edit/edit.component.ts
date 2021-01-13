@@ -100,12 +100,8 @@ export class EditComponent implements OnInit {
 
     this.loading = true;
     const returnUrl = this.route.snapshot.queryParamMap.get(this.optionsInfo.returnUrl) || '/';
-    // if (this.file !== undefined){
-    //   this.editForm.controls.imagePath.setValue('');
-    // }
     if (this.file !== undefined){
         this.connect.imagePost(this.file, this.userAccountCurrentData.name)?.subscribe(value => {
-        //this.editForm.controls.imagePath.setValue(null);
       });
       this.hubConnect();
     }
@@ -121,12 +117,6 @@ export class EditComponent implements OnInit {
                 .subscribe(opt => {
                   
                 });
-                // if (this.file !== undefined){
-                //   this.connect.imagePost(this.file, this.userAccountCurrentData.name)?.subscribe(value => {
-                    
-                //   });
-                //   this.hubConnect();
-                // }
                 this.hubConnect();           
   }
 

@@ -70,8 +70,7 @@ export class FriendListComponent implements OnInit {
   }
 
   public filterData = (valueFilter: string) => {
-    debugger;
-    if (valueFilter === ""){
+    if (valueFilter === ''){
       this.userArray = this.allUser;
     }
     else{
@@ -135,7 +134,6 @@ export class FriendListComponent implements OnInit {
           this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name 
                                                                        && name.nameResponse === this.notificationInfoService.eventAddToFriend);
           if (this.notificationAddToFriend.length !== 0){
-            console.log('notif: ',this.notificationAddToFriend);
             this.setUserBlock();
           }
           else{

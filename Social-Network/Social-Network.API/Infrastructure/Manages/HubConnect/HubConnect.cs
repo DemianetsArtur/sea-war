@@ -44,7 +44,7 @@ namespace Social_Network.API.Infrastructure.Manages.HubConnect
 
         private async Task GetUserAll()
         {
-            await Task.Delay(5000);
+            await Task.Delay(2000);
             var userAll = this._userAccountService.UserAll();
             var nameResponse = "userAllHub";
             await this.Clients.All.SendAsync(nameResponse, userAll);
