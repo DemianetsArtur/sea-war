@@ -8,6 +8,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Social_Network.API.Infrastructure.ViewModels.UserAccount;
 using Social_Network.BLL.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Cors;
 
 namespace Social_Network.API.Controllers
 {

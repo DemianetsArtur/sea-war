@@ -1,6 +1,6 @@
 import { UserAccountRegister } from './../../models/user-account/user-account-register/user-account-register';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { OptionsInfoService } from '../options-info/options-info.service';
 import { map } from 'rxjs/operators';
 import { UserAccount } from '../../models/user-account/user-account';
@@ -114,6 +114,13 @@ export class ConnectService {
   }
 
   public registerPost = (userRegisterDetails: UserAccountRegister) : Observable<UserAccountRegister> => {
+
+    const httpOptions = { headers: new HttpHeaders({ 
+      'Content-Type': 'application/json, application/x-www-form-urlencoded',
+      'Accept': 'application/json, text/plain, */*', 
+                               'Access-Control-Allow-Headers': 'Authorization',
+                               'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+      })};
     userRegisterDetails.userType = UserRole.User;
     return this.http.post<any>(this.optionsInfo.registerPost, userRegisterDetails);
   }

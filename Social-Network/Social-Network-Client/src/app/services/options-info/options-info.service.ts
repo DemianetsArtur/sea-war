@@ -33,7 +33,8 @@ export class OptionsInfoService {
   public eventMessageRemove!: string;
 
   constructor() {
-    this.host = 'https://localhost:44391/';
+    // 'https://social-networkapi.azurewebsites.net';
+    this.host = 'https://social-networkapi.azurewebsites.net/Social-NetworkAPI/'
     this.getUserData = this.host + 'api/user/get-user-data';
     this.getAdminData = this.host + 'api/user/get-admin-data';
     this.loginPost = this.host + 'api/useraccount/login';

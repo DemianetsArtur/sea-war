@@ -21,7 +21,7 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 97.5vh;
+    min-height: 100vh;
     background: #111;
 }
 section::before{
