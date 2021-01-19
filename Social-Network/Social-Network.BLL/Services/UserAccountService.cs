@@ -37,9 +37,6 @@ namespace Social_Network.BLL.Services
             {
                 return null;
             }
-            //userMapper.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password);
-            //var user = this._database.UserAccount.UserAccountLoginFind(userMapper);
-            //return this._mapper.Map<UserAccountDto>(user);
         }
 
         public void UserAccountReplace(string name, string imagePath)
