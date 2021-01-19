@@ -16,6 +16,12 @@
     
 }
 
+.empty-events{
+    position: absolute;
+    left: 45%;
+    top: 100px;
+}
+
 .events ul{
     position: relative;
     

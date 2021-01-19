@@ -1,25 +1,31 @@
 <app-menu-profile></app-menu-profile>
 
-<div class="events">
-    <ul *ngFor="let notification of notificationAddToFriend">
-        <li>
-            <div class="time">
-                <h2><span>Event</span></h2>
-            </div>
-            <div class="details">
-                <h3>{{notification.nameResponse}}</h3>
-                <p>From {{notification.userNameResponse}} </p>
-                <div *ngIf="notificationInfo.eventMessages === notification.nameResponse">
-                    <mat-card-subtitle>Message: {{notification.textMessage}}</mat-card-subtitle>
-                </div>
-                <div *ngIf="notificationInfo.eventMessages !== notification.nameResponse">
-                    <button mat-stroked-button color="black" class="accept-btn" (click)="acceptEvent(notification)">accept</button>
-                    <button mat-stroked-button class="cancel" (click)="cancelEvent(notification)">cancel</button>
-                </div>
-                <div *ngIf="notificationInfo.eventMessages === notification.nameResponse">
-                    <button mat-stroked-button color="black" class="view-btn" (click)="viewMessages(notification)">View</button>
-                </div>
-            </div>
-        </li>
-    </ul>
+<div *ngIf="notificationAddToFriend.length === 0; else elseBlock">
+    <h2 class="empty-events">Not Events</h2>
 </div>
+<ng-template #elseBlock>
+    <div class="events">
+        <ul *ngFor="let notification of notificationAddToFriend">
+            <li>
+                <div class="time">
+                    <h2><span>Event</span></h2>
+                </div>
+                <div class="details">
+                    <h3>{{notification.nameResponse}}</h3>
+                    <p>From {{notification.userNameResponse}} </p>
+                    <div *ngIf="notificationInfo.eventMessages === notification.nameResponse">
+                        <mat-card-subtitle>Message: {{notification.textMessage}}</mat-card-subtitle>
+                    </div>
+                    <div *ngIf="notificationInfo.eventMessages !== notification.nameResponse">
+                        <button mat-stroked-button color="black" class="accept-btn" (click)="acceptEvent(notification)">accept</button>
+                        <button mat-stroked-button class="cancel" (click)="cancelEvent(notification)">cancel</button>
+                    </div>
+                    <div *ngIf="notificationInfo.eventMessages === notification.nameResponse">
+                        <button mat-stroked-button color="black" class="view-btn" (click)="viewMessages(notification)">View</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+

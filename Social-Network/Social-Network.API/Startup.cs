@@ -11,7 +11,7 @@ using Azure.Storage.Queues;
 using Azure.Storage.Blobs;
 using Azure.Core.Extensions;
 using System;
-using Social_Network.API.Infrastructure.Middleware;
+using Microsoft.AspNetCore.Http;
 
 namespace Social_Network.API
 {
@@ -41,13 +41,15 @@ namespace Social_Network.API
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, 
+                              IWebHostEnvironment env, 
+                              ILogger<Startup> logger, 
+                              ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseOptionsMiddleware();
 
             app.UseCors(this.Configuration["Cors:CorsPolicy"]);
 
@@ -65,10 +67,13 @@ namespace Social_Network.API
                 endpoints.MapHub<HubConnect>(this.Configuration["Hub:HubToConnect"]);
             });
 
-            app.Map("/Social-NetworkAPI", opt => ConfigureApp(opt, loggerFactory));
+            app.Run(async (context) => {
+                logger.LogInformation($"Processing request {context.Request.Path}");
+                await context.Response.WriteAsync("Startup Logger!");
+            });
         }
 
-        private void ConfigureApp(IApplicationBuilder app, ILoggerFactory loggerFactory) { }
+        
     }
     internal static class StartupExtensions
     {

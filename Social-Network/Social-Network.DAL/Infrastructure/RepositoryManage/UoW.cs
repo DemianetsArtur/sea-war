@@ -16,9 +16,11 @@ namespace Social_Network.DAL.Infrastructure.RepositoryManage
         public IMessageRepository Message { get; }
         public INotificationRepository Notification { get; }
 
-        public UoW(TableManage tableManage, BlobServiceClient blobServiceClient)
+        public UoW(TableManage tableManage, 
+                   BlobServiceClient blobServiceClient)
         {
             this._tableManage = tableManage;
+
             this._blobServiceClient = blobServiceClient;
             this.UserAccount = new UserAccountRepository(this._tableManage);
             this.BlobStorage = new BlobStorageRepository(this._blobServiceClient);

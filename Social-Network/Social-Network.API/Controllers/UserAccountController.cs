@@ -8,7 +8,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Social_Network.API.Infrastructure.ViewModels.UserAccount;
 using Social_Network.BLL.Infrastructure.Interfaces;
-using Microsoft.AspNetCore.Cors;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.AzureAppServices;
 
 namespace Social_Network.API.Controllers
 {
@@ -20,16 +21,19 @@ namespace Social_Network.API.Controllers
         private readonly IMapper _mapper;
         private readonly IUserAccountService _userAccountService;
         private readonly IBlobStorageService _blobStorageService;
+        private ILogger _log { get; }
 
         public UserAccountController(IConfiguration configuration, 
                                      IMapper mapper, 
                                      IUserAccountService userAccountService, 
-                                     IBlobStorageService blobStorageService)
+                                     IBlobStorageService blobStorageService,
+                                     ILoggerFactory loggerFactory)
         {
             this._configuration = configuration;
             this._mapper = mapper;
             this._userAccountService = userAccountService;
             this._blobStorageService = blobStorageService;
+            this._log = loggerFactory.CreateLogger("User-Account-Logger");
         }
         [HttpPost]
         [Route("login")]
@@ -46,6 +50,7 @@ namespace Social_Network.API.Controllers
             if (userFind != null)
             {
                 var tokenString = JwtManage.GenerateJwt(userFind, this._configuration);
+                this._log.LogInformation("Request Login");
                 return this.Ok(new { token = tokenString, userDetails = userFind });
             }
             else
@@ -56,8 +61,11 @@ namespace Social_Network.API.Controllers
 
         [HttpPost]
         [Route("register")]
+        [AllowAnonymous]
         public IActionResult UserAccountRegister([FromBody] RegisterViewModel model)
         {
+            this._log.LogDebug("Request Register DEBUG");
+            this._log.LogError("Request Register erroe");
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
@@ -69,6 +77,7 @@ namespace Social_Network.API.Controllers
             if (this._userAccountService.UserAccountFind(userMapper))
             {
                 this._userAccountService.UserAccountCreate(userMapper);
+                
                 return this.Ok();
             }
             else
@@ -84,11 +93,12 @@ namespace Social_Network.API.Controllers
             var user = this._userAccountService.GetUser(name);
             if (user != null)
             {
-                
+                this._log.LogInformation("Request UserGet Success");
                 return this.Ok(user);
             }
             else
             {
+                this._log.LogInformation("Request UserGet Not Successful");
                 return this.BadRequest();
             }
         }
@@ -108,6 +118,7 @@ namespace Social_Network.API.Controllers
                                                                                          file.FileName);
             
             this._userAccountService.UserAccountReplace(file.FileName, fileInfo.AbsoluteUri);
+            this._log.LogInformation("Request Upload Image");
             return this.Ok();
         }
 
@@ -121,6 +132,7 @@ namespace Social_Network.API.Controllers
             }
             else
             {
+                this._log.LogInformation("Request Get Blob");
                 return this.Ok(data);
             }
         }

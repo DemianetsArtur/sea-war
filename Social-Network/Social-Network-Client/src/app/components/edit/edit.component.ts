@@ -5,7 +5,7 @@ import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
 import { ConnectService } from 'src/app/services/connect/connect.service';
 import { OptionsInfoService } from 'src/app/services/options-info/options-info.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, delay } from 'rxjs/operators';
 import { UserAccount } from 'src/app/models/user-account/user-account';
 
 @Component({
@@ -107,6 +107,7 @@ export class EditComponent implements OnInit {
     }
     this.connect.userEditPost(this.editForm.value, this.userAccountCurrentData)
                 .pipe(tap(data => {
+                  delay(10000);
                   window.location.reload();
                 }),
                 catchError(async (err) => {
@@ -115,9 +116,9 @@ export class EditComponent implements OnInit {
                   this.editForm.setErrors({ invalidLogin: true });
                 }))
                 .subscribe(opt => {
-                  
+                  delay(5000);
                 });
-                this.hubConnect();           
+    this.hubConnect();           
   }
 
   private hubConnect = () => {

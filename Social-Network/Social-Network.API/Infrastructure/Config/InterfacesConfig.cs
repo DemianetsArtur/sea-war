@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Social_Network.BLL.Infrastructure.Interfaces;
 using Social_Network.BLL.Services;
 using Social_Network.DAL.Infrastructure.Interfaces;
@@ -12,7 +13,8 @@ namespace Social_Network.API.Infrastructure.Config
 {
     public static class InterfacesConfig
     {
-        public static void SetInterfaceDi(this IServiceCollection services, IConfiguration configuration) 
+        public static void SetInterfaceDi(this IServiceCollection services, 
+                                               IConfiguration configuration) 
         {
             var connectionString = configuration["ConnectionString"];
             var storageAccount = configuration["Table:StorageAccount"];

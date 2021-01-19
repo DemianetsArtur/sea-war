@@ -61,7 +61,7 @@ export class UserProfileComponent implements OnInit {
           delay(5000);  
           this.hubConnect();
         }
-
+        delay(2000);
         this.userAllArray = value.filter(opt => opt.name === this.userData.name);
         console.log('data: ', this.userAllArray);
       }

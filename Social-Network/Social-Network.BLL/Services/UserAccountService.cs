@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Social_Network.BLL.Infrastructure.Interfaces;
 using Social_Network.BLL.Models;
 using Social_Network.BLL.ModelsDto;
 using Social_Network.DAL.Entities;
 using Social_Network.DAL.Infrastructure.Interfaces;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Social_Network.BLL.Services
 {
@@ -15,33 +14,50 @@ namespace Social_Network.BLL.Services
     {
         private readonly IUoW _database;
         private readonly IMapper _mapper;
+        private readonly ILogger<UserAccountService> _log;
 
-        public UserAccountService(IUoW database, IMapper mapper)
+        public UserAccountService(IUoW database, 
+                                  IMapper mapper,
+                                  ILogger<UserAccountService> log)
         {
             this._database = database;
             this._mapper = mapper;
+            this._log = log;
         }
 
         public UserAccountDto UserAccountLoginFind(UserAccountDto entity)
         {
             var userMapper = this._mapper.Map<UserAccount>(entity);
-            var user = this._database.UserAccount.UserAccountLoginFind(userMapper);
-            return this._mapper.Map<UserAccountDto>(user);
+            var userGet = this._database.UserAccount.UserGet(userMapper.Name);
+            if (userGet != null && BCrypt.Net.BCrypt.Verify(entity.Password, userGet.Password))
+            {
+                return this._mapper.Map<UserAccountDto>(userGet);
+            }
+            else 
+            {
+                return null;
+            }
+            //userMapper.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password);
+            //var user = this._database.UserAccount.UserAccountLoginFind(userMapper);
+            //return this._mapper.Map<UserAccountDto>(user);
         }
 
         public void UserAccountReplace(string name, string imagePath)
         {
+            this._log.LogInformation("Request UserAccountReplace");
             this._database.UserAccount.UserAccountReplace(name, imagePath);
         }
 
         public bool UserAccountFind(UserAccountDto entity)
         {
             var userMapper = this._mapper.Map<UserAccount>(entity);
+            this._log.LogInformation("Request UserAccountFind");
             return this._database.UserAccount.UserAccountFind(userMapper);
         }
 
         public UserAccountDto GetUser(string name)
         {
+            this._log.LogInformation("Request GetUser");
             return this._mapper.Map<UserAccountDto>(this._database.UserAccount.UserGet(name));
         }
 
@@ -52,8 +68,10 @@ namespace Social_Network.BLL.Services
             var date = DateTime.Now.ToString(OptionsInfo.TimeConfig, dateFormat);
             var guidKey = Guid.NewGuid().ToString();
 
+            userMapper.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password);
             userMapper.PartitionKey = date;
             userMapper.RowKey = guidKey;
+            this._log.LogInformation("Request UserAccountCreate");
             this._database.UserAccount.UserAccountCreate(userMapper);
         }
 
@@ -65,15 +83,13 @@ namespace Social_Network.BLL.Services
             userMapp.UserType = user.UserType;
             userMapp.PartitionKey = user.PartitionKey;
             userMapp.RowKey = user.RowKey;
-            // if (string.IsNullOrEmpty(entity.ImagePath))
-            // {
-            //      this._database.BlobStorage.FileDeleteBlobAsync(userMapp.Name);
-            // }
+            this._log.LogInformation("Request UserChangedCreate");
             this._database.UserAccount.UserAccountCreate(userMapp);
         }
 
         public ICollection<UserAccountDto> UserAll()
         {
+            this._log.LogInformation("Request UserAll");
             return this._mapper.Map<ICollection<UserAccountDto>>(this._database.UserAccount.UserAll());
         }
     }

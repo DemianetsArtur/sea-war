@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Azure.Cosmos.Table;
 using Social_Network.DAL.Entities;
 using Social_Network.DAL.Infrastructure.Interfaces;
@@ -50,7 +49,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         }
 
         public void UserAccountReplace(string name, string imagePath)
-        {   
+        {
             var query = new TableQuery<UserAccount>()
                 .Where(TableQuery.GenerateFilterCondition(TableQueries.UserAccountNameQuery, QueryComparisons.Equal, name));
             var cloudTable = this.GetTable();

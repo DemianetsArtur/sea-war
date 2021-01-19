@@ -13,7 +13,7 @@ namespace Social_Network.API.Infrastructure.Config
             services.AddCors(cors =>
             {
                 cors.AddPolicy(corsPolicy, builder => builder
-                    .WithOrigins(corsUrlApp)
+                    .WithOrigins(corsUrlApp, corsUrl)
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());

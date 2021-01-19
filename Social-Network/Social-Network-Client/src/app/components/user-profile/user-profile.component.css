@@ -67,3 +67,8 @@
     font-size: 20px;
     color: white;
 }
+.progress-spinner-align{
+    position: relative;
+    top: 200px;
+    left: 45%;
+}

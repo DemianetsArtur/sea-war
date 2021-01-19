@@ -11,6 +11,12 @@ namespace Social_Network.API.Infrastructure.Config
     {
         public static void SetJwtBearer(this IServiceCollection services, IConfiguration configuration)
         {
+            var issuer = configuration["Jwt:IssuerApp"];
+            var audience = configuration["Jwt:AudienceApp"];
+            var issuerDev = configuration["Jwt:Issuer"];
+            var audienceDev = configuration["Jwt:Audience"];
+            var key = configuration["Jwt:SecretKey"];
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(ber =>
                     {
@@ -22,9 +28,9 @@ namespace Social_Network.API.Infrastructure.Config
                             ValidateAudience = true,
                             ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
-                            ValidIssuer = configuration["Jwt:Issuer"],
-                            ValidAudience = configuration["Jwt:Audience"],
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"])),
+                            ValidIssuer = issuerDev,
+                            ValidAudience = audienceDev,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                             ClockSkew = TimeSpan.Zero
                         };
                     });
