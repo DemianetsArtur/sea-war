@@ -9,7 +9,11 @@ using Microsoft.AspNetCore.Http;
 using Social_Network.API.Infrastructure.ViewModels.UserAccount;
 using Social_Network.BLL.Infrastructure.Interfaces;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.AzureAppServices;
+using Social_Network.API.Infrastructure.Manages.MailSender;
+using System;
+using Social_Network.BLL.Models;
+using System.Globalization;
+using Social_Network.API.Models.RequestInfo;
 
 namespace Social_Network.API.Controllers
 {
@@ -21,20 +25,24 @@ namespace Social_Network.API.Controllers
         private readonly IMapper _mapper;
         private readonly IUserAccountService _userAccountService;
         private readonly IBlobStorageService _blobStorageService;
+        private readonly IMailSender _mailSender;
         private ILogger _log { get; }
 
         public UserAccountController(IConfiguration configuration, 
                                      IMapper mapper, 
                                      IUserAccountService userAccountService, 
                                      IBlobStorageService blobStorageService,
-                                     ILoggerFactory loggerFactory)
+                                     ILoggerFactory loggerFactory,
+                                     IMailSender mailSender)
         {
             this._configuration = configuration;
             this._mapper = mapper;
             this._userAccountService = userAccountService;
             this._blobStorageService = blobStorageService;
             this._log = loggerFactory.CreateLogger("User-Account-Logger");
+            this._mailSender = mailSender;
         }
+
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
@@ -45,17 +53,40 @@ namespace Social_Network.API.Controllers
                 return this.BadRequest(ModelState);
             }
 
+            this._log.LogInformation("Request Login");
             var userMapper = this._mapper.Map<UserAccountDto>(model);
             var userFind = this._userAccountService.UserAccountLoginFind(userMapper);
-            if (userFind != null)
+
+            if (userFind == null)
+            {
+                return this.StatusCode(RequestStatusInfo.Status401);
+            }
+            else if (userFind != null 
+                  && this._userAccountService.TokenExpired(userFind.EmailDateKey)
+                  && userFind.EmailConfirmed == false)
+            {
+                var token = Guid.NewGuid().ToString();
+                var dateFormat = DateTimeFormatInfo.InvariantInfo;
+                var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
+                
+                userFind.EmailKey = token;
+                userFind.EmailDateKey = date;
+                this._mailSender.SendEmail(userFind);
+                this._userAccountService.UserChangedCreate(userFind);
+                return this.StatusCode(RequestStatusInfo.Status402);
+            }
+            else if (userFind != null && userFind.EmailConfirmed == false)
+            {
+                return this.StatusCode(RequestStatusInfo.Status403);
+            }
+            
+            else if (userFind != null && userFind.EmailConfirmed == true)
             {
                 var tokenString = JwtManage.GenerateJwt(userFind, this._configuration);
-                this._log.LogInformation("Request Login");
                 return this.Ok(new { token = tokenString, userDetails = userFind });
             }
-            else
-            {
-                return this.BadRequest(model);
+            else {
+                return this.BadRequest();
             }
         }
 
@@ -64,32 +95,31 @@ namespace Social_Network.API.Controllers
         [AllowAnonymous]
         public IActionResult UserAccountRegister([FromBody] RegisterViewModel model)
         {
-            this._log.LogDebug("Request Register DEBUG");
-            this._log.LogError("Request Register erroe");
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
             }
 
             var userMapper = this._mapper.Map<UserAccountDto>(model);
-            
-            
-            if (this._userAccountService.UserAccountFind(userMapper))
+            if (!this._userAccountService.UserAccountFind(userMapper))
             {
-                this._userAccountService.UserAccountCreate(userMapper);
                 
-                return this.Ok();
-            }
-            else
-            {
                 return this.BadRequest(model);
             }
+
+            var token = Guid.NewGuid().ToString();
+            userMapper.EmailKey = token;
+            
+
+            this._mailSender.SendEmail(userMapper);
+            this._userAccountService.UserAccountCreate(userMapper);
+
+            return this.Ok();
         }
 
         [HttpGet("user-get/{name}")]
         public IActionResult UserGet(string name)
         {
-            Task.Delay(2000);
             var user = this._userAccountService.GetUser(name);
             if (user != null)
             {
@@ -132,9 +162,24 @@ namespace Social_Network.API.Controllers
             }
             else
             {
-                this._log.LogInformation("Request Get Blob");
                 return this.Ok(data);
             }
+        }
+
+        [HttpGet("email-confirmation")]
+        public IActionResult EmailConfirmation([FromQuery] string email, 
+                                               [FromQuery] string token) 
+        {
+            var emailConfirm = this._userAccountService.EmailConfirmation(token);
+            if (emailConfirm == null)
+            {
+                return this.Ok(RequestStatusInfo.UnsuccessContifmEmailText);
+            }
+            else 
+            {
+                return this.Ok(RequestStatusInfo.SuccessContifmEmailText);
+            }
+            
         }
     }
 }

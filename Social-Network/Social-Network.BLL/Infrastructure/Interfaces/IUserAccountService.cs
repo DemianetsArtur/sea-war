@@ -18,5 +18,9 @@ namespace Social_Network.BLL.Infrastructure.Interfaces
         void UserChangedCreate(UserAccountDto entity);
 
         ICollection<UserAccountDto> UserAll();
+
+        UserAccountDto EmailConfirmation(string rowKey);
+
+        bool TokenExpired(string date);
     }
 }

@@ -8,5 +8,7 @@
         public const string NameResponseQuery = "NameResponse";
         public const string UserAccountNameQuery = "Name";
         public const string PasswordQuery = "Password";
+        public const string RowKeyQuery = "RowKey";
+        public const string EmailKeyQuery = "EmailKey";
     }
 }

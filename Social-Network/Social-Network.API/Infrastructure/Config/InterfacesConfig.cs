@@ -1,7 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Social_Network.API.Infrastructure.Manages.MailSender;
 using Social_Network.BLL.Infrastructure.Interfaces;
 using Social_Network.BLL.Services;
 using Social_Network.DAL.Infrastructure.Interfaces;
@@ -30,6 +30,7 @@ namespace Social_Network.API.Infrastructure.Config
             services.AddSingleton<IFriendService, FriendService>();
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<IMessageService, MessageService>();
+            services.AddSingleton<IMailSender, MailSender>();
         } 
     }
 }

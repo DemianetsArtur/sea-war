@@ -16,5 +16,7 @@ namespace Social_Network.DAL.Infrastructure.Interfaces
         UserAccount UserGet(string name);
 
         ICollection<UserAccount> UserAll();
+
+        UserAccount EmailConfirmation(string key);
     }
 }

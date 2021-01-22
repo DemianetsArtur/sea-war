@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Social_Network.API.Infrastructure.ViewModels.UserAccount;
+using Social_Network.API.Models.EmailOptions;
 using Social_Network.BLL.ModelsDto;
 
 namespace Social_Network.API.Infrastructure.Mappers

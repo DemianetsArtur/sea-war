@@ -68,10 +68,10 @@ export class RegisterComponent implements OnInit {
     const returnUrl = this.route.snapshot.queryParamMap.get(this.optionsInfo.returnUrl) || '/';
     this.connect.registerPost(this.registerForm.value)
                 .pipe(tap(data => {
-                   
+                  this.alertService.userConfirmEmail(this.registerForm.controls.email.value); 
                   this.connect.imagePost(this.file, this.registerForm.controls.name.value)?.subscribe();
                   this.router.navigate([returnUrl]);
-                  this.router.navigate(['/login'],{queryParams: {brandNew: true,email:this.registerForm.controls.email.value}});
+                  this.router.navigate(['/login'],{queryParams: {nickname: this.registerForm.controls.name.value}});
                 }),
                 catchError(async (err) => {
                   this.alertService.sameUserAlert();
@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
                   this.registerForm.reset();
                   this.registerForm.setErrors({ invalidLogin: true });
                 }))
-                .subscribe();          
+                .subscribe();       
   }
 
   public handlerTypeImage = (files: any) => {

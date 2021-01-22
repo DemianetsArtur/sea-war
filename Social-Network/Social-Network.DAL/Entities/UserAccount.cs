@@ -21,5 +21,11 @@ namespace Social_Network.DAL.Entities
         public string Date { get; set; }
 
         public string ImagePath { get; set; }
+
+        public bool EmailConfirmed { get; set; }
+
+        public string EmailKey { get; set; }
+
+        public string EmailDateKey { get; set; }
     }
 }

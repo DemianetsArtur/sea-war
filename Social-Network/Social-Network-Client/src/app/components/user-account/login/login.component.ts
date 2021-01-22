@@ -39,10 +39,29 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([returnUrl]);
                 }),
                 catchError(async (err) => {
-                  this.alertService.userNotExist();
-                  this.loading = false;
-                  this.loginForm.reset();
-                  this.loginForm.setErrors({ invalidLogin: true });
+                  
+                  if (err === 401){
+                    console.log('err:', err)
+                    this.alertService.userNotExist();
+                    this.loading = false;
+                    this.loginForm.reset();
+                    this.loginForm.setErrors({ invalidLogin: true });
+                  }
+                  else if (err === 402){
+                    console.log('err:', err)
+                    this.alertService.expiredToken();
+                    this.loading = false;
+                    this.loginForm.reset();
+                    this.loginForm.setErrors({ invalidLogin: true });
+                  }
+                  else if (err === 403){
+                    console.log('err:', err)
+                    this.alertService.userNotConfirmEmail();
+                    this.loading = false;
+                    this.loginForm.reset();
+                    this.loginForm.setErrors({ invalidLogin: true });
+                  }
+                  
                 }))
                 .subscribe();             
   }

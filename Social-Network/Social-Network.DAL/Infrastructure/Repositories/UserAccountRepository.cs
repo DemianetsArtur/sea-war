@@ -19,7 +19,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
 
         public void UserAccountCreate(UserAccount entity) 
         {
-            var cloudTable = this.GetTable();
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
             var operation = TableOperation.InsertOrReplace(entity);
             cloudTable.Execute(operation);
         }
@@ -28,7 +28,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         {
             var query = new TableQuery<UserAccount>()
                 .Where(TableQuery.GenerateFilterCondition(TableQueries.UserAccountNameQuery, QueryComparisons.Equal, entity.Name));
-            var cloudTable = this.GetTable();
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
             var entitiesTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
             if (entitiesTable != null)
             {
@@ -44,7 +44,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         {
             var query = new TableQuery<UserAccount>()
                 .Where(TableQuery.GenerateFilterCondition(TableQueries.UserAccountNameQuery, QueryComparisons.Equal, name));
-            var cloudTable = this.GetTable();
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
             return cloudTable.ExecuteQuery(query).FirstOrDefault();
         }
 
@@ -52,7 +52,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         {
             var query = new TableQuery<UserAccount>()
                 .Where(TableQuery.GenerateFilterCondition(TableQueries.UserAccountNameQuery, QueryComparisons.Equal, name));
-            var cloudTable = this.GetTable();
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
             var entitiesTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
             if (entitiesTable != null)
             {
@@ -68,7 +68,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
             var combineQuery = TableQuery.CombineFilters(nameQuery, TableOperators.And, passwordQuery);
 
             var query = new TableQuery<UserAccount>().Where(combineQuery);
-            var cloudTable = this.GetTable();
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
             var entitiesTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
             if (entitiesTable != null)
             {
@@ -88,15 +88,22 @@ namespace Social_Network.DAL.Infrastructure.Repositories
             return entitiesTable;
         }
 
-        private CloudTable GetTable()
+        public UserAccount EmailConfirmation(string key) 
         {
-            var storageKey = this._tableManage.StorageKey;
-            var tableName = StorageInfo.UserAccountTable;
-            var storageAccount = CloudStorageAccount.Parse(storageKey);
-            var cloudTableClient = storageAccount.CreateCloudTableClient();
-            var table = cloudTableClient.GetTableReference(tableName);
-            table.CreateIfNotExists();
-            return table;
+            var query = new TableQuery<UserAccount>()
+                .Where(TableQuery.GenerateFilterCondition(TableQueries.EmailKeyQuery, QueryComparisons.Equal, key));
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
+            var entitiesTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
+            if (entitiesTable != null)
+            {
+                entitiesTable.EmailConfirmed = true;
+                this.UserAccountCreate(entitiesTable);
+                return entitiesTable;
+            }
+            else 
+            {
+                return null;
+            }
         }
     }
 }

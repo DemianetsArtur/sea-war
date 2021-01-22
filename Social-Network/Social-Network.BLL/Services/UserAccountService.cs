@@ -7,6 +7,7 @@ using Social_Network.DAL.Entities;
 using Social_Network.DAL.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Social_Network.BLL.Services
 {
@@ -60,16 +61,41 @@ namespace Social_Network.BLL.Services
 
         public void UserAccountCreate(UserAccountDto entity) 
         {
+            this._log.LogInformation("Request UserAccountCreate");
+
             var userMapper = this._mapper.Map<UserAccount>(entity);
-            var dateFormat = System.Globalization.DateTimeFormatInfo.InvariantInfo;
-            var date = DateTime.Now.ToString(OptionsInfo.TimeConfig, dateFormat);
+            var dateFormat = DateTimeFormatInfo.InvariantInfo;
+            var date = DateTime.Now.ToString(OptionsInfo.DateConfig, dateFormat);
             var guidKey = Guid.NewGuid().ToString();
 
             userMapper.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password);
             userMapper.PartitionKey = date;
             userMapper.RowKey = guidKey;
-            this._log.LogInformation("Request UserAccountCreate");
+            userMapper.EmailDateKey = date;
             this._database.UserAccount.UserAccountCreate(userMapper);
+        }
+
+        public bool TokenExpired(string date) 
+        {
+            DateTime parsedDate;
+            var dateFormat = DateTimeFormatInfo.InvariantInfo;
+            var dateNow = DateTime.Now.ToString("MM/dd/yyyy", dateFormat);
+            var tokenDate = DateTime.TryParseExact(date, OptionsInfo.DateConfig, null, DateTimeStyles.None, out parsedDate);
+            if (date != null)
+            {
+                if (DateTime.Parse(dateNow) > parsedDate)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else 
+            {
+                return false;
+            }
         }
 
         public void UserChangedCreate(UserAccountDto entity)
@@ -88,6 +114,12 @@ namespace Social_Network.BLL.Services
         {
             this._log.LogInformation("Request UserAll");
             return this._mapper.Map<ICollection<UserAccountDto>>(this._database.UserAccount.UserAll());
+        }
+
+        public UserAccountDto EmailConfirmation(string rowKey) 
+        {
+            var emailConfirm = this._database.UserAccount.EmailConfirmation(rowKey);
+            return this._mapper.Map<UserAccountDto>(emailConfirm);
         }
     }
 }

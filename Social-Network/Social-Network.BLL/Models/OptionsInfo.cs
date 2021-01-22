@@ -3,6 +3,6 @@
     public static class OptionsInfo
     {
         public const string TimeConfig = "hh.mm.ss";
-        public const string DateConfig = "dd.mm.yyyy";
+        public const string DateConfig = "MM-dd-yy";
     }
 }
