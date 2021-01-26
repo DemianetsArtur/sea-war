@@ -6,6 +6,8 @@
 
 }
 
+
+
 .border-chat{
     border: 1px solid #000;
     border-radius: 10px;
@@ -37,7 +39,7 @@
 
 .page-content{
     position: relative;
-    margin-left: 300px;
+    margin-left: 150%;
     margin-top: -300px;
 }
 
@@ -453,4 +455,11 @@
   
   .text-info {
     color: #48b0f7 !important
+  }
+  @media screen and (max-width: 1600px){
+    .page-content{
+      position: absolute;
+      margin-left: 100%;
+      margin-top: -300px;
+    }
   }

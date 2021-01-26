@@ -21,6 +21,8 @@
       <mat-card-subtitle>{{users.firstName}} {{users.lastName}}</mat-card-subtitle>
       
     </mat-card-header>
+    <button mat-button class="btn-view" 
+            (click)="viewUsersProfile(users.name)">View</button>
     <div *ngIf="!users.isFriends">
         <button mat-button class="btn-friends" 
             [disabled]="users.isBlock" 
@@ -29,4 +31,4 @@
     <div *ngIf="users.isFriends">
         <button mat-button class="btn-in-friends">In Your Friends</button>
     </div>
-  </mat-card>
+</mat-card>

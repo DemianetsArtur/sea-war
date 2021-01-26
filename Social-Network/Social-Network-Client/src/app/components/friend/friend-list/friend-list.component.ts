@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserAccount } from 'src/app/models/user-account/user-account';
 import { ConnectService } from 'src/app/services/connect/connect.service';
@@ -33,6 +34,7 @@ export class FriendListComponent implements OnInit {
 
   constructor(private connect: ConnectService, 
               private optionInfo: OptionsInfoService, 
+              private router: Router,
               private alert: AlertService,
               private notificationInfoService: NotificationInfoService) {
     this.userAccountSubscription = this.connect.userAccountData$.subscribe(value => {
@@ -59,6 +61,10 @@ export class FriendListComponent implements OnInit {
     }),catchError(async (err) => {
       
     })).subscribe();
+  }
+
+  public viewUsersProfile = (name: string) => {
+    this.router.navigate([this.optionInfo.usersProfilePath], { queryParams: {nickname: name} })
   }
 
   private setIsBlock = (nameResponse: string) => {

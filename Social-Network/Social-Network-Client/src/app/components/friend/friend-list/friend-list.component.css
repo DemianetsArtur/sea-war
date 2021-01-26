@@ -64,7 +64,7 @@ input[type="text"]{
 }
 
 .example-card {
-    top: 150px;
+    top: 25%;
     left: 30%;
     max-width: 600px;
     max-height: 100px;
@@ -78,11 +78,16 @@ input[type="text"]{
   }
 
   .btn-friends{
-    top: -55px;
+    top: -90px;
     left: 80%;
   }
 
-  .btn-in-friends{
+  .btn-view{
     top: -55px;
+    left: 65%;
+  }
+
+  .btn-in-friends{
+    top: -90px;
     left: 77%; 
   }

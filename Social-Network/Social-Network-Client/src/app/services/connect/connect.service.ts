@@ -24,6 +24,8 @@ export class ConnectService {
   public userAccountData$ = this.userAccountData.asObservable();
   public userAccountCurrentValue = new BehaviorSubject<UserAccount>(new UserAccount());
   public userAccountCurrentValue$ = this.userAccountCurrentValue.asObservable();
+  public userGetData = new BehaviorSubject<UserAccount>(new UserAccount());
+  public userGetData$ = this.userGetData.asObservable();
   public fileToUpload!: FormData; 
   public imageDownload!: any;
   public userAccountArray = new BehaviorSubject<UserAccount[]>([]);
@@ -201,6 +203,12 @@ export class ConnectService {
   public userGet = (name: string) => {
     return this.http.get<UserAccount>(this.optionsInfo.userGet + '/' + name).subscribe(value => {
       this.userAccountCurrentValue.next(value);
+    });
+  }
+
+  public usersGet = (name: string) => {
+    return this.http.get<UserAccount>(this.optionsInfo.userGet + '/' + name).subscribe(value => {
+      this.userGetData.next(value);
     });
   }
 

@@ -26,6 +26,7 @@ import { MaterialDesignModule } from './modules/material-design/material-design.
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { UsersProfileComponent } from './components/users-profile/users-profile.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     EditComponent,
     NotificationComponent,
     NavigateMenuComponent,
-    MessagesComponent
+    MessagesComponent,
+    UsersProfileComponent
   ],
   imports: [
     BrowserModule,

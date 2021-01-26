@@ -31,7 +31,7 @@ namespace Social_Network.API
             services.SetJwtBearer(this.Configuration);
             services.SetAuthorization();
             services.SetMapperDi();
-            //services.SetCors(this.Configuration);
+            services.SetCors(this.Configuration);
             services.SetBlobStorage(this.Configuration);
             services.AddSignalR();
             services.EmailSender(this.Configuration);
@@ -52,7 +52,7 @@ namespace Social_Network.API
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseCors(this.Configuration["Cors:CorsPolicy"]);
+            app.UseCors(this.Configuration["Cors:CorsPolicy"]);
 
             app.UseHttpsRedirection();
 

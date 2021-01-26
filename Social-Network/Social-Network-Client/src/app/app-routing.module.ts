@@ -1,3 +1,4 @@
+import { UsersProfileComponent } from './components/users-profile/users-profile.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'friend-list', component: FriendListComponent, canActivate: [UserGuard] },
   { path: 'edit-user', component: EditComponent, canActivate: [UserGuard] },
   { path: 'notification', component: NotificationComponent, canActivate: [UserGuard] },
-  { path: 'messages', component: MessagesComponent, canActivate: [UserGuard] }
+  { path: 'messages', component: MessagesComponent, canActivate: [UserGuard] },
+  { path: 'users-profile', component: UsersProfileComponent, canActivate: [UserGuard] }
 ];
 
 @NgModule({

@@ -28,8 +28,8 @@ namespace Social_Network.API.Infrastructure.Config
                             ValidateAudience = true,
                             ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
-                            ValidIssuer = issuer,
-                            ValidAudience = audience,
+                            ValidIssuer = issuerDev,
+                            ValidAudience = audienceDev,
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                             ClockSkew = TimeSpan.Zero
                         };
