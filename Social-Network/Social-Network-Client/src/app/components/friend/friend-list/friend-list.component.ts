@@ -9,6 +9,7 @@ import { NotificationFriendInfo } from '../../../models/notification/notificatio
 import { tap, catchError } from 'rxjs/operators';
 import { Friend } from '../../../models/friend/friend';
 import { NotificationInfoService } from 'src/app/services/notification/notification-info/notification-info.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-friend-list',
@@ -56,14 +57,14 @@ export class FriendListComponent implements OnInit {
     notificationInfo.userNameResponse = nameResponse;
     notificationInfo.userNameToResponse = nameToResponse;
     this.connect.eventAddToFriend(notificationInfo).pipe(tap(data => {
-        this.connect.startConnection();
-        this.connect.handlerGetNotificationAddToFriend();
+        this.hubConnect();
     }),catchError(async (err) => {
       
     })).subscribe();
   }
 
   public viewUsersProfile = (name: string) => {
+    this.hubConnect();
     this.router.navigate([this.optionInfo.usersProfilePath], { queryParams: {nickname: name} })
   }
 
@@ -139,6 +140,7 @@ export class FriendListComponent implements OnInit {
           this.notificationArray = value;
           this.notificationAddToFriend = this.notificationArray.filter(name => name.userNameResponse === this.userData.name 
                                                                        && name.nameResponse === this.notificationInfoService.eventAddToFriend);
+          console.log('n', this.notificationAddToFriend);
           if (this.notificationAddToFriend.length !== 0){
             this.setUserBlock();
           }
@@ -153,8 +155,8 @@ export class FriendListComponent implements OnInit {
       });   
     }
   }
+
   private setUsersParameters = () => {
-    
     for(const users of this.userArray){
       for(const friends of this.usersInFriends){
         if(users.name === friends.userNameToResponse){

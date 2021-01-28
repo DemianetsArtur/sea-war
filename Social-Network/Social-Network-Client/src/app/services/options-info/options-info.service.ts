@@ -34,8 +34,8 @@ export class OptionsInfoService {
   public usersProfilePath!: string;
 
   constructor() {
-    // /api/;
-    this.host = 'https://localhost:44391/';
+    // https://localhost:44391/;
+    this.host = '/api/';
     this.getUserData = this.host + 'api/user/get-user-data';
     this.getAdminData = this.host + 'api/user/get-admin-data';
     this.loginPost = this.host + 'api/useraccount/login';

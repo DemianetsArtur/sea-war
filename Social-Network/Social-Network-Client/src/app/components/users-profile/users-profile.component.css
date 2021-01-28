@@ -14,6 +14,23 @@
     max-height: 400px;
 }
 
+.btn-friends{
+    position: absolute;
+    left: 75%;
+    border: 1px solid #000;
+}
+
+.btn-in-friends{
+    position: absolute;
+    left: 70%;
+    border: 1px solid #000;
+}
+
+.content-profile{
+    position: relative;
+    top: -60%;
+}
+
 .card-img{
     height: 200px;
     width: 320px;
@@ -36,6 +53,8 @@
   height:300px;
   width: 100%;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
   .img-content{
@@ -64,7 +83,6 @@
     max-width: 500px;
     max-height: 500px;
     background-size: cover;
-    /* overflow: hidden; */
 }
 
 .imgBx img{

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAccount } from 'src/app/models/user-account/user-account';
 import { ConnectService } from 'src/app/services/connect/connect.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { MessageInfo } from '../../models/message/message-info';
 import { MessageGet } from 'src/app/models/message/message-get';
-import { NotificationFriendInfo } from '../../models/notification/notification-add-to-friend/notification-friend-info';
 import { NotificationMessages } from '../../models/notification-messages/notification-messages';
 import { catchError, tap } from 'rxjs/operators';
 import { AlertService } from '../../services/alert/alert.service';
+import { Friend } from 'src/app/models/friend/friend';
 
 @Component({
   selector: 'app-messages',
@@ -18,6 +17,7 @@ export class MessagesComponent implements OnInit {
   public userAccountSubscription!: any;
   public userAccountArraySubscription!: any;
   public userAccountCurrentSubscription!: any;
+  public usersInFriendsSubscription!: any;
   public messageAllSubscription!: any;
   public userAccountCurrentData = new UserAccount();
   public userData = new UserAccount();
@@ -27,6 +27,9 @@ export class MessagesComponent implements OnInit {
   public userText = '';
   public messageAllArray!: MessageGet[];
   public messagesEmpty = true;
+  public usersInFriendsArray: Friend[] = [];
+  public usersInFriends: Friend[] = [];
+  public isUserInFriends = false;
 
   constructor(private connect: ConnectService, 
               private alertService: AlertService) {
@@ -54,7 +57,8 @@ export class MessagesComponent implements OnInit {
     this.messageInfo.userNameToResponse = user.name;
     this.messageInfo.userImageResponse = this.userAccountCurrentData.imagePath;
     this.messageInfo.userImageToResponse = user.imagePath;
-
+    this.messageInfo.isInFriends = false;
+    this.userText = '';
     this.hubConnect();
   }
 
@@ -101,5 +105,30 @@ export class MessagesComponent implements OnInit {
     this.connect.startConnection();
     this.connect.handlerGetMessageAll();
     this.messageAllGet(this.messageInfo);
+    this.connect.handlerGetUsersInFriendship();
+
+    if (this.userData !== undefined){  
+      this.usersInFriendsSubscription = this.connect.usersInFriends$.subscribe(value => {
+        this.usersInFriendsArray = value;
+        this.usersInFriends = this.usersInFriendsArray.filter(name => name.userNameResponse === this.userData.name);
+        console.log('all: ', this.usersInFriendsArray);
+        console.log('in fr: ', this.usersInFriendsArray);
+        if (this.usersInFriendsArray.length !== 0){
+          this.userInFriends();
+        }
+      });    
+    }
   }
+
+  private userInFriends = () => {
+      for(const friends of this.usersInFriends){
+        if(this.messageInfo.userNameToResponse === friends.userNameToResponse){
+          
+          this.isUserInFriends = true;
+          this.messageInfo.isInFriends = true;
+          console.log('messaage: ', this.messageInfo);
+        }
+      }
+    }
 }
+

@@ -4,4 +4,5 @@ export class MessageInfo {
     userImageResponse!: string;
     userImageToResponse!: string;
     text!: string;
+    isInFriends = false;
 }

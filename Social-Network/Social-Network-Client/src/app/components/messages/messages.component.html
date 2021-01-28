@@ -34,7 +34,9 @@
                                         <div class="card-header">
                                             <h4 class="card-title"><strong>Send Messages</strong></h4> 
                                             <button class="btn btn-xs btn-secondary"
-                                                    [disabled]="userText.length === 0 || messageInfo.userNameResponse === undefined || userText.trim().length < 2"
+                                                    [disabled]="userText.length === 0 
+                                                             || messageInfo.userNameResponse === undefined 
+                                                             || userText.trim().length < 2 || messageInfo.isInFriends === false" 
                                                     (click)="sendMessage()" 
                                                     data-abc="true">Send
                                             </button>
@@ -65,10 +67,11 @@
                                                 <div class="ps-scrollbar-y ps-scrollbar-y-s" tabindex="0"></div>
                                             </div>
                                         </div>
-                                        <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" [src]="userAccountCurrentData.imagePath" alt="...">
+                                        <div class="publisher bt-1 border-light bg-input"> 
+                                            <img class="avatar avatar-xs" [src]="userAccountCurrentData.imagePath" alt="...">
                                             <input class="publisher-input" 
                                                    type="text" 
-                                                   placeholder="Write something"
+                                                   placeholder="Write something..."
                                                    [(ngModel)]="userText"
                                                    /> 
                                                    <span class="publisher-btn file-group"> 

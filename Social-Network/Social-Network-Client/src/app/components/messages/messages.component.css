@@ -401,6 +401,11 @@
   .publisher>* {
     margin: 0 8px
   }
+
+  .bg-input{
+    background: rgb(236, 236, 236);
+    border-radius: 0 0 10px 10px;
+  }
   
   .publisher-input {
     -webkit-box-flex: 1;
