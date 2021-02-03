@@ -2,7 +2,7 @@
 {
     public class TableQueries
     {
-        public const string FriendsName = "Name";
+        public const string NameQuery = "Name";
         public const string UserNameResponseQuery = "UserNameResponse";
         public const string UserNameToResponseQuery = "UserNameToResponse";
         public const string NameResponseQuery = "NameResponse";

@@ -2,6 +2,95 @@
     background:white;
 }
 
+.post-card-create{
+    position: absolute;
+    left: 35%;
+    top: 70%;
+    width: 500px;
+    height: 90px;
+}
+
+.post-create{
+    width: 400px;
+    left: 10;
+    border: 1px solid #000;
+    border-radius: 50px;
+}
+
+.post-card{
+    position: absolute;
+    left: 37.5%;
+    top: 75%;
+    width: 400px;
+
+}
+
+.post-hr-align{
+    position: absolute;
+    top: 70%;
+    width: 100%;
+}
+
+
+.post-card-name{
+    position: absolute;
+    top: 25%;
+}
+
+.post-content{
+    margin-bottom: 20px;
+}
+
+.text-create-post-sub{
+    position: absolute;
+    top: 75%;
+    left: 42%;
+}
+
+.post-create:focus{
+    border: 1px solid #262626;
+    border-radius: 0;
+  }
+
+.image-content{
+  position: relative;
+  left: 2%;
+  height:300px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.post-image-content {
+  position: relative;
+  height: 200px;
+  width: 415px;
+  left: -4%;
+  overflow: hidden;
+}
+
+.post-text-content{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+} 
+
+.post-img{
+    width: 100%;
+    height: auto;
+}
+
+  .img-content{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
 .image-profile{
     width: 100%;
     height: auto;

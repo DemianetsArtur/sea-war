@@ -1,0 +1,50 @@
+<app-menu-profile></app-menu-profile>
+
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title class="text-title">Create Post</mat-card-title>
+      </mat-card-header>
+  
+      <form class="formBox"
+            [formGroup]="postForm" 
+            (ngSubmit)="onSubmit()">
+
+        <mat-card-content>
+          <mat-form-field class="example-full-width textarea-margin">
+            <mat-label class="text-label-size">What`s on your mind?</mat-label>
+            <textarea matInput 
+                      formControlName="text"
+                      [ngClass]="{ 'is-invalid': submitted && postFormControl.text.errors || submitted && isEmptySpace }" >
+            </textarea>
+            <div *ngIf="submitted && postFormControl.text.errors" class="invalid-feedback">    
+                <div *ngIf="postFormControl.text.errors.required"><span class="text-invalid">This field is required!</span></div>    
+            </div> 
+            <div *ngIf="submitted && isEmptySpace" class="invalid-feedback">    
+              <div *ngIf="isEmptySpace"><span class="text-invalid">"There must be no empty space in this field!</span></div>    
+          </div> 
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="example-full-width">
+                <button type="button" mat-raised-button (click)="fileInput.click()">Add to Your Post Photo/Video</button>
+                <input #fileInput 
+                       hidden  
+                       type="file" 
+                       accept="image/*, video/*"
+                       (change)="fileOptions($event)"
+                       [ngClass]="{ 'is-invalid': submitted && typeIncorrect }">
+                <div *ngIf="submitted && typeIncorrect" class="invalid-feedback">    
+                  <div *ngIf="typeIncorrect"><span class="text-invalid">Incorrect Type!</span></div>    
+                </div>
+            </div>
+
+        </mat-card-content>
+         
+        <button mat-stroked-button 
+                [disabled]="loading" 
+                color="black" 
+                class="btn-block">Post</button>
+      </form>
+    </mat-card>
+  </div>

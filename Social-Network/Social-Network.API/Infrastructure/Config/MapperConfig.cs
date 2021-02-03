@@ -20,6 +20,8 @@ namespace Social_Network.API.Infrastructure.Config
                 opt.AddProfile(new FriendViewModelMapper());
                 opt.AddProfile(new MessageMapper());
                 opt.AddProfile(new MessageViewModelMapper());
+                opt.AddProfile(new PostMapper());
+                opt.AddProfile(new PostViewModelMapper());
             });
             var mapper = configuration.CreateMapper();
             services.AddSingleton(mapper);

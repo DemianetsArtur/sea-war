@@ -1,3 +1,4 @@
+import { PostInfo } from './../../models/posts/post-info';
 import { UserAccountRegister } from './../../models/user-account/user-account-register/user-account-register';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,6 +16,7 @@ import { Friend } from '../../models/friend/friend';
 import { MessageInfo } from '../../models/message/message-info';
 import { MessageGet } from '../../models/message/message-get';
 import { NotificationMessages } from 'src/app/models/notification-messages/notification-messages';
+import { Form } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
@@ -38,6 +40,8 @@ export class ConnectService {
   public messageAll$ = this.messageAll.asObservable();
   public userAll = new BehaviorSubject<UserAccount[]>([]);
   public userAll$ = this.userAll.asObservable();
+  private posts = new BehaviorSubject<PostInfo[]>([]);
+  public posts$ = this.posts.asObservable();
 
   constructor(private http: HttpClient, 
               private optionsInfo: OptionsInfoService, 
@@ -133,6 +137,10 @@ export class ConnectService {
 
   }
 
+  public postContentCreate = (postForm: FormData) => {
+    return this.http.post(this.optionsInfo.postContentCreate, postForm);
+  }
+
   public messagePost = (messageInfo: MessageInfo) => {
     return this.http.post<MessageInfo>(this.optionsInfo.messagePost, messageInfo);
   }
@@ -161,6 +169,11 @@ export class ConnectService {
     return this.http.get(this.optionsInfo.imageGet + '/' + name)
                .pipe(map(result => result));
 
+  }
+
+  public postsGet = (name: string) => {
+    return this.http.get<PostInfo[]>(this.optionsInfo.postsGet + '/' + name)
+                    .pipe(map(result => result));
   }
 
   public userAllGet = (name: string) => {

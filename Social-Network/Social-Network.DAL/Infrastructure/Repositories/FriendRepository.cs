@@ -21,7 +21,7 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         public ICollection<UserAccount> FriendAll(string name)
         {
             var query = new TableQuery<UserAccount>()
-                .Where(TableQuery.GenerateFilterCondition(TableQueries.FriendsName, QueryComparisons.NotEqual, name));
+                .Where(TableQuery.GenerateFilterCondition(TableQueries.NameQuery, QueryComparisons.NotEqual, name));
             var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.UserAccountTable);
             var entitiesTable = cloudTable.ExecuteQuery(query).ToList();
             return entitiesTable;

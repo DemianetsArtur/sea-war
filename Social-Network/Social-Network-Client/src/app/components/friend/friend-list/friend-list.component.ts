@@ -9,7 +9,6 @@ import { NotificationFriendInfo } from '../../../models/notification/notificatio
 import { tap, catchError } from 'rxjs/operators';
 import { Friend } from '../../../models/friend/friend';
 import { NotificationInfoService } from 'src/app/services/notification/notification-info/notification-info.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-friend-list',

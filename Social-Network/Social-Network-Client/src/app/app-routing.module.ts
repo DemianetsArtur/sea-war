@@ -1,9 +1,8 @@
+import { PostCreateComponent } from './components/post/post-create/post-create.component';
 import { UsersProfileComponent } from './components/users-profile/users-profile.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { LoginComponent } from './components/user-account/login/login.component';
-import { UserHomeComponent } from './components/user-account/user-home/user-home.component';
 import { UserGuard } from './guards/user-account/user/user.guard';
 import { AdminHomeComponent } from './components/user-account/admin-home/admin-home.component';
 import { AdminGuard } from './guards/user-account/admin/admin.guard';
@@ -25,7 +24,8 @@ const routes: Routes = [
   { path: 'edit-user', component: EditComponent, canActivate: [UserGuard] },
   { path: 'notification', component: NotificationComponent, canActivate: [UserGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [UserGuard] },
-  { path: 'users-profile', component: UsersProfileComponent, canActivate: [UserGuard] }
+  { path: 'users-profile', component: UsersProfileComponent, canActivate: [UserGuard] },
+  { path: 'post-create', component: PostCreateComponent, canActivate: [UserGuard] }
 ];
 
 @NgModule({

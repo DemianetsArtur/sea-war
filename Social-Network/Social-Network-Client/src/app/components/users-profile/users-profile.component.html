@@ -38,6 +38,39 @@
     <mat-card-actions>
     </mat-card-actions>
   </mat-card>
+
+  <div *ngIf="postsGet.length !== 0">
+
+    <div class="post-hr-align">
+      <hr class="post-hr">
+    </div>
+    
+
+    <div class="post-card">
+      
+      <mat-card class="post-content" *ngFor="let post of postsGet">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"><img mat-card-avatar class="example-header-image" [src]="userData.imagePath" alt=""></div>
+          <mat-card-title>{{userData.firstName}} {{userData.lastName}}</mat-card-title>
+          <mat-card-subtitle>{{post.partitionKey}}</mat-card-subtitle>
+        </mat-card-header>
+        
+        <div *ngIf="post.nameContent !== null">
+          <mat-card-content class="post-image-content">
+            <img mat-card-image
+                 class="post-img"  
+                 [src]="post.nameContent">
+            <video autoplay muted loop class="post-img" [src]="post.nameContent"></video>
+          </mat-card-content>
+        </div>
+        <div>
+            <mat-card-content>
+              <mat-card-title class="post-text-content">{{post.postText}}</mat-card-title>
+            </mat-card-content>
+        </div>
+      </mat-card>
+    </div>
+  </div>
 </ng-template>
   
 

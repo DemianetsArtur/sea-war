@@ -32,9 +32,13 @@ export class OptionsInfoService {
   public messagesPath!: string;
   public eventMessageRemove!: string;
   public usersProfilePath!: string;
+  public postCreatePath!: string;
+  public postContentCreate!: string;
+  public userProfilePath!: string;
+  public postsGet!: string;
 
   constructor() {
-    // https://localhost:44391/;
+    /// https://localhost:44391/;
     this.host = '/api/';
     this.getUserData = this.host + 'api/user/get-user-data';
     this.getAdminData = this.host + 'api/user/get-admin-data';
@@ -63,5 +67,9 @@ export class OptionsInfoService {
     this.messagesPath = '/messages';
     this.eventMessageRemove = this.host + 'api/notification/event-messages-remove';
     this.usersProfilePath = '/users-profile';
+    this.postCreatePath = '/post-create';
+    this.postContentCreate = this.host + 'api/post/post-content-create';
+    this.userProfilePath = '/user-profile';
+    this.postsGet = this.host + 'api/post/posts-get';
   }
 }

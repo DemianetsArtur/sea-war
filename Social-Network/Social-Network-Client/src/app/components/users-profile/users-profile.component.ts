@@ -6,6 +6,7 @@ import { ConnectService } from 'src/app/services/connect/connect.service';
 import { NotificationFriendInfo } from 'src/app/models/notification/notification-add-to-friend/notification-friend-info';
 import { NotificationInfoService } from 'src/app/services/notification/notification-info/notification-info.service';
 import { Friend } from 'src/app/models/friend/friend';
+import { PostInfo } from 'src/app/models/posts/post-info';
 
 @Component({
   selector: 'app-users-profile',
@@ -23,6 +24,8 @@ export class UsersProfileComponent implements OnInit {
   public usersInFriendsSubscription!: any;
   public usersInFriendsArray: Friend[] = [];
   public usersInFriends: Friend[] = [];
+  public postsSubscription!: any;
+  public postsGet!: PostInfo[];
 
   constructor(private connect: ConnectService, 
               private route: ActivatedRoute, 
@@ -38,6 +41,11 @@ export class UsersProfileComponent implements OnInit {
                 .pipe()
                 .subscribe(opt => {
       this.userData = opt;
+    });
+    this.postsSubscription = this.connect.postsGet(this.userName).subscribe(value => {
+      if(value !== undefined){
+        this.postsGet = value;
+      }
     });
     this.hubConnect();
   }

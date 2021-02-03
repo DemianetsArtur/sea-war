@@ -7,5 +7,6 @@
         IFriendRepository Friend { get; }
         INotificationRepository Notification { get; }
         IMessageRepository Message { get; }
+        IPostRepository Post { get; }
     }
 }

@@ -37,11 +37,11 @@ export class AlertService {
   }
 
   public imageTypeInvalid = () => {
-    this.toastr.error('Invalid Image Type!', ':(');
+    this.toastr.error('Invalid Type!', ':(');
   }
 
   public imageTypeValid = () => {
-    this.toastr.success('Valid Image Type!', ':)');
+    this.toastr.success('Valid Type!', ':)');
   }
 
   public userMessagesInvalid = () => {

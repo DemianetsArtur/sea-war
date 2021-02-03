@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { faUnderline } from '@fortawesome/free-solid-svg-icons';
 import { delay } from 'rxjs/operators';
@@ -5,6 +6,7 @@ import { UserAccount } from 'src/app/models/user-account/user-account';
 import { UserRole } from 'src/app/models/user-account/user-role';
 import { ConnectService } from '../../services/connect/connect.service';
 import { OptionsInfoService } from '../../services/options-info/options-info.service';
+import { PostInfo } from 'src/app/models/posts/post-info';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,14 +18,17 @@ export class UserProfileComponent implements OnInit {
   public imageSubscription!: any;
   public userAccountCurrentSubscription!: any;
   public userAccountArraySubscription!: any;
+  public postsSubscription!: any;
   public userAllSubscription!: any;
   public userData = new UserAccount();
   public userAccountCurrentData!:UserAccount;
   public imageDownload: any = {} as any;
   public userAllArray!: UserAccount[];
+  public postsGet!: PostInfo[];
 
   constructor(private connect: ConnectService, 
-              private optionInfo: OptionsInfoService) {
+              private optionInfo: OptionsInfoService,
+              private router: Router) {
     this.userAccountSubscription = this.connect.userAccountData$.subscribe(value => {
       this.userData = value;
     });
@@ -31,9 +36,13 @@ export class UserProfileComponent implements OnInit {
     if (this.userData !== undefined){
       this.userAccountCurrentSubscription = this.connect.userAccountCurrentValue$.subscribe(value => {
         if (value !== undefined){
-          debugger;
-          this.userAccountCurrentData = value;
-          
+          this.userAccountCurrentData = value; 
+        }
+      });
+
+      this.postsSubscription = this.connect.postsGet(this.userData.name).subscribe(value => {
+        if(value !== undefined){
+          this.postsGet = value;
         }
       });
     }
@@ -47,6 +56,10 @@ export class UserProfileComponent implements OnInit {
     
   }
   
+  public postCreate = () => {
+    this.router.navigate([this.optionInfo.postCreatePath]);
+  }
+
   private hubConnect = () => {
     this.connect.startConnection();
     this.connect.handlerGetUsersInFriendship();

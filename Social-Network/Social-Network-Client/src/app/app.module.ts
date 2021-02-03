@@ -27,6 +27,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UsersProfileComponent } from './components/users-profile/users-profile.component';
+import { PostCreateComponent } from './components/post/post-create/post-create.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { UsersProfileComponent } from './components/users-profile/users-profile.
     NotificationComponent,
     NavigateMenuComponent,
     MessagesComponent,
-    UsersProfileComponent
+    UsersProfileComponent,
+    PostCreateComponent
   ],
   imports: [
     BrowserModule,
