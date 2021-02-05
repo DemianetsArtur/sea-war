@@ -1,0 +1,143 @@
+<section>
+    <div class="container">
+      <mat-card class="contactinfo">
+        <div>
+          <h2>Sign Up</h2>
+          <ul class="info">
+            <li>
+              <span><fa-icon [icon]="faUserCircle"></fa-icon></span>
+              <span>Social Network</span>
+            </li>
+          </ul>
+        </div>
+      </mat-card>
+      <mat-card class="contactFrom">
+        
+        <h2>Fill Personal Data</h2>
+        <div>
+          <form class="formBox" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="inputBox w50">
+            <input type="text" 
+                   name=""
+                   formControlName="firstName"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.firstName.errors }" 
+                   required>
+            <span>First Name</span>
+            <div *ngIf="submitted && registerFormControl.firstName.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.firstName.errors.required"><span class="text-invalid">First Name is required</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input type="text" 
+                   name=""
+                   formControlName="lastName"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.lastName.errors }" 
+                   required>
+            <span>Last Name</span>
+            <div *ngIf="submitted && registerFormControl.lastName.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.lastName.errors.required"><span class="text-invalid">Last Name is required</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input formControlName="name" 
+                   type="text" 
+                   name="" 
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.name.errors }" required>
+            <span>Nick Name</span>
+            <div *ngIf="submitted && registerFormControl.name.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.name.errors.required"><span class="text-invalid">Nick Name is required</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input type="email" 
+                   name=""
+                   formControlName="email"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.email.errors || submitted && registerForm.controls['email'].hasError('email') }"
+                   required>
+            <span>Email Address</span>
+            <div *ngIf="submitted && registerForm.controls['email'].hasError('email')" class="invalid-feedback">    
+              <div *ngIf="registerForm.controls['email'].hasError('email')"><span class="text-invalid">Email Address is incorrect!</span></div>    
+            </div>
+            <div *ngIf="submitted && registerFormControl.email.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.email.errors.required"><span class="text-invalid">Email Address is required!</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input type="password" 
+                   name=""
+                   formControlName="password"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.password.errors || submitted && registerForm.controls['password'].hasError('minlength') }" 
+                   required>
+            <span>Password</span>
+            <div *ngIf="submitted && registerFormControl.password.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.password.errors.required"><span class="text-invalid">Password is required</span></div>  
+            </div> 
+            <div *ngIf="submitted && registerForm.controls['password'].hasError('minlength')" class="invalid-feedback">   
+                <div *ngIf="registerForm.controls['password'].hasError('minlength')"><span class="text-invalid">Must be at least 8 characters!</span></div>  
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input type="password" 
+                   name=""
+                   formControlName="confirmPassword"
+                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.confirmPassword.errors || submitted && equalPassword}"
+                   required>
+            <span>Confirm Password</span>
+            <div *ngIf="submitted && registerFormControl.confirmPassword.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.confirmPassword.errors.required"><span class="text-invalid">Password is required!</span></div>    
+            </div>
+            <div *ngIf="submitted && equalPassword" class="invalid-feedback">    
+                <div *ngIf="equalPassword"><span class="text-invalid">Password is not equal!</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w50">
+            <input type="date" 
+                   name=""
+                   formControlName="date"
+                   [ngClass]="{ 'is-invalid': submitted && isDateGreater || submitted && registerFormControl.date.errors }"
+                   required>
+            <span class="text-data">Date</span>
+            <div *ngIf="submitted && registerFormControl.date.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.date.errors.required"><span class="text-invalid">Date is required!</span></div>    
+            </div>
+            <div *ngIf="submitted && isDateGreater" class="invalid-feedback">    
+              <div *ngIf="isDateGreater"><span class="text-invalid">Invalid date!</span></div>    
+            </div>
+          </div>
+
+          <div class="inputBox w50">
+            <input #fileInput
+                  class="input-file"
+                  type="file" 
+                  name="" 
+                  accept="image/*" 
+                  (change)="setFileOption(fileInput.files)"
+                  [ngClass]="{ 'is-invalid': submitted && typeIncorrect || submitted && fileEmpty }" 
+                  required>
+            <span class="text-data-input text-white">Upload Image</span>
+            <div *ngIf="submitted && typeIncorrect" class="invalid-feedback">    
+              <div *ngIf="typeIncorrect"><span class="text-invalid">Type must be .png .jpeg!</span></div>    
+            </div>
+            <div *ngIf="submitted && fileEmpty" class="invalid-feedback" style="margin-top: 10px;">    
+              <div *ngIf="fileEmpty"><span class="text-invalid" >Image is required!</span></div>    
+            </div>
+          </div>
+          <div class="inputBox w100">
+            <textarea name=""
+                      formControlName="aboutMe"
+                      [ngClass]="{ 'is-invalid': submitted && registerFormControl.aboutMe.errors }" 
+                      required></textarea>
+            <span>Write about you...</span>
+            <div *ngIf="submitted && registerFormControl.aboutMe.errors" class="invalid-feedback">    
+              <div *ngIf="registerFormControl.aboutMe.errors.required"><span class="text-invalid">About Me is required!</span></div>    
+            </div> 
+            
+          </div>
+          <div class="inputBox w100"> 
+            <button mat-button [disabled]="loading" class="submit" value="Send">Sign Up</button>
+          </div>
+          </form>
+        </div>
+      </mat-card>
+    </div>
+  </section>

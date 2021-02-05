@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+*{
+    
+    font-family: 'Poppins', sans-serif;   
+}
+
+.events{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    left: 30%;
+    top: 150px;
+    background: rgba(255, 255, 255, 0.5);
+    float:none;
+    box-sizing: border-box;
+    
+}
+
+.empty-events{
+    position: absolute;
+    left: 45%;
+    top: 100px;
+}
+
+.events ul{
+    position: relative;
+    
+    transform: translateY(-50%);
+    top: 0;
+    margin: 0;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.events ul li{
+    border: 2px solid #262626;
+    padding: 15px;
+    list-style: none;
+    background: #fff;
+    box-sizing: border-box;
+    height:  200px;
+    width: 500px;
+}
+
+.events ul li .time{
+    position: relative;
+    padding: 20px;
+    background: #262626;
+    box-sizing: border-box;
+    width: 30%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    transition: .5s;
+    color: #fff;
+}
+
+.events ul li:hover .time{
+    background: #e91e63;
+    color: #000;
+}
+
+.events ul li .time h2{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 37%;
+    left: 30%;
+    transform: translateY(-50%, -50%);
+}
+
+.events ul li .details{
+    padding: 20px;
+    background: #fff;
+    box-sizing: border-box;
+    width: 70%;
+    height: 100%;
+    float: left;
+}
+
+.events ul li .details h3{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+}
+
+.events ul li .details p{
+    position: relative;
+    margin: 10px 0 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+.events ul li .details button{
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #fff;
+    padding:  6px 10px;
+    border: 2px solid #262626;
+    margin-top: 15px;
+    margin-right: 10px;
+    font-size: 18px;
+}
+ 
+.events ul li .details .accept-btn:hover{
+    background: #e91e63;
+    color: #000;
+}
+
+.events ul li .details .view-btn{
+    margin-top: -2px;
+}
+
+.events ul li .details .cancel:hover{
+    background: rgb(247, 233, 36);
+
+}
+

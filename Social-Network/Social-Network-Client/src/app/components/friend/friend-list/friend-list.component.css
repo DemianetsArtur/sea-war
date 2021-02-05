@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+*{
+    font-family: 'Poppins', sans-serif;   
+}
+
+.box h1{
+    margin: 0 0 10px;
+    position: relative;
+    margin-top: -80px;
+    left: 40%;
+    color: #000;
+    font-size: 24px;
+}
+
+.box{
+    position: absolute;
+    top: 23%;
+    left: 33%;
+    width: 500px;
+}
+
+input, .btn-search, .remove-btn{
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    box-sizing: border-box;
+    transition: .5s;
+}
+
+input[type="text"]{
+    position: relative;
+    background: rgb(224, 224, 224);
+    width: 350px;
+    height: 50px;
+    border: none;
+    outline: none;
+    padding: 0 25px;
+    color: black;
+    border-radius: 25px 0 0 25px;
+}
+
+.remove-btn{
+    margin-top: -5px;
+    position: relative;
+    width: 40px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: rgb(114, 114, 114);
+    color: black;  
+}
+
+.btn-search{
+    position: relative;
+    border-radius:  0 25px 25px 0;
+    width: 100px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: black;
+    color: linen;
+}
+
+.example-card {
+    top: 25%;
+    left: 30%;
+    max-width: 600px;
+    max-height: 100px;
+    min-height: 100px;
+    margin-bottom: 20px;
+  }
+  
+  .example-header-image {
+    margin-top: 2%;
+    background-size: cover;
+  }
+
+  .btn-friends{
+    top: -90px;
+    left: 80%;
+  }
+
+  .btn-view{
+    top: -55px;
+    left: 65%;
+  }
+
+  .btn-in-friends{
+    top: -90px;
+    left: 77%; 
+  }
