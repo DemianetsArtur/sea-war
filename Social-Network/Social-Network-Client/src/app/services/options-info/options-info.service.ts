@@ -38,8 +38,8 @@ export class OptionsInfoService {
   public postsGet!: string;
 
   constructor() {
-    /// https://localhost:44391/;
-    this.host = '/api/';
+    /// /api/;
+    this.host = 'https://localhost:44391/';
     this.getUserData = this.host + 'api/user/get-user-data';
     this.getAdminData = this.host + 'api/user/get-admin-data';
     this.loginPost = this.host + 'api/useraccount/login';

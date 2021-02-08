@@ -22,7 +22,6 @@
     left: 37.5%;
     top: 75%;
     width: 400px;
-
 }
 
 .post-hr-align{
@@ -208,4 +207,19 @@
     position: absolute;
     top: 40%;
     left: 45%;
+}
+
+@media screen and (max-width: 1600px) {
+	.post-hr-align{
+        position: absolute;
+        top: 90%;
+        width: 100%;
+    }
+
+    .post-card{
+        position: absolute;
+        left: 37.5%;
+        top: 100%;
+        width: 400px;
+    }
 }
