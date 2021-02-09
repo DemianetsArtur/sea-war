@@ -201,7 +201,6 @@
     max-width: 500px;
     max-height: 500px;
     background-size: cover;
-    /* overflow: hidden; */
 }
 
 .imgBx img{
@@ -240,6 +239,7 @@
     left: 45%;
 }
 
+
 @media screen and (max-width: 1600px) {
 	.post-card-create{
         position: absolute;
@@ -252,14 +252,34 @@
     .post-hr-align{
         position: absolute;
         top: 103%;
+
+}
+
+@media screen and (max-width: 1600px) {
+	.post-hr-align{
+        position: absolute;
+        top: 110%;
         width: 100%;
     }
 
     .post-card{
         position: absolute;
         left: 37.5%;
+
         top: 108%;
         width: 400px;
     
+
+        top: 120%;
+        width: 400px;
     }
+
+    .post-card-create{
+        position: absolute;
+        left: 35%;
+        top: 95%;
+        width: 500px;
+        height: 90px;
+    }
+}
 }

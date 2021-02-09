@@ -41,7 +41,7 @@ export class OptionsInfoService {
   public removeFromFriends!: string;
 
   constructor() {
-    ///  /api/;
+    /// /api/;
     this.host = 'https://localhost:44391/';
     this.getUserData = this.host + 'api/user/get-user-data';
     this.getAdminData = this.host + 'api/user/get-admin-data';
