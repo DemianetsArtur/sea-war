@@ -1,4 +1,3 @@
-
 *{
     font-family: 'Poppins', sans-serif;   
 }
@@ -100,6 +99,65 @@
   overflow: hidden;
 }
 
+
+
+.comment-post-text-content{
+    font-size: 15px;
+    margin-top: 5px;
+    background: rgb(243, 243, 243);
+    border-radius: 5px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+} 
+
+.comment-post-subtext-content {
+    font-size: 13px;
+    background: rgb(243, 243, 243);
+    width: 120px;
+    margin-left: 56px;
+}
+
+.comment-input {
+    width: 280px;
+    height: 30px;
+    text-indent: 10px;
+    border: 1px solid #000;
+    text-align:unset;
+    border-radius: 50px;
+
+}
+
+.comment-input:focus {
+    width: 280px;
+    height: 30px;
+    text-indent: 10px;
+    border: 1px solid #000;
+    text-align:unset;
+    border-radius: 50px;
+}
+
+.comment-input:focus{
+    border-radius: 0;
+    border: 1px solid #262626;
+}
+
+.comment-btn{
+    margin-left: 5%;
+    border-radius: 25px;
+}
+
+.comment-btn:focus {
+    border-radius: 0;
+    border: 1px solid #262626;
+}
+
 .post-text-content{
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -180,4 +238,28 @@
     position: absolute;
     top: 40%;
     left: 45%;
+}
+
+@media screen and (max-width: 1600px) {
+	.post-card-create{
+        position: absolute;
+        left: 35%;
+        top: 90%;
+        width: 500px;
+        height: 90px;
+    }
+
+    .post-hr-align{
+        position: absolute;
+        top: 103%;
+        width: 100%;
+    }
+
+    .post-card{
+        position: absolute;
+        left: 37.5%;
+        top: 108%;
+        width: 400px;
+    
+    }
 }

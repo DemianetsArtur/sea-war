@@ -30,5 +30,6 @@
     </div>
     <div *ngIf="users.isFriends">
         <button mat-button class="btn-in-friends">In Your Friends</button>
+        <button mat-button class="remove-friends-btn" (click)="removeFromFriends(users.name)" color="red">Remove</button>    
     </div>
 </mat-card>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using AutoMapper;
 using Social_Network.BLL.Infrastructure.Interfaces;
@@ -42,6 +41,12 @@ namespace Social_Network.BLL.Services
         public ICollection<FriendDto> UsersInFriendship()
         {
             return this._mapper.Map<ICollection<FriendDto>>(this._database.Friend.UsersInFriendship());
+        }
+
+        public void UserInFriendshipRemove(FriendDto entity) 
+        {
+            var friendMapper = this._mapper.Map<Friend>(entity);
+            this._database.Friend.UserInFriendshipRemove(friendMapper);
         }
     }
 }

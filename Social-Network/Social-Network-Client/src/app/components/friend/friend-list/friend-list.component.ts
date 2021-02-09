@@ -48,7 +48,14 @@ export class FriendListComponent implements OnInit {
     this.hubConnect(); 
   }
 
-  
+  public removeFromFriends = (name: string) => {
+    const friend = new Friend();
+    friend.userNameResponse = this.userData.name;
+    friend.userNameToResponse = name;
+    this.connect.removeFromFriends(friend).pipe(tap(_ => {
+      this.removeStatusInFriends(name);
+    })).subscribe();
+  }
 
   public addFriend = (nameResponse: string, nameToResponse: string) => {
     this.setIsBlock(nameToResponse);
@@ -177,6 +184,15 @@ export class FriendListComponent implements OnInit {
         user.isBlock = false;
       }
       
+    }
+  }
+
+  private removeStatusInFriends = (name: string) => {
+    for (const user of this.userArray) {
+      if (user.name === name) {
+        user.isFriends = false;
+        user.isBlock = false;
+      }
     }
   }
 }

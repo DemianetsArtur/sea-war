@@ -43,10 +43,6 @@ namespace Social_Network.DAL.Infrastructure.Repositories
 
         public ICollection<Post> PostsGet(string name) 
         {
-            //DateTime parsedDate;
-            //var dateFormat = DateTimeFormatInfo.InvariantInfo;
-            //var dateNow = DateTime.Now.ToString("MM/dd/yyyy", dateFormat);
-            //var tokenDate = DateTime.TryParseExact(date, OptionsInfo.DateConfig, null, DateTimeStyles.None, out parsedDate);
             var query = new TableQuery<Post>()
                 .Where(TableQuery.GenerateFilterCondition(TableQueries.NameQuery, QueryComparisons.Equal, name));
             var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.PostTable);

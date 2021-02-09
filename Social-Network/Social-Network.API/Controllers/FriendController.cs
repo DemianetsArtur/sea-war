@@ -62,6 +62,21 @@ namespace Social_Network.API.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("remove-from-friends")]
+        public IActionResult RemoveFromFriends([FromBody] FriendRemoveViewModel model) 
+        {
+            if (!ModelState.IsValid) 
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var friendMapper = this._mapper.Map<FriendDto>(model);
+            this._friendService.UserInFriendshipRemove(friendMapper);
+
+            return this.Ok();
+        }
+
 
     }
 }

@@ -67,6 +67,41 @@
               <mat-card-title class="post-text-content">{{post.postText}}</mat-card-title>
             </mat-card-content>
         </div>
+
+        <div>
+
+          <div *ngIf="commentPostArray.length !== 0">
+            <div><hr></div>
+            <mat-card-content>
+
+              <div *ngFor="let comment of commentPostArray">
+                <div *ngIf="comment.contentName === post.nameContent">
+                  <mat-card-header  class="comment-field">
+                    <div mat-card-avatar class="example-header-image"><img mat-card-avatar class="example-header-image" [src]="comment.userImage" alt=""></div>
+                    <mat-card-title class="comment-post-text-content">{{comment.text}}</mat-card-title>
+                    
+                  </mat-card-header>
+                  <mat-card-subtitle class="comment-post-subtext-content">{{comment.partitionKey}}</mat-card-subtitle>
+                </div>
+              </div>
+            </mat-card-content>
+          </div>
+  
+          </div>
+
+          <mat-card-content>
+            <input matInput #textComment 
+                   placeholder="Write a comment..."
+                   type="text"
+                   class="comment-input"
+                   name="" 
+                   (blur)="commentSend(post, textComment.value); textComment.value='' ">
+            <button mat-stroked-button 
+                    color="black"
+                    [disabled]="textComment.value === '' "
+                    class="comment-btn" (click)="commentSend(post, textComment.value)">Send</button>
+          </mat-card-content>
+        
       </mat-card>
     </div>
   </div>

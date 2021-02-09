@@ -25,6 +25,31 @@
 
 }
 
+.comment-input {
+    width: 280px;
+    height: 30px;
+    text-indent: 10px;
+    border: 1px solid #000;
+    text-align:unset;
+    border-radius: 50px;
+
+}
+.comment-input:focus{
+    border-radius: 0;
+    border: 1px solid #262626;
+}
+
+.comment-btn{
+    margin-top: 1%;
+    margin-left: 5%;
+    border-radius: 25px;
+}
+
+.comment-btn:focus {
+    border-radius: 0;
+    border: 1px solid #262626;
+}
+
 .post-hr-align{
     position: absolute;
     top: 70%;
@@ -68,7 +93,21 @@
   overflow: hidden;
 }
 
-.post-text-content{
+.comment-field{
+}
+
+.comment-post-subtext-content {
+    font-size: 13px;
+    background: rgb(243, 243, 243);
+    width: 120px;
+    margin-left: 56px;
+}
+
+.comment-post-text-content{
+    font-size: 15px;
+    margin-top: 5px;
+    background: rgb(243, 243, 243);
+    border-radius: 5px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     -ms-word-break: break-all;
@@ -105,14 +144,23 @@
 
 .btn-friends{
     position: absolute;
+    top: 10%;
     left: 75%;
     border: 1px solid #000;
 }
 
 .btn-in-friends{
     position: absolute;
+    top: 10%;
     left: 70%;
     border: 1px solid #000;
+}
+
+.remove-friends-btn{
+    position: absolute;
+    top: 60%;
+    left: 70%;
+    border: rgb(255, 0, 0) solid 1px;
 }
 
 .content-profile{
@@ -208,4 +256,22 @@
     position: absolute;
     top: 40%;
     left: 45%;
+}
+
+@media screen and (max-width: 1600px) {
+
+
+    .post-hr-align{
+        position: absolute;
+        top: 85%;
+        width: 100%;
+    }
+
+    .post-card{
+        position: absolute;
+        left: 37.5%;
+        top: 90%;
+        width: 400px;
+    
+    }
 }

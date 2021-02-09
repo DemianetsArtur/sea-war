@@ -88,6 +88,13 @@ input[type="text"]{
   }
 
   .btn-in-friends{
-    top: -90px;
+    top: -75px;
     left: 77%; 
+  }
+
+  .remove-friends-btn{
+
+    top: -115px;
+    left: 58%;
+    border: rgb(255, 0, 0) solid 1px;
   }

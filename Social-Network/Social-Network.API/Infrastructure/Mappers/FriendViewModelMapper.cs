@@ -10,6 +10,9 @@ namespace Social_Network.API.Infrastructure.Mappers
         {
             this.CreateMap<FriendViewModel, FriendDto>();
             this.CreateMap<FriendDto, FriendViewModel>();
+
+            this.CreateMap<FriendRemoveViewModel, FriendDto>();
+            this.CreateMap<FriendDto, FriendRemoveViewModel>();
         }
     }
 }

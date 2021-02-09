@@ -1,9 +1,8 @@
+import { CommentSend } from './../../models/comments/comment-send-info/comment-send';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { faUnderline } from '@fortawesome/free-solid-svg-icons';
-import { delay } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 import { UserAccount } from 'src/app/models/user-account/user-account';
-import { UserRole } from 'src/app/models/user-account/user-role';
 import { ConnectService } from '../../services/connect/connect.service';
 import { OptionsInfoService } from '../../services/options-info/options-info.service';
 import { PostInfo } from 'src/app/models/posts/post-info';
@@ -18,6 +17,7 @@ export class UserProfileComponent implements OnInit {
   public imageSubscription!: any;
   public userAccountCurrentSubscription!: any;
   public userAccountArraySubscription!: any;
+  public commentPostSubscription!: any;
   public postsSubscription!: any;
   public userAllSubscription!: any;
   public userData = new UserAccount();
@@ -25,6 +25,9 @@ export class UserProfileComponent implements OnInit {
   public imageDownload: any = {} as any;
   public userAllArray!: UserAccount[];
   public postsGet!: PostInfo[];
+  public commentText = '';
+  public commentPostArray!: CommentSend[];
+
 
   constructor(private connect: ConnectService, 
               private optionInfo: OptionsInfoService,
@@ -45,6 +48,14 @@ export class UserProfileComponent implements OnInit {
           this.postsGet = value;
         }
       });
+
+      this.commentPostSubscription = this.connect.commentPostGet(this.userData.name).subscribe(value => {
+        if (value != undefined) {
+            const comments = value;
+            this.commentPostArray = comments.filter(opt => opt.userNameResponse === this.userData.name);
+            console.log('comment: ', value)
+        }
+      });
     }
     this.connect.userAllGet(this.userData.name);
     this.userAccountArraySubscription = this.connect.userAllGet(this.userData.name);
@@ -54,6 +65,32 @@ export class UserProfileComponent implements OnInit {
     this.hubConnect();
     this.userAccountCurrentSubscription = this.connect.userGet(this.userData.name);
     
+  }
+
+  public commentSend = (post: PostInfo, textComment: string) => {
+    if(textComment.trim().length === 0) {
+      return;
+    }
+
+    const comment = new CommentSend();
+    comment.userName = this.userAccountCurrentData.name;
+    comment.userImage = this.userAccountCurrentData.imagePath;
+    comment.userNameResponse = post.name;
+    comment.contentName = post.nameContent;
+    comment.text = textComment;
+
+    this.connect.commentPostCreate(comment)
+                .pipe(tap(_ => {
+                  this.commentPostSubscription = this.connect.commentPostGet(this.userData.name).subscribe(value => {
+                    this.hubConnect();
+                    if (value != undefined) {
+                        const comments = value;
+                        this.commentPostArray = comments.filter(opt => opt.userNameResponse === this.userData.name);
+                        console.log('comment: ', value)
+                    }
+                  });
+                }))
+                .subscribe();
   }
   
   public postCreate = () => {
@@ -67,7 +104,8 @@ export class UserProfileComponent implements OnInit {
     
     this.connect.handlerGetUsersInFriendship();
     this.connect.handlerGetNotificationAddToFriend();
-
+    this.connect.handlerGetCommentPost();
+    
     this.userAccountCurrentSubscription = this.connect.userAll$.subscribe((value) => {
       if (value !== undefined){
         if(value.find(opt => opt.name === this.userData.name)?.imagePath === null){
@@ -79,21 +117,13 @@ export class UserProfileComponent implements OnInit {
         console.log('data: ', this.userAllArray);
       }
     });
+
+    this.commentPostSubscription = this.connect.commentPost$.subscribe((value) => {
+      if(value !== undefined){
+        this.commentPostArray = value.filter(opt => opt.userNameResponse === this.userData.name);
+      }
+    });
+    
   }
-
-  // private hubConnect = () => {
-  //   this.connect.startConnection();
-  //   this.connect.handlerGetUsersInFriendship();
-  //   this.connect.handlerGetNotificationAddToFriend();
-
-  //   if (this.userData !== undefined){
-  //     this.userAccountArraySubscription = this.connect.userAccountArray$.subscribe(value => {
-  //       this.allUser = value;
-  //       this.userArray = this.allUser;
-        
-  //     });
-         
-  //   }
-  // }
 
 }

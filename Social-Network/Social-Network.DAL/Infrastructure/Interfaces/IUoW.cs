@@ -8,5 +8,6 @@
         INotificationRepository Notification { get; }
         IMessageRepository Message { get; }
         IPostRepository Post { get; }
+        ICommentRepository Comment { get; }
     }
 }

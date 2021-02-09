@@ -8,5 +8,6 @@ namespace Social_Network.DAL.Infrastructure.Interfaces
         ICollection<UserAccount> FriendAll(string name);
         void UserAddToFriends(Friend entity);
         ICollection<Friend> UsersInFriendship();
+        void UserInFriendshipRemove(Friend entity);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Azure.Cosmos.Table;
 using Social_Network.DAL.Entities;
@@ -39,6 +38,21 @@ namespace Social_Network.DAL.Infrastructure.Repositories
         {
             var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.FriendTable);
             var operation = TableOperation.InsertOrReplace(entity);
+            cloudTable.Execute(operation);
+        }
+
+        public void UserInFriendshipRemove(Friend entity) 
+        {
+            var userNameResponseQuery =
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameResponseQuery, QueryComparisons.Equal, entity.UserNameResponse);
+            var userNameToResponseQuery =
+                TableQuery.GenerateFilterCondition(TableQueries.UserNameToResponseQuery, QueryComparisons.Equal, entity.UserNameToResponse);
+            var combineQuery =
+                TableQuery.CombineFilters(userNameResponseQuery, TableOperators.And, userNameToResponseQuery);
+            var query = new TableQuery<Friend>().Where(combineQuery);
+            var cloudTable = TableResponse.GetTable(this._tableManage.StorageKey, StorageInfo.FriendTable);
+            var entityTable = cloudTable.ExecuteQuery(query).FirstOrDefault();
+            var operation = TableOperation.Delete(entityTable);
             cloudTable.Execute(operation);
         }
 

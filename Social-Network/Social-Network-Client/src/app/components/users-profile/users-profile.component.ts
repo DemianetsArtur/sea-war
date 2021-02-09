@@ -7,6 +7,7 @@ import { NotificationFriendInfo } from 'src/app/models/notification/notification
 import { NotificationInfoService } from 'src/app/services/notification/notification-info/notification-info.service';
 import { Friend } from 'src/app/models/friend/friend';
 import { PostInfo } from 'src/app/models/posts/post-info';
+import { CommentSend } from 'src/app/models/comments/comment-send-info/comment-send';
 
 @Component({
   selector: 'app-users-profile',
@@ -17,8 +18,10 @@ export class UsersProfileComponent implements OnInit {
   public userAccountSubscription!: any;
   public userCurrentData = new UserAccount();
   public userData = new UserAccount();
+  public commentPostSubscription!: any;
   private userName!: string;
   public notificationAddToFriendSubscription!: any;
+  public userAccountCurrentSubscription!: any;
   public notificationAddToFriend: NotificationFriendInfo[] = []; 
   public notificationArray!: NotificationFriendInfo[];
   public usersInFriendsSubscription!: any;
@@ -26,6 +29,9 @@ export class UsersProfileComponent implements OnInit {
   public usersInFriends: Friend[] = [];
   public postsSubscription!: any;
   public postsGet!: PostInfo[];
+  public commentText = '';
+  public commentPostArray!: CommentSend[];
+  public userAccountCurrentData!:UserAccount;
 
   constructor(private connect: ConnectService, 
               private route: ActivatedRoute, 
@@ -33,8 +39,15 @@ export class UsersProfileComponent implements OnInit {
     this.route.queryParams.subscribe(opt => {
       this.userName = opt['nickname'];
     });
+    
     this.userAccountSubscription = this.connect.userAccountData$.subscribe(value => {
       this.userCurrentData = value;
+    });
+    this.userAccountCurrentSubscription = this.connect.userGet(this.userCurrentData.name);
+    this.userAccountCurrentSubscription = this.connect.userAccountCurrentValue$.subscribe(value => {
+      if (value !== undefined){
+        this.userAccountCurrentData = value; 
+      }
     });
     this.userAccountSubscription = this.connect.usersGet(this.userName);
     this.connect.userGetData$
@@ -47,11 +60,46 @@ export class UsersProfileComponent implements OnInit {
         this.postsGet = value;
       }
     });
+    this.commentPostSubscription = this.connect.commentPostGet(this.userName).subscribe(value => {
+      if (value.length !== 0) {
+        debugger;
+          const comments = value;
+          this.commentPostArray = comments.filter(opt => opt.userNameResponse === this.userName);
+          console.log('comment-users-main: ', value)
+      }
+    });
     this.hubConnect();
   }
 
   ngOnInit(): void {
     this.hubConnect();
+  }
+
+  public commentSend = (post: PostInfo, textComment: string) => {
+    if(textComment.trim().length === 0) {
+      return;
+    }
+    
+    const comment = new CommentSend();
+    comment.userName = this.userAccountCurrentData.name;
+    comment.userImage = this.userAccountCurrentData.imagePath;
+    comment.userNameResponse = post.name;
+    comment.contentName = post.nameContent;
+    comment.text = textComment;
+
+    this.connect.commentPostCreate(comment)
+                .pipe(tap(_ => {
+                  this.hubConnect();
+                  this.commentPostSubscription = this.connect.commentPostGet(this.userData.name).subscribe(value => {
+                    if (value != undefined) {
+                        const comments = value;
+                        this.commentPostArray = comments.filter(opt => opt.userNameResponse === this.userData.name);
+                        console.log('comment: ', value);
+
+                    }
+                  });
+                }))
+                .subscribe();
   }
 
   public addFriend = (nameResponse: string, nameToResponse: string) => {
@@ -99,6 +147,7 @@ export class UsersProfileComponent implements OnInit {
     this.connect.handlerGetUsersInFriendship();
     this.connect.handlerGetNotificationAddToFriend();
     this.getNotificationAddToFriend(this.userCurrentData.name);
+    this.connect.handlerGetCommentPost();
 
     if (this.userData !== undefined){  
       this.usersInFriendsSubscription = this.connect.usersInFriends$.subscribe(value => {
@@ -123,8 +172,24 @@ export class UsersProfileComponent implements OnInit {
                 }
               }
         }
-      });   
+      }); 
+      
+      this.commentPostSubscription = this.connect.commentPost$.subscribe((value) => {
+        if(value !== undefined){
+          this.commentPostArray = value.filter(opt => opt.userNameResponse === this.userData.name);
+        }
+      });
     }
+  }
+
+  public removeFromFriends = (name: string) => {
+    const friend = new Friend();
+    friend.userNameResponse = this.userCurrentData.name;
+    friend.userNameToResponse = name;
+    debugger;
+    this.connect.removeFromFriends(friend).pipe(tap(_ => {
+      this.removeStatusInFriends(name);
+    })).subscribe();
   }
 
   private setUsersParameters = () => {
@@ -132,6 +197,14 @@ export class UsersProfileComponent implements OnInit {
         if(this.userData.name === friends.userNameToResponse){
           this.userData.isFriends = true;
         }
+      }
+  }
+
+
+  private removeStatusInFriends = (name: string) => {
+      if (this.userData.name === name) {
+        this.userData.isFriends = false;
+        this.userData.isBlock = false;
       }
   }
 }

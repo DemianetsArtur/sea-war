@@ -9,5 +9,6 @@
         public const string ContainerName = "imagecontainer";
         public const string PostContainer = "postcontent";
         public const string PostTable = "Post";
+        public const string CommentPostTable = "CommentPost";
     }
 }

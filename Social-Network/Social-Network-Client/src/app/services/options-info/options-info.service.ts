@@ -36,10 +36,13 @@ export class OptionsInfoService {
   public postContentCreate!: string;
   public userProfilePath!: string;
   public postsGet!: string;
+  public commentPostCreate!: string;
+  public commentPostGet!: string;
+  public removeFromFriends!: string;
 
   constructor() {
-    /// https://localhost:44391/;
-    this.host = '/api/';
+    ///  /api/;
+    this.host = 'https://localhost:44391/';
     this.getUserData = this.host + 'api/user/get-user-data';
     this.getAdminData = this.host + 'api/user/get-admin-data';
     this.loginPost = this.host + 'api/useraccount/login';
@@ -71,5 +74,8 @@ export class OptionsInfoService {
     this.postContentCreate = this.host + 'api/post/post-content-create';
     this.userProfilePath = '/user-profile';
     this.postsGet = this.host + 'api/post/posts-get';
+    this.commentPostCreate = this.host + 'api/comment/comment-post-create';
+    this.commentPostGet = this.host + 'api/comment/comment-post-get';
+    this.removeFromFriends = this.host + 'api/friend/remove-from-friends';
   }
 }

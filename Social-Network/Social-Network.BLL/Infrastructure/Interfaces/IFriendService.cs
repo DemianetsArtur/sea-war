@@ -8,5 +8,6 @@ namespace Social_Network.BLL.Infrastructure.Interfaces
         ICollection<UserAccountDto> FriendAll(string name);
         void UserAddToFriends(FriendDto entity);
         ICollection<FriendDto> UsersInFriendship();
+        void UserInFriendshipRemove(FriendDto entity);
     }
 }

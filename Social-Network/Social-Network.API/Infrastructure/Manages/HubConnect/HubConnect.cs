@@ -13,18 +13,21 @@ namespace Social_Network.API.Infrastructure.Manages.HubConnect
         private readonly INotificationService _notificationService;
         private readonly IFriendService _friendService;
         private readonly IUserAccountService _userAccountService;
+        private readonly ICommentService _commentService;
 
         public HubConnect(IConfiguration configuration, 
                           IMapper mapper, 
                           INotificationService notificationService, 
                           IFriendService friendService, 
-                          IUserAccountService userAccountService)
+                          IUserAccountService userAccountService, 
+                          ICommentService commentService)
         {
             this._notificationService = notificationService;
             this._configuration = configuration;
             this._mapper = mapper;
             this._friendService = friendService;
             this._userAccountService = userAccountService;
+            this._commentService = commentService;
         }
 
         public override async Task OnConnectedAsync()
@@ -32,6 +35,7 @@ namespace Social_Network.API.Infrastructure.Manages.HubConnect
             await this.GetEventAddToFriends();
             await this.GetUsersInFriendship();
             await this.GetUserAll();
+            await this.GetCommentPost();
             await base.OnConnectedAsync();
         }
 
@@ -48,6 +52,13 @@ namespace Social_Network.API.Infrastructure.Manages.HubConnect
             var userAll = this._userAccountService.UserAll();
             var nameResponse = "userAllHub";
             await this.Clients.All.SendAsync(nameResponse, userAll);
+        }
+
+        private async Task GetCommentPost() 
+        {
+            var comments = this._commentService.CommentPostsGetAll();
+            var nameResponse = this._configuration["HubInfo:GetCommentPost"];
+            await this.Clients.All.SendAsync(nameResponse, comments);
         }
 
         private async Task GetUsersInFriendship()

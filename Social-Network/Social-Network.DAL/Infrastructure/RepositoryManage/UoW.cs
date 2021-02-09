@@ -16,6 +16,7 @@ namespace Social_Network.DAL.Infrastructure.RepositoryManage
         public IMessageRepository Message { get; }
         public INotificationRepository Notification { get; }
         public IPostRepository Post { get; }
+        public ICommentRepository Comment { get; }
 
         public UoW(TableManage tableManage, 
                    BlobServiceClient blobServiceClient)
@@ -29,6 +30,7 @@ namespace Social_Network.DAL.Infrastructure.RepositoryManage
             this.Notification = new NotificationRepository(this._tableManage);
             this.Message = new MessageRepository(this._tableManage);
             this.Post = new PostRepository(this._tableManage, this._blobServiceClient);
+            this.Comment = new CommentRepository(this._tableManage);
         }
     }
 }

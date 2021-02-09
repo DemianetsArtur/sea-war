@@ -1,3 +1,4 @@
+import { NotificationFriendInfo } from './../../models/notification/notification-add-to-friend/notification-friend-info';
 import { PostInfo } from './../../models/posts/post-info';
 import { UserAccountRegister } from './../../models/user-account/user-account-register/user-account-register';
 import { Injectable } from '@angular/core';
@@ -9,7 +10,6 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserRole } from '../../models/user-account/user-role';
 import { EditUserAccount } from '../../models/edit-user-account/edit-user-account';
-import { NotificationFriendInfo } from '../../models/notification/notification-add-to-friend/notification-friend-info';
 import * as signalR from '@aspnet/signalr';
 import { HubInfoService } from '../hub-info/hub-info.service';
 import { Friend } from '../../models/friend/friend';
@@ -17,6 +17,8 @@ import { MessageInfo } from '../../models/message/message-info';
 import { MessageGet } from '../../models/message/message-get';
 import { NotificationMessages } from 'src/app/models/notification-messages/notification-messages';
 import { Form } from '@angular/forms';
+import { CommentSend } from 'src/app/models/comments/comment-send-info/comment-send';
+import { NotificationInfoService } from '../notification/notification-info/notification-info.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -42,11 +44,14 @@ export class ConnectService {
   public userAll$ = this.userAll.asObservable();
   private posts = new BehaviorSubject<PostInfo[]>([]);
   public posts$ = this.posts.asObservable();
+  public commentsPost = new BehaviorSubject<CommentSend[]>([]);
+  public commentPost$ = this.commentsPost.asObservable();
 
   constructor(private http: HttpClient, 
               private optionsInfo: OptionsInfoService, 
               private router: Router, 
-              private hubInfo: HubInfoService) {       
+              private hubInfo: HubInfoService, 
+              private notificationInfo: NotificationInfoService) {       
   }
 
   
@@ -63,6 +68,13 @@ export class ConnectService {
   public handlerGetNotificationAddToFriend = () => {
     this.hubConnection.on(this.hubInfo.eventAddToFriendHub, (value: NotificationFriendInfo[]) => {
         this.notificationAddToFriends.next(value);
+    });
+    this.startConnection();
+  }
+
+  public handlerGetCommentPost = () => {
+    this.hubConnection.on(this.hubInfo.commentPost, (value: CommentSend[]) => {
+      this.commentsPost.next(value);
     });
     this.startConnection();
   }
@@ -141,6 +153,10 @@ export class ConnectService {
     return this.http.post(this.optionsInfo.postContentCreate, postForm);
   }
 
+  public commentPostCreate = (commentSend: CommentSend) => {
+    return this.http.post(this.optionsInfo.commentPostCreate, commentSend);
+  }
+
   public messagePost = (messageInfo: MessageInfo) => {
     return this.http.post<MessageInfo>(this.optionsInfo.messagePost, messageInfo);
   }
@@ -171,9 +187,19 @@ export class ConnectService {
 
   }
 
+  public commentPostGet = (name: string) => {
+    return this.http.get<CommentSend[]>(this.optionsInfo.commentPostGet + '/' + name)
+               .pipe(map(res => res));
+  }
+
   public postsGet = (name: string) => {
     return this.http.get<PostInfo[]>(this.optionsInfo.postsGet + '/' + name)
                     .pipe(map(result => result));
+  }
+
+  public removeFromFriends = (friend: Friend) => {
+    return this.http.post(this.optionsInfo.removeFromFriends, friend)
+               .pipe(map(result => result));
   }
 
   public userAllGet = (name: string) => {
