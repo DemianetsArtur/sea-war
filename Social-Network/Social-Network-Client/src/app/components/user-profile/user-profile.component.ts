@@ -1,4 +1,5 @@
 import { CommentSend } from './../../models/comments/comment-send-info/comment-send';
+import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { delay, tap } from 'rxjs/operators';
@@ -27,6 +28,7 @@ export class UserProfileComponent implements OnInit {
   public postsGet!: PostInfo[];
   public commentText = '';
   public commentPostArray!: CommentSend[];
+  public faBirthdayCake = faBirthdayCake;
 
 
   constructor(private connect: ConnectService, 

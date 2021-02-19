@@ -21,5 +21,7 @@ namespace Social_Network.API.Infrastructure.ViewModels.UserAccount
 
         [Required] public string Date { get; set; }
 
+        [Required] public IFormFile Content { get; set; }
+
     }
 }

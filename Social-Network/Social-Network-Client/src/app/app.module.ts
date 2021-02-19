@@ -28,6 +28,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UsersProfileComponent } from './components/users-profile/users-profile.component';
 import { PostCreateComponent } from './components/post/post-create/post-create.component';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 
 @NgModule({
@@ -61,10 +64,13 @@ import { PostCreateComponent } from './components/post/post-create/post-create.c
     MaterialDesignModule,
     FlexLayoutModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatNativeDateModule,
+    PickerModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

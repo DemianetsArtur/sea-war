@@ -51,6 +51,10 @@ body {
 	max-width: 500px;
 }
 
+.color-btn {
+	background: rgb(241, 241, 241);
+}
+
 .box.back {
 	transform: scale(.95);
 	-webkit-transform: scale(.95);

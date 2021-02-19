@@ -54,8 +54,6 @@ export class ConnectService {
               private notificationInfo: NotificationInfoService) {       
   }
 
-  
-
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
                                     .withUrl(this.optionsInfo.hubToConnect)
@@ -131,16 +129,9 @@ export class ConnectService {
     }
   }
 
-  public registerPost = (userRegisterDetails: UserAccountRegister) : Observable<UserAccountRegister> => {
-
-    const httpOptions = { headers: new HttpHeaders({ 
-      'Content-Type': 'application/json, application/x-www-form-urlencoded',
-      'Accept': 'application/json, text/plain, */*', 
-                               'Access-Control-Allow-Headers': 'Authorization',
-                               'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
-      })};
-    userRegisterDetails.userType = UserRole.User;
-    return this.http.post<any>(this.optionsInfo.registerPost, userRegisterDetails);
+  public registerPost = (userAccountForm: FormData) => {
+    return this.http.post<any>(this.optionsInfo.registerPost, userAccountForm)
+               .pipe(map(result => result));
   }
 
   public userEditPost = (editUserAccount: EditUserAccount, userInfo: UserAccount) => {
@@ -151,6 +142,10 @@ export class ConnectService {
 
   public postContentCreate = (postForm: FormData) => {
     return this.http.post(this.optionsInfo.postContentCreate, postForm);
+  }
+
+  public userProfileEdit = (userProfileForm: FormData) => {
+    return this.http.post(this.optionsInfo.userProfileEdit, userProfileForm);
   }
 
   public commentPostCreate = (commentSend: CommentSend) => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faHouseUser } from '@fortawesome/free-solid-svg-icons';
+import { faHouseUser, faUnderline } from '@fortawesome/free-solid-svg-icons';
 import { ConnectService } from 'src/app/services/connect/connect.service';
 import { OptionsInfoService } from 'src/app/services/options-info/options-info.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -28,6 +28,8 @@ export class EditComponent implements OnInit {
   public userData = new UserAccount();
   public userAccountCurrentSubscription!: any;
   public userAccountCurrentData = new UserAccount();
+  public selectedFile!: File;
+
   constructor(private formBuilder: FormBuilder, 
               private route: ActivatedRoute,    
               private router: Router,
@@ -100,25 +102,43 @@ export class EditComponent implements OnInit {
 
     this.loading = true;
     const returnUrl = this.route.snapshot.queryParamMap.get(this.optionsInfo.returnUrl) || '/';
-    if (this.file !== undefined){
-        this.connect.imagePost(this.file, this.userAccountCurrentData.name)?.subscribe(value => {
-      });
-      this.hubConnect();
+    this.connect.userProfileEdit(this.handlerUserProfileForm())
+        .pipe(tap(_ => {
+          window.location.reload();
+     }),
+     catchError(async (err) => {
+                      this.loading = false;
+                      this.editForm.reset();
+                      this.editForm.setErrors({ invalidLogin: true });
+      })).subscribe();          
+  }
+
+  private handlerUserProfileForm = () => {
+    const formData = new FormData();
+    formData.append('Name', this.userData.name);
+    formData.append('FirstName', this.editForm.controls.firstName.value);
+    formData.append('LastName', this.editForm.controls.lastName.value);
+    formData.append('Email', this.editForm.controls.email.value);
+    formData.append('AboutMe', this.editForm.controls.aboutMe.value);
+    formData.append('Date', this.editForm.controls.date.value);
+    formData.append('Content', this.selectedFile);
+    formData.append('ImagePath', this.userAccountCurrentData.imagePath);
+    formData.append('ContentName', this.userAccountCurrentData.contentName);
+    debugger;
+    return formData;
+  }
+
+  public fileOptions = (file: any) => {
+    this.typeIncorrect = true;
+    this.selectedFile = <File>file.target.files[0];
+    if (this.selectedFile.type === 'image/png' || 
+        this.selectedFile.type === 'image/jpeg') {
+      this.alertService.imageTypeValid();
+      this.typeIncorrect = false;
     }
-    this.connect.userEditPost(this.editForm.value, this.userAccountCurrentData)
-                .pipe(tap(data => {
-                  delay(10000);
-                  window.location.reload();
-                }),
-                catchError(async (err) => {
-                  this.loading = false;
-                  this.editForm.reset();
-                  this.editForm.setErrors({ invalidLogin: true });
-                }))
-                .subscribe(opt => {
-                  delay(5000);
-                });
-    this.hubConnect();           
+    else{
+      this.alertService.imageTypeInvalid();
+    }
   }
 
   private hubConnect = () => {

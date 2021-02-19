@@ -10,6 +10,8 @@ namespace Social_Network.API.Infrastructure.Mappers
         {
             this.CreateMap<UserAccountDto, EditViewModel>();
             this.CreateMap<EditViewModel, UserAccountDto>();
+
+            this.CreateMap<EditProfileViewModel, UserAccountDto>();
         }
     }
 }

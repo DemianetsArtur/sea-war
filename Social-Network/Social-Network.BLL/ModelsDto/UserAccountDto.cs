@@ -20,6 +20,8 @@
         
         public string ImagePath { get; set; }
 
+        public string ContentName { get; set; }
+
         public bool EmailConfirmed { get; set; }
 
         public string RowKey { get; set; }

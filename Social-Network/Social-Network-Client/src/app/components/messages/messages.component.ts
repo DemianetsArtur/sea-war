@@ -30,6 +30,7 @@ export class MessagesComponent implements OnInit {
   public usersInFriendsArray: Friend[] = [];
   public usersInFriends: Friend[] = [];
   public isUserInFriends = false;
+  public isEmojiPickerVisible!: boolean;
 
   constructor(private connect: ConnectService, 
               private alertService: AlertService) {
@@ -51,6 +52,11 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  public addEmoji = (event: any) => {
+    this.userText = `${this.userText}${event.emoji.native}`;
+    this.isEmojiPickerVisible = false;
+ }
 
   public selectUserForMessage = (user: UserAccount) => {
     this.messageInfo.userNameResponse = this.userAccountCurrentData.name;

@@ -16,33 +16,39 @@
         <h2>Fill Personal Data</h2>
         <div>
           <form class="formBox" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div class="inputBox w100">
-            <input formControlName="name" 
-                   type="text" 
-                   name="" 
-                   [ngClass]="{ 'is-invalid': submitted && loginFormControl.name.errors }" required>
-            <span>Nick Name</span>
-            <div *ngIf="submitted && loginFormControl.name.errors" class="invalid-feedback">    
-              <div *ngIf="loginFormControl.name.errors.required"><span class="text-invalid">Nick Name is required</span></div>    
-            </div>
-          </div>
-          <div class="inputBox w100">
-            <input type="password" 
-                   name=""
-                   formControlName="password"
-                   [ngClass]="{ 'is-invalid': submitted && loginFormControl.password.errors || submitted && loginForm.controls['password'].hasError('minlength') }" 
-                   required>
-            <span>Password</span>
-            <div *ngIf="submitted && loginFormControl.password.errors" class="invalid-feedback">    
-              <div *ngIf="loginFormControl.password.errors.required"><span class="text-invalid">Password is required</span></div>  
-            </div> 
-            <div *ngIf="submitted && loginForm.controls['password'].hasError('minlength')" class="invalid-feedback">   
-                <div *ngIf="loginForm.controls['password'].hasError('minlength')"><span class="text-invalid">Must be at least 8 characters!</span></div>  
-            </div>
-          </div>
-          <div class="inputBox w100"> 
-            <button mat-button [disabled]="loading" class="submit" value="Send">Sign In</button>
-          </div>
+            <mat-card-content>
+
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Nickname *</mat-label>
+                  <input type="text" #textNickname
+                         matInput 
+                         formControlName="name" 
+                         placeholder="Example: john">
+                  <mat-hint *ngIf="textNickname.value === ''" class="text-invalid">Nickname is <strong>required!</strong></mat-hint>
+                </mat-form-field>
+              </div>
+
+              <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Password *</mat-label>
+                  <input type="password" #textPassword
+                         matInput 
+                         formControlName="password" 
+                         placeholder="Example: qwerty_1234">
+                  <mat-hint *ngIf="textPassword.value === ''" class="text-invalid">Password is <strong>required!</strong></mat-hint>
+                  <mat-hint *ngIf="loginForm.controls['password'].hasError('minlength')"><span class="text-invalid">Password must be at least <strong>8 characters!</strong></span></mat-hint>
+                </mat-form-field>
+              </div>
+
+              <div> 
+                <button color="black"
+                        class="submit"
+                        [disabled]="textPassword.value === '' 
+                                 && textNickname.value === ''" class="submit" value="Send">Sign In</button>
+              </div>
+            </mat-card-content>
+          
           </form>
         </div>
       </mat-card>

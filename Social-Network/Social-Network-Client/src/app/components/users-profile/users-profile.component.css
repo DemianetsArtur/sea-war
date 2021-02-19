@@ -22,6 +22,7 @@
     left: 37.5%;
     top: 75%;
     width: 400px;
+
 }
 
 .comment-input {
@@ -259,13 +260,10 @@
 
 @media screen and (max-width: 1600px) {
 
+
     .post-hr-align{
         position: absolute;
         top: 85%;
-    }
-	.post-hr-align{
-        position: absolute;
-        top: 90%;
         width: 100%;
     }
 
@@ -274,8 +272,6 @@
         left: 37.5%;
         top: 90%;
         width: 400px;
-        top: 100%;
-        width: 400px;
-
+    
     }
 }

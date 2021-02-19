@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkTreeModule } from '@angular/cdk/tree';
@@ -33,7 +34,35 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+
+import {A11yModule} from '@angular/cdk/a11y';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {CdkTableModule} from '@angular/cdk/table';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 const materialModules = [
+  A11yModule,
+  MatSlideToggleModule,
+  MatSliderModule,
+  MatProgressBarModule,
+  MatNativeDateModule,
+  MatDialogModule,
+  MatStepperModule, 
+  MatBottomSheetModule,
+  CdkTableModule,
+  CdkStepperModule,
+  ScrollingModule,
+  DragDropModule,
+  ClipboardModule,
   CdkTreeModule,
   MatAutocompleteModule,
   MatButtonModule,
@@ -76,6 +105,7 @@ const materialModules = [
   ],
   exports: [
     ...materialModules
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MaterialDesignModule { }

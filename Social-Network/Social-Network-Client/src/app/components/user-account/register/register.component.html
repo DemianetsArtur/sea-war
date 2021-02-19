@@ -16,126 +16,132 @@
         <h2>Fill Personal Data</h2>
         <div>
           <form class="formBox" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-          <div class="inputBox w50">
-            <input type="text" 
-                   name=""
-                   formControlName="firstName"
-                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.firstName.errors }" 
-                   required>
-            <span>First Name</span>
-            <div *ngIf="submitted && registerFormControl.firstName.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.firstName.errors.required"><span class="text-invalid">First Name is required</span></div>    
-            </div>
-          </div>
-          <div class="inputBox w50">
-            <input type="text" 
-                   name=""
-                   formControlName="lastName"
-                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.lastName.errors }" 
-                   required>
-            <span>Last Name</span>
-            <div *ngIf="submitted && registerFormControl.lastName.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.lastName.errors.required"><span class="text-invalid">Last Name is required</span></div>    
-            </div>
-          </div>
-          <div class="inputBox w50">
-            <input formControlName="name" 
-                   type="text" 
-                   name="" 
-                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.name.errors }" required>
-            <span>Nick Name</span>
-            <div *ngIf="submitted && registerFormControl.name.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.name.errors.required"><span class="text-invalid">Nick Name is required</span></div>    
-            </div>
-          </div>
-          <div class="inputBox w50">
-            <input type="email" 
-                   name=""
-                   formControlName="email"
-                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.email.errors || submitted && registerForm.controls['email'].hasError('email') }"
-                   required>
-            <span>Email Address</span>
-            <div *ngIf="submitted && registerForm.controls['email'].hasError('email')" class="invalid-feedback">    
-              <div *ngIf="registerForm.controls['email'].hasError('email')"><span class="text-invalid">Email Address is incorrect!</span></div>    
-            </div>
-            <div *ngIf="submitted && registerFormControl.email.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.email.errors.required"><span class="text-invalid">Email Address is required!</span></div>    
-            </div>
-          </div>
-          <div class="inputBox w50">
-            <input type="password" 
-                   name=""
-                   formControlName="password"
-                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.password.errors || submitted && registerForm.controls['password'].hasError('minlength') }" 
-                   required>
-            <span>Password</span>
-            <div *ngIf="submitted && registerFormControl.password.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.password.errors.required"><span class="text-invalid">Password is required</span></div>  
-            </div> 
-            <div *ngIf="submitted && registerForm.controls['password'].hasError('minlength')" class="invalid-feedback">   
-                <div *ngIf="registerForm.controls['password'].hasError('minlength')"><span class="text-invalid">Must be at least 8 characters!</span></div>  
-            </div>
-          </div>
-          <div class="inputBox w50">
-            <input type="password" 
-                   name=""
-                   formControlName="confirmPassword"
-                   [ngClass]="{ 'is-invalid': submitted && registerFormControl.confirmPassword.errors || submitted && equalPassword}"
-                   required>
-            <span>Confirm Password</span>
-            <div *ngIf="submitted && registerFormControl.confirmPassword.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.confirmPassword.errors.required"><span class="text-invalid">Password is required!</span></div>    
-            </div>
-            <div *ngIf="submitted && equalPassword" class="invalid-feedback">    
-                <div *ngIf="equalPassword"><span class="text-invalid">Password is not equal!</span></div>    
-            </div>
-          </div>
-          <div class="inputBox w50">
-            <input type="date" 
-                   name=""
-                   formControlName="date"
-                   [ngClass]="{ 'is-invalid': submitted && isDateGreater || submitted && registerFormControl.date.errors }"
-                   required>
-            <span class="text-data">Date</span>
-            <div *ngIf="submitted && registerFormControl.date.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.date.errors.required"><span class="text-invalid">Date is required!</span></div>    
-            </div>
-            <div *ngIf="submitted && isDateGreater" class="invalid-feedback">    
-              <div *ngIf="isDateGreater"><span class="text-invalid">Invalid date!</span></div>    
-            </div>
+            <mat-card-content>
+          
+          <div class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>First Name *</mat-label>
+                  <input type="text" #textFirstName
+                         matInput 
+                         formControlName="firstName" 
+                         placeholder="Example: John">
+                  <mat-hint *ngIf="textFirstName.value === ''" class="text-invalid">First Name is <strong>required!</strong></mat-hint>
+                </mat-form-field>
           </div>
 
-          <div class="inputBox w50">
-            <input #fileInput
-                  class="input-file"
-                  type="file" 
-                  name="" 
-                  accept="image/*" 
-                  (change)="setFileOption(fileInput.files)"
-                  [ngClass]="{ 'is-invalid': submitted && typeIncorrect || submitted && fileEmpty }" 
-                  required>
-            <span class="text-data-input text-white">Upload Image</span>
-            <div *ngIf="submitted && typeIncorrect" class="invalid-feedback">    
-              <div *ngIf="typeIncorrect"><span class="text-invalid">Type must be .png .jpeg!</span></div>    
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Last Name *</mat-label>
+              <input type="text" #textLastName
+                     matInput 
+                     formControlName="lastName" 
+                     placeholder="Example: Jonson">
+              <mat-hint *ngIf="textLastName.value === ''" class="text-invalid">Last Name is <strong>required!</strong></mat-hint>
+            </mat-form-field>
+          </div>
+          
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Nickname *</mat-label>
+              <input type="text" #textNickname
+                     matInput 
+                     formControlName="name" 
+                     placeholder="Example: john">
+              <mat-hint *ngIf="textNickname.value === ''" class="text-invalid">Nickname is <strong>required!</strong></mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Email Address *</mat-label>
+              <input type="email" #textEmail
+                     matInput 
+                     formControlName="email" 
+                     placeholder="Example: john@gmail.com">
+              <mat-hint *ngIf="textEmail.value === ''" class="text-invalid">Email Address is <strong>required!</strong></mat-hint>
+              <mat-hint *ngIf="textEmail.value !== '' && registerForm.controls['email'].hasError('email')" class="text-invalid">Email Address is <strong>incorrect!</strong></mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Password *</mat-label>
+              <input type="password" #textPassword
+                     matInput 
+                     formControlName="password" 
+                     placeholder="Example: qwerty_1234">
+              <mat-hint *ngIf="textPassword.value === ''" class="text-invalid">Password is <strong>required!</strong></mat-hint>
+              <mat-hint *ngIf="registerForm.controls['password'].hasError('minlength')"><span class="text-invalid">Password must be at least <strong>8 characters!</strong></span></mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Confirm Password *</mat-label>
+              <input type="password" #textConfirmPassword
+                     matInput 
+                     formControlName="confirmPassword" 
+                     placeholder="Example: qwerty_1234">
+              <mat-hint *ngIf="textConfirmPassword.value === ''" class="text-invalid">Confirm Password is <strong>required!</strong></mat-hint>
+              <mat-hint *ngIf="textConfirmPassword.value !== '' && textPassword.value !== textConfirmPassword.value"><span class="text-invalid">Password is not <strong>equal!</strong></span></mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Birthday *</mat-label>
+              <input type="date" #textBirthday
+                     matInput 
+                     formControlName="date" 
+                     placeholder="Example: qwerty_1234">
+              <mat-hint *ngIf="textBirthday.value === ''" class="text-invalid">Birthday is <strong>required!</strong></mat-hint>
+              <mat-hint *ngIf="textBirthday.value !== '' isDateGreater"><span class="text-invalid">Invalid <strong>date!</strong></span></mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="example-form">
+            <div class="example-full-width">
+              <button type="button" class="image-btn" mat-raised-button (click)="fileInput.click()">Upload Image</button>
+              
+              <input #fileInput
+                    hidden
+                   class="image-upload-input"
+                   (change)="fileOptions($event)" 
+                   type="file"
+                   [ngClass]="{ 'is-invalid': fileInput.value === '' }"
+                   accept="image/*">    
+            <div *ngIf="fileInput.value === ''" class="invalid-feedback">    
+              <div *ngIf="fileInput.value === ''"><span class="text-invalid">Image is <strong>required!</strong></span></div>    
             </div>
-            <div *ngIf="submitted && fileEmpty" class="invalid-feedback" style="margin-top: 10px;">    
-              <div *ngIf="fileEmpty"><span class="text-invalid" >Image is required!</span></div>    
             </div>
           </div>
-          <div class="inputBox w100">
-            <textarea name=""
-                      formControlName="aboutMe"
-                      [ngClass]="{ 'is-invalid': submitted && registerFormControl.aboutMe.errors }" 
+          
+          <div class="example-form textarea-margin">
+            <mat-form-field class="example-full-width"  color="accent">
+              <mat-label>Write about you</mat-label>
+              <textarea matInput #textAboutMe name=""
+                      formControlName="aboutMe" placeholder="Example: Hello my name is John!"
                       required></textarea>
-            <span>Write about you...</span>
-            <div *ngIf="submitted && registerFormControl.aboutMe.errors" class="invalid-feedback">    
-              <div *ngIf="registerFormControl.aboutMe.errors.required"><span class="text-invalid">About Me is required!</span></div>    
-            </div> 
+            
+            <mat-hint  *ngIf="textAboutMe.value === ''" class="text-invalid">About you is <strong>required!</strong></mat-hint> 
+            </mat-form-field>
             
           </div>
-          <div class="inputBox w100"> 
-            <button mat-button [disabled]="loading" class="submit" value="Send">Sign Up</button>
-          </div>
+
+          <button 
+                color="black"
+                class="submit"
+                [disabled]="textFirstName.value === '' 
+                         && textLastName.value === '' 
+                         && textEmail.value === ''
+                         && textBirthday.value === ''
+                         && textNickname.value === ''
+                         && textPassword.value === ''
+                         && textConfirmPassword.value === ''
+                         && selectedFile === undefined
+                         && textAboutMe.value === ''" 
+                >Sign Up</button>
+        </mat-card-content>
           </form>
         </div>
       </mat-card>

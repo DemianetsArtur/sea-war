@@ -26,6 +26,7 @@ namespace Social_Network.API.Infrastructure.Config
             services.AddSingleton<IMessageRepository>(_ => new MessageRepository(new TableManage(storageAccount, connectionString)));
             services.AddSingleton<IPostRepository>(_ => new PostRepository(new TableManage(storageAccount, connectionString), new BlobServiceClient(connectionString)));
             services.AddSingleton<ICommentRepository>(_ => new CommentRepository(new TableManage(storageAccount, connectionString)));
+            services.AddSingleton<IEditRepository>(_ => new EditRepository(new TableManage(storageAccount, connectionString), new BlobServiceClient(connectionString)));
             services.AddSingleton<IUoW>(_ => new UoW(new TableManage(storageAccount, connectionString), new BlobServiceClient(connectionString)));
             services.AddSingleton<IUserAccountService, UserAccountService>();
             services.AddSingleton<IBlobStorageService, BlobStorageService>();
@@ -35,6 +36,7 @@ namespace Social_Network.API.Infrastructure.Config
             services.AddSingleton<IMailSender, MailSender>();
             services.AddSingleton<IPostService, PostService>();
             services.AddSingleton<ICommentService, CommentService>();
+            services.AddSingleton<IEditService, EditService>();
         } 
     }
 }

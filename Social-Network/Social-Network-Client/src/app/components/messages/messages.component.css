@@ -1,11 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 *{
-    margin: 0;
-    padding: 0;
     font-family: 'Poppins', sans-serif;   
 
 }
 
+.container-emoji {
+  
+}
+.emoji-btn {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  
+}
+.emoji-btn:focus {
+  outline: 0;
+  border: 0;
+}
 
 
 .border-chat{
@@ -16,11 +27,10 @@
 .profile-btn{
     display: inline-block;
     text-decoration: none;
-    width: 300px;
     text-transform: uppercase;
     background: #fff;
     padding:  6px 10px;
-    border: 1px solid #262626;
+    border: 0px;
 
     border-radius: 10px;
     font-size: 16px;
@@ -40,7 +50,7 @@
 .page-content{
     position: relative;
     margin-left: 150%;
-    margin-top: -300px;
+    margin-top: -260px;
 }
 
 
@@ -109,6 +119,21 @@
 }
 .friend-list{
     width: 400px;
+    min-height: 80px;
+    margin-bottom: 20px;
+}
+
+.friends-list-margin {
+  position: relative;
+  top: 40px;
+
+}
+
+.btn-view{
+  position: absolute;
+  top: 25%;
+  left: 64%;
+  border: 1px solid #000;
 }
 
 .card.chat-room .friend-list li {

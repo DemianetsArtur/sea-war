@@ -93,25 +93,28 @@ namespace Social_Network.API.Controllers
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public IActionResult UserAccountRegister([FromBody] RegisterViewModel model)
+        public async Task<IActionResult> UserAccountRegister([FromForm] RegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return this.StatusCode(RequestStatusInfo.Status401);
             }
 
             var userMapper = this._mapper.Map<UserAccountDto>(model);
             if (!this._userAccountService.UserAccountFind(userMapper))
             {
-                
-                return this.BadRequest(model);
+
+                return this.StatusCode(RequestStatusInfo.Status402);
             }
 
+            var nameFile = model.Name + Guid.NewGuid().ToString();
             var token = Guid.NewGuid().ToString();
             userMapper.EmailKey = token;
-            
 
             this._mailSender.SendEmail(userMapper);
+            var fileName = await this._blobStorageService.FileUploadToBlobAsync(model.Content.OpenReadStream(), model.Content.ContentType, nameFile);
+            userMapper.ContentName = nameFile;
+            userMapper.ImagePath = fileName.AbsoluteUri;
             this._userAccountService.UserAccountCreate(userMapper);
 
             return this.Ok();

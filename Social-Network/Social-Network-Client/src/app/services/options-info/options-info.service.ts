@@ -39,9 +39,10 @@ export class OptionsInfoService {
   public commentPostCreate!: string;
   public commentPostGet!: string;
   public removeFromFriends!: string;
+  public userProfileEdit!: string;
 
   constructor() {
-    /// /api/;
+    /// /api/ ;
     this.host = 'https://localhost:44391/';
     this.getUserData = this.host + 'api/user/get-user-data';
     this.getAdminData = this.host + 'api/user/get-admin-data';
@@ -77,5 +78,6 @@ export class OptionsInfoService {
     this.commentPostCreate = this.host + 'api/comment/comment-post-create';
     this.commentPostGet = this.host + 'api/comment/comment-post-get';
     this.removeFromFriends = this.host + 'api/friend/remove-from-friends';
+    this.userProfileEdit = this.host + 'api/edit/user-profile-edit';
   }
 }

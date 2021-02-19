@@ -36,7 +36,7 @@
 .post-card-create{
     position: absolute;
     left: 35%;
-    top: 70%;
+    top: 60%;
     width: 500px;
     height: 90px;
 }
@@ -51,14 +51,14 @@
 .post-card{
     position: absolute;
     left: 37.5%;
-    top: 82%;
+    top: 73%;
     width: 400px;
 
 }
 
 .post-hr-align{
     position: absolute;
-    top: 79%;
+    top: 69%;
     width: 100%;
 }
 
@@ -84,11 +84,8 @@
   }
 
 .image-content{
-  position: relative;
-  left: 2%;
-  height:300px;
-  width: 100%;
-  overflow: hidden;
+    width: auto;
+    height: auto;
 }
 
 .post-image-content {
@@ -175,8 +172,17 @@
     height: auto;
 }
 
+.icon {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
   .img-content{
-    width: 100%;
+    width: 500px;
     height: auto;
     overflow: hidden;
   }
@@ -201,6 +207,7 @@
     max-width: 500px;
     max-height: 500px;
     background-size: cover;
+    /* overflow: hidden; */
 }
 
 .imgBx img{
@@ -239,12 +246,11 @@
     left: 45%;
 }
 
-
 @media screen and (max-width: 1600px) {
 	.post-card-create{
         position: absolute;
         left: 35%;
-        top: 90%;
+        top: 80%;
         width: 500px;
         height: 90px;
     }
@@ -252,34 +258,14 @@
     .post-hr-align{
         position: absolute;
         top: 103%;
-
-}
-
-@media screen and (max-width: 1600px) {
-	.post-hr-align{
-        position: absolute;
-        top: 110%;
         width: 100%;
     }
 
     .post-card{
         position: absolute;
         left: 37.5%;
-
         top: 108%;
         width: 400px;
     
-
-        top: 120%;
-        width: 400px;
     }
-
-    .post-card-create{
-        position: absolute;
-        left: 35%;
-        top: 95%;
-        width: 500px;
-        height: 90px;
-    }
-}
 }

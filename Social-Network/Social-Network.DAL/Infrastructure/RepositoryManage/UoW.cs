@@ -17,13 +17,14 @@ namespace Social_Network.DAL.Infrastructure.RepositoryManage
         public INotificationRepository Notification { get; }
         public IPostRepository Post { get; }
         public ICommentRepository Comment { get; }
+        public IEditRepository Edit { get; }
 
         public UoW(TableManage tableManage, 
                    BlobServiceClient blobServiceClient)
         {
             this._tableManage = tableManage;
-
             this._blobServiceClient = blobServiceClient;
+
             this.UserAccount = new UserAccountRepository(this._tableManage);
             this.BlobStorage = new BlobStorageRepository(this._blobServiceClient);
             this.Friend = new FriendRepository(this._tableManage);
@@ -31,6 +32,7 @@ namespace Social_Network.DAL.Infrastructure.RepositoryManage
             this.Message = new MessageRepository(this._tableManage);
             this.Post = new PostRepository(this._tableManage, this._blobServiceClient);
             this.Comment = new CommentRepository(this._tableManage);
+            this.Edit = new EditRepository(this._tableManage, this._blobServiceClient);
         }
     }
 }
